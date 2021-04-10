@@ -3,7 +3,8 @@
 
 Hub for Fitness Professionals to manage client relationships.
 
-
+## Current Deployment
+- Firebase Hosting: https://holistic-a123b.web.app/
 
 ## Prototype
 - Figma URL: https://www.figma.com/file/DDcPEAlTdy4opssiQI0kzo/Holistic_Prototype?node-id=0%3A1 
