@@ -3,13 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import TabPanel from '../containers/TabPanel';
 import authStyles from '../styles/authStyles';
 import RegisterClientForm from '../components/forms/RegisterClientForm';
@@ -75,7 +68,7 @@ export default function Register() {
                 <RegisterClientForm onSubmit={handleRegisterClient} user={user} setUser={setUser} />
             </TabPanel>
             <TabPanel value={typeValue} index={1}>
-                {/* <RegisterCoachForm onSubmit={handleRegisterCoach} user={user} setUser={setUser} /> */}
+                <RegisterCoachForm onSubmit={handleRegisterCoach} user={user} setUser={setUser} />
             </TabPanel>
 
         </div>
