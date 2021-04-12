@@ -5,6 +5,8 @@ export const holisticTheme = {
     textRoot: '#EFEFEF',
     // Container
     bgContainer: '#A395B8',
+    // Font
+    textTitle: '#AAB895',
     // Text Inputs
     bgInput: '#C4C4C4',
     textLabel: '#EFEFEF',
@@ -17,3 +19,4 @@ export const holisticTheme = {
     textBtnSecondary: '#4E755C',
 
 }
+

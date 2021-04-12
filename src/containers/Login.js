@@ -36,7 +36,7 @@ export default function Login() {
                         // type="email"
                         label="Email"
                         placeholder="email@example.com"
-                        disableUnderline="true"
+                        disableUnderline={true}
                         required 
                         startAdornment={
                             <InputAdornment position="start">
@@ -55,7 +55,7 @@ export default function Login() {
                         type="password"
                         label="Password"
                         placeholder="h3alth15w3alth"
-                        disableUnderline="true"
+                        disableUnderline={true}
                         required 
                         startAdornment={
                             <InputAdornment position="start">

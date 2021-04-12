@@ -8,7 +8,14 @@ const authStyles = makeStyles(() => ({
         width: '80%',
 		margin: 'auto',
 		borderRadius: '15px',
-        
+        paddingBottom: '100px',
+    },
+    authTitle: {
+        fontSize: '32px',
+        fontStyle: 'italic',
+        textAlign: 'left',
+        paddingLeft: '10%',
+        color: holisticTheme.textTitle,
     },
     authAppBar: {
         borderRadius: '15px 15px 0 0',
@@ -19,6 +26,7 @@ const authStyles = makeStyles(() => ({
         // backgroundColor: holisticTheme.bgContainer,
     },
     authForm: {
+        // paddingBottom: '20px',
         borderRadius: '0 0 15px 15px',
 		// flexGrow: 1,
 		backgroundColor: holisticTheme.bgContainer,
@@ -30,7 +38,6 @@ const authStyles = makeStyles(() => ({
     authField: {
         width: '85%',
         marginTop: '10px',
-        
     },
     authFormLabel: {
         color: holisticTheme.textLabel,
@@ -57,12 +64,6 @@ const authStyles = makeStyles(() => ({
         color: holisticTheme.textBtnPrimary,
         backgroundColor: holisticTheme.bgBtnPrimary,
     },
-	close: {
-		fontSize: 40,
-		justifyContent: 'flex-end',
-		backgroundColor: 'white',
-		borderRadius: 0.5,
-	},
 }));
 
 export default authStyles;
