@@ -17,8 +17,11 @@ const authStyles = makeStyles(() => ({
         paddingLeft: '10%',
         color: holisticTheme.textTitle,
     },
-    authAppBar: {
+    authAppBar: { // Tabs: Login or Register?
         borderRadius: '15px 15px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    registerAppBar: { // Tabs: Client or Coach?
         backgroundColor: holisticTheme.bgContainer,
     },
     authTabs: {
@@ -63,6 +66,52 @@ const authStyles = makeStyles(() => ({
         borderRadius: '25px',
         color: holisticTheme.textBtnPrimary,
         backgroundColor: holisticTheme.bgBtnPrimary,
+    },
+    authSectionSeparator: {
+        color: holisticTheme.textLabel,
+        textAlign: 'left',
+        fontSize: '10px',
+        marginBottom: '10px',
+        marginTop: '15px',
+    },
+    authFieldUserFirstLastName: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '85%',
+    },
+    authFieldUserCityProvCountry: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '85%',
+    },
+    authFieldName: {
+        marginTop: '10px',
+        width: '48%',
+    },
+    authCity: {
+        marginTop: '10px',
+        width: '49%',
+    },
+    authProvince: {
+        marginTop: '10px',
+        width: '21%',
+    },
+    authCountry: {
+        marginTop: '10px',
+        width: '27%',
+    },
+    errorBox: {
+        display: 'flex',
+        alignItems: 'center',
+        
+    },
+    errorIcon: {
+        // backgroundColor: 'red',
+        fontSize: '20px',
+        margin: '2px',
+        color: holisticTheme.error,
     },
 }));
 

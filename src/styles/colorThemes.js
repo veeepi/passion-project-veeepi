@@ -17,6 +17,7 @@ export const holisticTheme = {
     // Buttons - secondary
     bgBtnSecondary: '#C8D1BB',
     textBtnSecondary: '#4E755C',
-
+    // Error
+    error: '#e71e0c',
 }
 
