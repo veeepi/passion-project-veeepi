@@ -112,6 +112,8 @@ export default function Register() {
                 <RegisterCoachForm onSubmit={handleRegister} user={user} setUser={setUser} />
             </TabPanel>
 
+            <Typography>{error}</Typography>
+
         </div>
     )
 }

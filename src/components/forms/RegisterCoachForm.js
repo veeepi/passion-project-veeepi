@@ -20,20 +20,32 @@ import authStyles from '../../styles/authStyles';
 
 export default function RegisterCoachForm({ onSubmit, user, setUser }) {
     const classes = authStyles();
-    const [error, setError] =  useState({});
+    const [usernameError, setUsernameError] = useState("")
+    const [emailError, setEmailError] = useState("")
+    const [passwordError, setPasswordError] = useState("")
+    const [confirmPasswordError, setConfirmPasswordError] = useState("")
+
 
     const registerSubmit = (e) => {
         e.preventDefault()
-        // form validation
+        // form validation (basic)
         if (!user.username) {
-            setError({...error, username: "Please enter a username."})
-        }
-        if (user.password !== user.confirmPassword) {
-            setError({...error, confirmPassword: "Passwords do not match."})
-        }  
-        else {
+            setUsernameError("Please enter a username.")
+        } else if (!user.email) {
+            setUsernameError("")
+            setEmailError("Please enter an email.")
+        } else if (!user.password) {
+            setEmailError("")
+            setPasswordError("Please enter a password.")
+        } else if (user.password !== user.confirmPassword) {
+            setPasswordError("")
+            setConfirmPasswordError("Passwords do not match.")
+        } else {
             // if validated, reset and submit
-            setError({})
+            setUsernameError("")
+            setEmailError("")
+            setPasswordError("")
+            setConfirmPasswordError("")
             onSubmit(user, 'coach') // 'coach' is the userType for Coach
         }
     }
@@ -42,42 +54,50 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
         <form className={classes.authForm} onSubmit={(e) => registerSubmit(e)} noValidate autoComplete="off">
             <FormControl className={classes.authField}>
                <InputLabel className={classes.authFormLabel}>Username: </InputLabel>
-                    <Input
-                        className={classes.authFormInput}
-                        value={user.username}
-                        onChange={(e) => setUser({...user, username: e.target.value})}
-                        id="email"
-                        // type="email"
-                        label="Email"
-                        placeholder="fitnessLover99"
-                        disableUnderline={true}
-                        required 
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <AccountCircle className={classes.authAdornmentIcon} />
-                            </InputAdornment>
-                    }
+                <Input
+                    className={classes.authFormInput}
+                    value={user.username}
+                    onChange={(e) => setUser({...user, username: e.target.value})}
+                    id="email"
+                    // type="email"
+                    label="Email"
+                    placeholder="fitnessLover99"
+                    disableUnderline={true}
+                    required 
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <AccountCircle className={classes.authAdornmentIcon} />
+                        </InputAdornment>
+                }
                 />
+                <FormHelperText className={classes.errorBox}>
+                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+                    {usernameError && usernameError}
+                </FormHelperText>
             </FormControl>
 
             <FormControl className={classes.authField}>
                 <InputLabel className={classes.authFormLabel}>Email Address:</InputLabel>
-                    <Input
-                        className={classes.authFormInput}
-                        value={user.email}
-                        onChange={(e) => setUser({...user, email: e.target.value})}
-                        id="email"
-                        // type="email"
-                        label="Email"
-                        placeholder="email@example.com"
-                        disableUnderline={true}
-                        required 
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <AlternateEmailIcon className={classes.authAdornmentIcon} />
-                            </InputAdornment>
-                    }
+                <Input
+                    className={classes.authFormInput}
+                    value={user.email}
+                    onChange={(e) => setUser({...user, email: e.target.value})}
+                    id="email"
+                    type="email"
+                    label="Email"
+                    placeholder="email@example.com"
+                    disableUnderline={true}
+                    required 
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <AlternateEmailIcon className={classes.authAdornmentIcon} />
+                        </InputAdornment>
+                }
                 />
+                <FormHelperText className={classes.errorBox}>
+                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+                    {emailError && emailError}
+                </FormHelperText>
             </FormControl>
 
             <FormControl className={classes.authField}>
@@ -98,6 +118,10 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                         </InputAdornment>
                     }
                 />
+                <FormHelperText className={classes.errorBox}>
+                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+                    {passwordError && passwordError}
+                </FormHelperText>
             </FormControl>
 
             <FormControl className={classes.authField}>
@@ -118,7 +142,10 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                         </InputAdornment>
                     }
                 />
-                <FormHelperText className={classes.errorBox}>{error.confirmPassword && `${<ErrorIcon className={classes.errorIcon}/>}Passwords do not match`}</FormHelperText>
+                <FormHelperText className={classes.errorBox}>
+                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+                    {confirmPasswordError && confirmPasswordError}
+                </FormHelperText>
             </FormControl>
 
             <Typography className={classes.authSectionSeparator}>Below personal information is only available to your coaches </Typography>
@@ -339,7 +366,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                 className={classes.authFormSubmit}
                 type="submit"
             >
-                <Typography>REGISTER</Typography>
+                <Typography>REGISTER as Coach</Typography>
             </Button>
         </form>
     )
