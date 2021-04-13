@@ -1,6 +1,7 @@
 import React from 'react'
 import HomeHeader from '../containers/HomeHeader';
 import Auth from '../containers/Auth';
+import Footer from '../containers/Footer';
 import homeStyles from '../styles/homeStyles';
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
 
             <Auth /> 
 
+            <Footer />
 
         </div>
     )

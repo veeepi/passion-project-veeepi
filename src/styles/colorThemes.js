@@ -3,6 +3,7 @@ export const holisticTheme = {
     // Root
     bgRoot: "#5C4E75",
     textRoot: '#EFEFEF',
+    bgDark: "#2d2639",
     // Container
     bgContainer: '#A395B8',
     // Font
