@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import LandingHeader from './HomeHeader';
+import LandingHeader from './AuthHeader';
 import AppBar from '@material-ui/core/AppBar';
 import Login from './Login';
 import Register from './Register';

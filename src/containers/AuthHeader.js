@@ -1,7 +1,7 @@
 import React from 'react';
 import homeStyles from '../styles/homeStyles';
 
-export default function HomeHeader() {
+export default function AuthHeader() {
     const classes = homeStyles()
 
     return (
