@@ -7,6 +7,7 @@ import TabPanel from '../containers/TabPanel';
 import authStyles from '../styles/authStyles';
 import RegisterClientForm from '../components/forms/RegisterClientForm';
 import RegisterCoachForm from '../components/forms/RegisterCoachForm';
+import firebase from '../firebase/config';
 
 
 export default function Register() {
@@ -18,8 +19,8 @@ export default function Register() {
         // common props (client and coach)
         username: '', // required
         email: '', // required
-        password: '', // required
-        confirmPassword: '', // required
+        password: '', // required; firebase auth only
+        confirmPassword: '', // required; validation only
         firstName: '',
         lastName: '',
         address: '',
@@ -40,6 +41,41 @@ export default function Register() {
     const handleRegisterClient = (user) => {
         // e.preventDefault();
         console.log("Register clicked", user)
+        if (!user.email) {
+			setError("Please enter an email.")
+			return;
+		}
+		if (user.password !== user.confirmPassword) {
+			setError("Password and confirm password does not match. Try it again.")
+			return;
+		}
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(user.email, user.password)
+			.then((response) => {
+				console.log("SignUp RESULT: ", response);
+				const uid = response.user.uid
+				const data = {
+                    username: user.username, // required
+                    email: user.email, // required
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    address: user.address,
+                    city: user.city,
+                    province: user.provice,
+                    country: user.country,
+                    phoneNumber: user.phoneNumber,
+                    emergencyContactName: user.emergencyContactName, // client only
+                    emergencyContactPhone: user.emergencyContactPhone, // client only
+                    healthGoals: user.healthGoals, // client only
+                    healthIssues: user.healthIssues, // client only
+				};
+				// const usersRef = firebase.firestore().collection('users');
+				// usersRef
+				// .doc(uid)
+				// .set(data)			
+			})
+			.catch((error) => setError(error.message))
     }
     const handleRegisterCoach = (user) => {
         // e.preventDefault();
