@@ -8,6 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import authStyles from '../styles/authStyles';
+import firebase from '../firebase/config';
 
 export default function Login() {
     const classes = authStyles();
@@ -18,8 +19,9 @@ export default function Login() {
 
     const loginSubmit = (e) => {
         e.preventDefault()
-        console.log("LOGIN Submit clicked", email, password, error)
-        console.log(e.target.value)
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => setError(''))
+        .catch((error) => setError(error.message))
     }
 
     return (
@@ -62,12 +64,15 @@ export default function Login() {
                     />
                 </FormControl>
 
+                <Typography className={classes.errorText}>{error}</Typography>
+
                 <Button
                     className={classes.authFormSubmit}
                     type="submit"
                 >
                     <Typography>LOGIN</Typography>
                 </Button>
+
             </form>
     )
 }

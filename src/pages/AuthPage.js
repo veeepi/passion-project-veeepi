@@ -4,7 +4,7 @@ import Auth from '../containers/Auth';
 import Footer from '../containers/Footer';
 import homeStyles from '../styles/homeStyles';
 
-export default function HomePage() {
+export default function AuthPage() {
     const classes = homeStyles();
     
     return (
