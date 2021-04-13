@@ -38,7 +38,7 @@ export default function Register() {
         setTypeValue(newValue)
     }
 
-    const handleRegisterClient = (user) => {
+    const handleRegister = (user, userType) => {
         // e.preventDefault();
         console.log("Register clicked", user)
         if (!user.email) {
@@ -55,25 +55,30 @@ export default function Register() {
 			.then((response) => {
 				console.log("SignUp RESULT: ", response);
 				const uid = response.user.uid
+                console.log("uid:", uid)
 				const data = {
-                    username: user.username, // required
-                    email: user.email, // required
+                    userType: userType,
+                    username: user.username,
+                    email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     address: user.address,
                     city: user.city,
-                    province: user.provice,
+                    province: user.province,
                     country: user.country,
                     phoneNumber: user.phoneNumber,
-                    emergencyContactName: user.emergencyContactName, // client only
-                    emergencyContactPhone: user.emergencyContactPhone, // client only
-                    healthGoals: user.healthGoals, // client only
-                    healthIssues: user.healthIssues, // client only
+                    emergencyContactName: user.emergencyContactName,
+                    emergencyContactPhone: user.emergencyContactPhone,
+                    healthGoals: user.healthGoals,
+                    healthIssues: user.healthIssues,
 				};
-				// const usersRef = firebase.firestore().collection('users');
-				// usersRef
-				// .doc(uid)
-				// .set(data)			
+                console.log("data: ", data)
+				const usersRef = firebase.firestore().collection('users');
+				console.log("usersRef: ", usersRef)
+                usersRef.doc(uid).set(data).then(() => {
+                    console.log("Document successfully written!");
+                })
+                .catch((error) => setError(error.message));
 			})
 			.catch((error) => setError(error.message))
     }
@@ -101,10 +106,10 @@ export default function Register() {
             </AppBar>
 
             <TabPanel value={typeValue} index={0}>
-                <RegisterClientForm onSubmit={handleRegisterClient} user={user} setUser={setUser} />
+                <RegisterClientForm onSubmit={handleRegister} user={user} setUser={setUser} />
             </TabPanel>
             <TabPanel value={typeValue} index={1}>
-                <RegisterCoachForm onSubmit={handleRegisterCoach} user={user} setUser={setUser} />
+                <RegisterCoachForm onSubmit={handleRegister} user={user} setUser={setUser} />
             </TabPanel>
 
         </div>
