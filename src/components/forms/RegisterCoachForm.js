@@ -18,12 +18,13 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import ErrorIcon from '@material-ui/icons/Error';
 import authStyles from '../../styles/authStyles';
 
-export default function RegisterClientForm({ onSubmit, user, setUser }) {
+export default function RegisterCoachForm({ onSubmit, user, setUser }) {
     const classes = authStyles();
     const [usernameError, setUsernameError] = useState("")
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [confirmPasswordError, setConfirmPasswordError] = useState("")
+
 
     const registerSubmit = (e) => {
         e.preventDefault()
@@ -51,7 +52,6 @@ export default function RegisterClientForm({ onSubmit, user, setUser }) {
 
     return (
         <form className={classes.authForm} onSubmit={(e) => registerSubmit(e)} noValidate autoComplete="off">
-            
             <FormControl className={classes.authField}>
                <InputLabel className={classes.authFormLabel}>Username: </InputLabel>
                 <Input
@@ -366,7 +366,7 @@ export default function RegisterClientForm({ onSubmit, user, setUser }) {
                 className={classes.authFormSubmit}
                 type="submit"
             >
-                <Typography>REGISTER</Typography>
+                <Typography>REGISTER as Coach</Typography>
             </Button>
         </form>
     )

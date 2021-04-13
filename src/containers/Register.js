@@ -3,17 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import TabPanel from '../containers/TabPanel';
 import authStyles from '../styles/authStyles';
 import RegisterClientForm from '../components/forms/RegisterClientForm';
 import RegisterCoachForm from '../components/forms/RegisterCoachForm';
+import firebase from '../firebase/config';
 
 
 export default function Register() {
@@ -25,8 +19,8 @@ export default function Register() {
         // common props (client and coach)
         username: '', // required
         email: '', // required
-        password: '', // required
-        confirmPassword: '', // required
+        password: '', // required; firebase auth only
+        confirmPassword: '', // required; validation only
         firstName: '',
         lastName: '',
         address: '',
@@ -44,9 +38,49 @@ export default function Register() {
         setTypeValue(newValue)
     }
 
-    const handleRegisterClient = (user) => {
+    const handleRegister = (user, userType) => {
         // e.preventDefault();
         console.log("Register clicked", user)
+        if (!user.email) {
+			setError("Please enter an email.")
+			return;
+		}
+		if (user.password !== user.confirmPassword) {
+			setError("Password and confirm password does not match. Try it again.")
+			return;
+		}
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(user.email, user.password)
+			.then((response) => {
+				console.log("SignUp RESULT: ", response);
+				const uid = response.user.uid
+                console.log("uid:", uid)
+				const data = {
+                    userType: userType,
+                    username: user.username,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    address: user.address,
+                    city: user.city,
+                    province: user.province,
+                    country: user.country,
+                    phoneNumber: user.phoneNumber,
+                    emergencyContactName: user.emergencyContactName,
+                    emergencyContactPhone: user.emergencyContactPhone,
+                    healthGoals: user.healthGoals,
+                    healthIssues: user.healthIssues,
+				};
+                console.log("data: ", data)
+				const usersRef = firebase.firestore().collection('users');
+				console.log("usersRef: ", usersRef)
+                usersRef.doc(uid).set(data).then(() => {
+                    console.log("Document successfully written!");
+                })
+                .catch((error) => setError(error.message));
+			})
+			.catch((error) => setError(error.message))
     }
     const handleRegisterCoach = (user) => {
         // e.preventDefault();
@@ -72,11 +106,13 @@ export default function Register() {
             </AppBar>
 
             <TabPanel value={typeValue} index={0}>
-                <RegisterClientForm onSubmit={handleRegisterClient} user={user} setUser={setUser} />
+                <RegisterClientForm onSubmit={handleRegister} user={user} setUser={setUser} />
             </TabPanel>
             <TabPanel value={typeValue} index={1}>
-                {/* <RegisterCoachForm onSubmit={handleRegisterCoach} user={user} setUser={setUser} /> */}
+                <RegisterCoachForm onSubmit={handleRegister} user={user} setUser={setUser} />
             </TabPanel>
+
+            <Typography>{error}</Typography>
 
         </div>
     )

@@ -3,6 +3,7 @@ export const holisticTheme = {
     // Root
     bgRoot: "#5C4E75",
     textRoot: '#EFEFEF',
+    bgDark: "#2d2639",
     // Container
     bgContainer: '#A395B8',
     // Font
@@ -17,6 +18,7 @@ export const holisticTheme = {
     // Buttons - secondary
     bgBtnSecondary: '#C8D1BB',
     textBtnSecondary: '#4E755C',
-
+    // Error
+    error: '#e71e0c',
 }
 
