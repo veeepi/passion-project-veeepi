@@ -34,16 +34,17 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
         else {
             // if validated, reset and submit
             setError({})
-            onSubmit(user)
+            onSubmit(user, 'coach') // 'coach' is the userType for Coach
         }
     }
 
     return (
         <form className={classes.authForm} onSubmit={(e) => registerSubmit(e)} noValidate autoComplete="off">
-                       <FormControl className={classes.authField}>
+            <FormControl className={classes.authField}>
                <InputLabel className={classes.authFormLabel}>Username: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.username}
                         onChange={(e) => setUser({...user, username: e.target.value})}
                         id="email"
                         // type="email"
@@ -63,6 +64,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                 <InputLabel className={classes.authFormLabel}>Email Address:</InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.email}
                         onChange={(e) => setUser({...user, email: e.target.value})}
                         id="email"
                         // type="email"
@@ -82,6 +84,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                 <InputLabel className={classes.authFormLabel}>Password:</InputLabel>
                 <Input
                     className={classes.authFormInput}
+                    value={user.password}
                     onChange={(e) => setUser({...user, password: e.target.value})}
                     id="password"
                     type="password"
@@ -101,6 +104,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                 <InputLabel className={classes.authFormLabel}>Confirm Password:</InputLabel>
                 <Input
                     className={classes.authFormInput}
+                    value={user.confirmPassword}
                     onChange={(e) => setUser({...user, confirmPassword: e.target.value})}
                     id="confirmPassword"
                     type="password"
@@ -125,6 +129,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     <InputLabel className={classes.authFormLabel}>First Name: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.firstName}
                         onChange={(e) => setUser({...user, firstName: e.target.value})}
                         id="firstName"
                         label="First Name"
@@ -142,6 +147,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     <InputLabel className={classes.authFormLabel}>Last Name: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.lastName}
                         onChange={(e) => setUser({...user, lastName: e.target.value})}
                         id="lastName"
                         label="Last Name"
@@ -160,6 +166,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                <InputLabel className={classes.authFormLabel}>Address: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.address}
                         onChange={(e) => setUser({...user, address: e.target.value})}
                         id="address"
                         // type="email"
@@ -179,6 +186,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     <InputLabel className={classes.authFormLabel}>City: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.city}
                         onChange={(e) => setUser({...user, city: e.target.value})}
                         id="firstName"
                         label="First Name"
@@ -196,6 +204,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     <InputLabel className={classes.authFormLabel}>Prov: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.province}
                         onChange={(e) => setUser({...user, province: e.target.value})}
                         id="lastName"
                         label="Last Name"
@@ -213,6 +222,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     <InputLabel className={classes.authFormLabel}>Country: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.country}
                         onChange={(e) => setUser({...user, country: e.target.value})}
                         id="lastName"
                         label="Last Name"
@@ -231,6 +241,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                <InputLabel className={classes.authFormLabel}>Phone Number: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.phoneNumber}
                         onChange={(e) => setUser({...user, phoneNumber: e.target.value})}
                         id="phoneNumber"
                         // type="email"
@@ -249,6 +260,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                <InputLabel className={classes.authFormLabel}>Emergency Contact Name: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.emergencyContactName}
                         onChange={(e) => setUser({...user, emergencyContactName: e.target.value})}
                         id="emergencyContactName"
                         // type="email"
@@ -267,6 +279,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                <InputLabel className={classes.authFormLabel}>Emergency Contact Phone Number: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.emergencyContactPhone}
                         onChange={(e) => setUser({...user, emergencyContactPhone: e.target.value})}
                         id="emergencyContactPhoneNumber"
                         // type="email"
@@ -282,9 +295,10 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
             </FormControl>
 
             <FormControl className={classes.authField}>
-               <InputLabel className={classes.authFormLabel}>Health Concerns: </InputLabel>
+               <InputLabel className={classes.authFormLabel}>Health Goals: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.healthGoals}
                         onChange={(e) => setUser({...user, healthGoals: e.target.value})}
                         id="healthConcerns"
                         // type="email"
@@ -301,9 +315,10 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
             </FormControl>
 
             <FormControl className={classes.authField}>
-               <InputLabel className={classes.authFormLabel}>Health Goals: </InputLabel>
+               <InputLabel className={classes.authFormLabel}>Health Concerns: </InputLabel>
                     <Input
                         className={classes.authFormInput}
+                        value={user.healthIssues}
                         onChange={(e) => setUser({...user, healthIssues: e.target.value})}
                         id="healthGoals"
                         // type="email"
@@ -318,6 +333,7 @@ export default function RegisterCoachForm({ onSubmit, user, setUser }) {
                     }
                 />
             </FormControl>
+
 
             <Button
                 className={classes.authFormSubmit}
