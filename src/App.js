@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
+import MenuAppBar from './containers/MenuAppBar';
 import AuthPage from './pages/AuthPage';
 import FeedPage from './pages/FeedPage';
 
@@ -24,6 +25,7 @@ function App() {
     <AuthPage />
     :
     <Router className="App">
+      <MenuAppBar />
       <Switch>
         <Route path="/">
           <FeedPage />
