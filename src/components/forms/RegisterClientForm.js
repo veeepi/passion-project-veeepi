@@ -45,7 +45,7 @@ export default function RegisterClientForm({ onSubmit, user, setUser }) {
             setEmailError("")
             setPasswordError("")
             setConfirmPasswordError("")
-            onSubmit(user, 'coach') // 'coach' is the userType for Coach
+            onSubmit(user, 'client') // 'coach' is the userType for Coach
         }
     }
 
