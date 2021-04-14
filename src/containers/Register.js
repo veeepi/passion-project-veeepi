@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,6 +13,7 @@ import firebase from '../firebase/config';
 
 export default function Register() {
     const classes = authStyles();
+    const history = useHistory();
 
     const [typeValue, setTypeValue] = React.useState(0);
     const [error, setError] =  useState('');
@@ -71,12 +73,19 @@ export default function Register() {
                     emergencyContactPhone: user.emergencyContactPhone,
                     healthGoals: user.healthGoals,
                     healthIssues: user.healthIssues,
+                    profilePictureUrl: '',
+                    profilePictureUrl: '',
+                    sessions: [],
+                    posts: [],
+                    comments: [],
+                    likes: [],
 				};
                 console.log("data: ", data)
 				const usersRef = firebase.firestore().collection('users');
 				console.log("usersRef: ", usersRef)
                 usersRef.doc(uid).set(data).then(() => {
-                    console.log("Document successfully written!");
+                    setError('');
+                    history.push("/dash")
                 })
                 .catch((error) => setError(error.message));
 			})

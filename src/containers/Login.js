@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,15 +13,20 @@ import firebase from '../firebase/config';
 
 export default function Login() {
     const classes = authStyles();
+    const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 	const [error, setError] =  useState('');
 
     const loginSubmit = (e) => {
+        console.log("loginSubmit called")
         e.preventDefault()
         firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => setError(''))
+        .then(() => {
+            setError('');
+            history.push("/dash")
+        })
         .catch((error) => setError(error.message))
     }
 
