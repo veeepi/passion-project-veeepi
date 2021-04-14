@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,13 +7,15 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { userSignOut } from '../firebase/services'; 
 import navbarStyles from '../styles/navbarStyles';
 
-export default function MenuAppBar({user}) {
+export default function MenuAppBar({dataUser}) {
   const classes = navbarStyles();
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -32,7 +34,7 @@ export default function MenuAppBar({user}) {
           <Typography className={classes.appBarTitle}>Holistic</Typography>
           <Link className={classes.appBarNavLink} to="/feed">Feed</Link>
           <Link className={classes.appBarNavLink} to="/dash">Dash</Link>
-          {user && (
+          {dataUser && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -59,7 +61,12 @@ export default function MenuAppBar({user}) {
                 onClose={handleClose}
               >
                 <MenuItem><Link className={classes.menuItem} to="/dash">To Dash</Link></MenuItem>
-                <MenuItem onClick={() => userSignOut()}>SignOut</MenuItem>
+                <MenuItem onClick={() => {
+                  userSignOut()
+                  history.push('/')
+                }}>
+                  SignOut
+                </MenuItem>
               </Menu>
             </div>
           )}
