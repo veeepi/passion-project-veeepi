@@ -51,7 +51,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
 
             <Box className={classes.sessionActionList}>
 
-            {/* Header = Session Info */}
+            {/* Session ActionList  */}
             {
                 actions?.map((action, index) => 
                     <Action key={index} action={action} authUser={authUser} dataUser={dataUser} />

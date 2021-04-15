@@ -21,8 +21,21 @@ export default function SessionAction({action, authUser, dataUser}) {
     const [stress, setStress] = useState(action.stress)
 
     const [actionEditMode, setActionEditMode] = useState(false)
+
+    const actionsRef = firebase.firestore().collection('actions')
     const saveAction = (e) => {
         e.preventDefault()
+        actionsRef
+            .doc(action.id)
+            .update({
+                name: name,
+                notes: notes,
+                orderIndex: orderIndex,
+                qtyTarget: qtyTarget,
+                stress: stress,
+                stressTarget: stressTarget,
+                timestamp: Date.now()
+            })
         console.log("doneSessionCreate clicked")
         setActionEditMode(false)
     }
@@ -36,12 +49,14 @@ export default function SessionAction({action, authUser, dataUser}) {
                 <TextField className={classes.notes} disabled={!test} id="notes" label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} multiline />
             </Box>
             <Box className={classes.actionData}>
+                <Typography>{'target'}</Typography>
                 <TextField className={classes.qtyTarget} disabled={!test} id="qtyTarget" label={action.qtyType} value={qtyTarget} onChange={(e) => setQtyTarget(e.target.value)} />
                 <TextField className={classes.stressTarget} disabled={!test} id="stressTarget" label={action.stressType} value={stressTarget} onChange={(e) => setStressTarget(e.target.value)} />
             </Box>
             <Box className={classes.actionData}>
+                <Typography>{'actual'}</Typography>
                 <TextField className={classes.qty} disabled={!test} id="qty" label={action.qtyType} value={qty} onChange={(e) => setQty(e.target.value)} />
-                <TextField className={classes.stress} disabled={!test} id="stress" label={action.stress} value={stress} onChange={(e) => setStress(e.target.value)} />
+                <TextField className={classes.stress} disabled={!test} id="stress" label={action.stressType} value={stress} onChange={(e) => setStress(e.target.value)} />
             </Box>
             <Box className={classes.actionButtons}>
                 {/* Coach Only */}
