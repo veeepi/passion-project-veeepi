@@ -28,11 +28,11 @@ export default function SessionListItem({session, openSession, cancelSession}) {
 
             </CardContent>
             <CardContent className={classes.listItemParticipants}>
-                <Box classname={classes.listItemParticipantsInfo}>
+                <Box className={classes.listItemParticipantsInfo}>
                     <Typography className={classes.listItemLabel}>{'By coach: '}</Typography>
                     <Typography className={classes.listItemCoachName}>{session.coachName}</Typography>
                 </Box>
-                <Box classname={classes.listItemParticipantsInfo}>
+                <Box className={classes.listItemParticipantsInfo}>
                     <Typography className={classes.listItemLabel}>{'Participating: '}</Typography>
                     <Typography className={classes.listItemClientCount}>{session.clientIds.length}</Typography>
                 </Box>

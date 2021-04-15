@@ -8,7 +8,7 @@ import { PhotoCamera } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
-import dashStyles from '../styles/dashStyles';
+import { dashStyles } from '../styles/dashStyles';
 
 export default function UserBanner({ dataUser }) {
     const classes = dashStyles()

@@ -80,7 +80,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 <Typography>{'actual'}</Typography>
                 <Box className={classes.dataBox}>
                     <IconButton className={classes.dataButton} disabled={!actionEditMode} onClick={() => {if (qty > 0) {setQty(qty-1)} }}><RemoveCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
-                    <TextField className={classes.qty} disabled={!actionEditMode} id="qty" label={action.qtyType} value={qty} onChange={(e) => setQty(e.target.value)} />
+                    <TextField className={classes.qty} InputProps={{ className: classes.qty }} disabled={!actionEditMode} id="qty" label={action.qtyType} value={qty} onChange={(e) => setQty(e.target.value)} />
                     <IconButton className={classes.dataButton} disabled={!actionEditMode} onClick={() => setQty(qty+1)}><AddCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>                
                 </Box>
                 <Box className={classes.dataBox}>

@@ -213,9 +213,9 @@ const newActionFormStyles = makeStyles(() => ({
         padding: 0,
     },
     qty: {
-        // color: 'red',
-        // textAlign: 'center',
-        // fontSize: '40px',
+        color: 'red',
+        textAlign: 'center',
+        fontSize: '40px',
     }
 
 }));

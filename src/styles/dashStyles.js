@@ -159,4 +159,35 @@ const dashStyles = makeStyles(() => ({
 	},
 }));
 
-export default dashStyles;
+const userListStyles = makeStyles(() => ({
+    contaner: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    userData: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    fullName: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    username: {
+        fontWeight: 'bold',
+    },
+    firstName: {
+        fontStyle: 'italic',
+    },
+    lastName: {
+        fontStyle: 'italic',
+    },
+    actions: {
+
+    }
+
+}));
+
+export { dashStyles, userListStyles };
