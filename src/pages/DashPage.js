@@ -32,10 +32,10 @@ export default function DashPage({authUser, dataUser}) {
 
     console.log("DashPage, dataUser.userType: ", dataUser.userType)
     return (
-        <div>
+        <div className={classes.container}>
             <UserBanner dataUser={dataUser} />
 
-            <AppBar className={classes.authAppBar} position="static">
+            <AppBar className={classes.dashAppBar} position="static">
                 <Tabs
                     className={classes.authTabs}
                     value={value}

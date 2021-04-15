@@ -4,6 +4,10 @@ import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
 import logoImage from '../assets/images/logo_placeholder.jpg';
 
 const dashStyles = makeStyles(() => ({
+    container: {
+        width: '98%',
+        margin: 'auto',
+    },
     userBanner: {
         display: 'flex',
         flexDirection: 'row',
@@ -29,7 +33,11 @@ const dashStyles = makeStyles(() => ({
     dashTitle: {
         marginLeft: 50, fontSize: 30, color: '#fbfbd4'
     },
-
+    dashAppBar: {
+        
+        borderRadius: '15px 15px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
 
 
     homePage: {
@@ -99,10 +107,7 @@ const dashStyles = makeStyles(() => ({
 		borderRadius: '15px',
         
     },
-    authAppBar: {
-        borderRadius: '15px 15px 0 0',
-        backgroundColor: holisticTheme.bgContainer,
-    },
+
     authTabs: {
         // borderRadius: '15px 15px 0 0',
         // backgroundColor: holisticTheme.bgContainer,
