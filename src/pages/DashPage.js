@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import UserBanner from '../containers/UserBanner';
 import SchedulePanel from '../containers/SchedulePanel';
 import SessionsPanel from '../containers/SessionsPanel';
-import dashStyles from '../styles/dashStyles';
+import { dashStyles } from '../styles/dashStyles';
 import SessionsCreatePanel from '../containers/SessionCreatePanel';
 
 export default function DashPage({authUser, dataUser}) {
@@ -60,7 +60,7 @@ export default function DashPage({authUser, dataUser}) {
                 <SchedulePanel dataUser={dataUser} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <SessionsCreatePanel dataUser={dataUser} />
+                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} />
             </TabPanel>
         </div>
     )

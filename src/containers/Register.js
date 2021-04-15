@@ -79,6 +79,7 @@ export default function Register() {
                     posts: [],
                     comments: [],
                     likes: [],
+                    connectionUserIds: [],
 				};
                 console.log("data: ", data)
 				const usersRef = firebase.firestore().collection('users');

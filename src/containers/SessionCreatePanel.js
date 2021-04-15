@@ -7,18 +7,22 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 // import Tab from '@material-ui/core/Tab';
 // import Typography from '@material-ui/core/Typography';
 // import Box from '@material-ui/core/Box';
+import UserSearchListItem from '../components/atoms/UserSearchListItem';
+import UserParticipatingListItem from '../components/atoms/UserParticipatingListItem';
 import firebase from '../firebase/config';
-import sessionStyles from '../styles/sessionStyles';
+import { sessionListStyles } from '../styles/sessionStyles';
 import { ContactPhoneOutlined } from '@material-ui/icons';
 
-export default function SessionsCreatePanel({dataUser}) {
-    const classes = sessionStyles();
+export default function SessionsCreatePanel({authUser, dataUser}) {
+    const classes = sessionListStyles();
 
+    const usersRef = firebase.firestore().collection('users');
     const sessionsRef = firebase.firestore().collection('sessions');
-
     const actionsRef = firebase.firestore().collection('actions');
 
-    const [target, setTarget] = useState(0)
+    
+    const [participatingUsers, setParticipatingUsers] = useState([])
+    const [searchResultUsers, setSearchResultUsers] = useState([])
 
     const [sessions, setSessions] = useState([])
     useEffect(() => {
@@ -28,35 +32,59 @@ export default function SessionsCreatePanel({dataUser}) {
         }
     }, [])
 
-    const [actionEditMode, setActionEditMode] = useState(false)
-    const doneActionCreate = (e) => {
-        e.preventDefault()
-        console.log("doneSessionCreate clicked")
-        setActionEditMode(!actionEditMode)
+    const [userSearchValue, setUserSearchValue] = useState('')
+    useEffect(() => {
+        if (userSearchValue.length > 1) {
+            usersRef
+                .where('connectionUserIds', 'array-contains-any', [authUser.uid])
+                .onSnapshot(querySnapshot => {
+                    const userResult = []
+                    querySnapshot.forEach(doc => {
+                        if (
+                            doc.data().firstName.includes(userSearchValue) || 
+                            doc.data().lastName.includes(userSearchValue) ||
+                            doc.data().username.includes(userSearchValue) ||
+                            doc.data().email.includes(userSearchValue)
+                        ) {
+                            userResult.push(doc.data())
+                        }
+                    })
+                    setSearchResultUsers(userResult);
+                })
+        } else {
+            setSearchResultUsers([])
+        }
+    }, [userSearchValue])
+
+    const createSession = () => {
+        console.log()
     }
+
+    // console.log('CreateSessionPanel, users: ', users)
 
     return (
         <Box>
             <Card>
-                <form className={classes.activityForm} onSubmit={(e) => doneActionCreate(e)} noValidate autoComplete="off">
-                    
-                    <div className={classes.activityColumn}>
-                        <TextField className={classes.activityField} id="activity_name" label="Activity" />
-                        <TextField className={classes.activityField} id="activity_description" label="Description" />
-                    </div>
-                    <div className={classes.activityColumn}>
-                        <TextField className={classes.activityField} id="target_reps" label="Target reps: " />
-                        <TextField className={classes.activityField} id="target_reps" label="Target reps: " />
-                    </div>
-                    <div className={classes.submissions}>
-                        <Button onClick={() => console.log("cancel clicked")}>Cancel Action</Button>
-                        <Button type="submit" onClick={() => console.log("cancel clicked")}>Done</Button>
-                    </div>
-                    
-                </form>
+
+                {/* Participating Clients */}
+                { participatingUsers?.map((user, index) => <UserParticipatingListItem key={index} user={user}/>)}
+
+                <TextField 
+                    className={classes.searchField} 
+                    id="searchField" 
+                    label='Search user by email: ' 
+                    value={userSearchValue} 
+                    onChange={(e) => setUserSearchValue(e.target.value)} 
+                />
+
+                {/* Search Result - List clients */}
+                { searchResultUsers?.map((user, index) => <UserSearchListItem key={index} user={user} />)}
+
             </Card>
 
             <Button onClick={() => console.log("add clicked")}>+ another Action</Button>
+
+            <Button onClick={() => createSession()}>Create Session</Button>
 
         </Box>
     )
