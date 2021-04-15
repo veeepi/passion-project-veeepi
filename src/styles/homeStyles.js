@@ -7,6 +7,7 @@ const homeStyles = makeStyles(() => ({
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
+        width: '100%',
         // background: `linear-gradient(to right bottom, ${holisticTheme.bgRoot}, #82ffa140)`,
     },
 	homeHeaderBackgroundImage: {
@@ -14,7 +15,6 @@ const homeStyles = makeStyles(() => ({
         backgroundPosition: 'center', 
         backgroundSize: 'cover', 
         backgroundRepeat: 'no-repeat',
-        
         height: '40vh',
     },
     homeHeader: {
@@ -40,12 +40,10 @@ const homeStyles = makeStyles(() => ({
         // top: -25,
         // left: 10,
         // position: 'absolute',
-        padding: '10%',
+        // padding: '10%',
         margin: 0,
-        marginLeft: 'auto',
-        marginLeft: 'auto',
         textAlign: 'center',
-        // marginLeft: '10%',
+        marginLeft: '10%',
         textAlign: 'left',
         fontSize: '36px',
         fontStyle: 'italic',
@@ -57,9 +55,11 @@ const homeStyles = makeStyles(() => ({
         backgroundPosition: 'center', 
         backgroundSize: 'cover', 
         backgroundRepeat: 'no-repeat',
-        margin: '10%',
+        margin: '5%',
         width: '40vw',
         height: '40vw',
+        maxWidth: '220px',
+        maxHeight: '220px',
         borderRadius: '50%',
         // backgroundImage: 'url(../assets/images/homeBanner_placeholder.jpg)'
     },

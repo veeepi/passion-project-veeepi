@@ -4,7 +4,11 @@ export const holisticTheme = {
     bgRoot: "#5C4E75",
     textRoot: '#EFEFEF',
     bgDark: "#2d2639",
+    // Status
+    completed: '#679f57',
+    cancelled: '#8f8669',
     // Container
+    bgLight: '#c3bad1',
     bgContainer: '#A395B8',
     // Font
     textTitle: '#AAB895',

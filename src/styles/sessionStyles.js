@@ -2,6 +2,44 @@ import { makeStyles } from '@material-ui/core/styles';
 import { holisticTheme } from './colorThemes'; 
 
 const sessionStyles = makeStyles(() => ({
+    listItem: {
+        margin: '5px',
+        borderRadius: '15px',
+        backgroundColor: holisticTheme.bgLight,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    sessionCompleted: {
+        backgroundColor: holisticTheme.completed,
+    },
+    sessionCancelled: {
+        backgroundColor: holisticTheme.cancelled,
+    },
+    listItemInfo: {
+        // display: 'flex',
+        // flexDirection: 'column',
+        // justifyContent: 'space-between',
+    },
+    listItemTitleInfo: {
+
+    },
+    listItemActions: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+    },
+    buttonPrimary: {
+        justifySelf: 'flex-end',
+        borderRadius: '15px',
+        backgroundColor: holisticTheme.bgBtnPrimary,        
+    },
+    buttonSecondary: {
+        borderRadius: '15px',
+        fontSize: '10px',
+        backgroundColor: holisticTheme.bgBtnSecondary,
+    },
+
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
