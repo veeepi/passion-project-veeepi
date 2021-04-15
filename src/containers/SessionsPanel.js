@@ -58,7 +58,7 @@ export default function SessionsPanel({authUser, dataUser}) {
             }
             { sessionPanelMode === 'detail' &&
             <Box>
-                <SessionDetails session={currentSession} exitSession={exitSession} cancelSession={cancelSession}/>
+                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} cancelSession={cancelSession}/>
             </Box>
             }
         </Box>
