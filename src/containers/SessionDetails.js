@@ -28,6 +28,17 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             )
     }, [session])
 
+    const [sessionInProgress, setSessionInProgress] = useState(session.status)
+    const startSession = () => {
+        setSessionInProgress(true)
+        console.log("startSession clicked")
+    }
+    const completeSession = () => {
+        setSessionInProgress(false)
+        // UPDATE Firestore (status, data fields)
+        console.log("startSession clicked")
+    }
+
     const addAction = () => {
         console.log("addAction clicked")
     }
@@ -42,6 +53,11 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     <Typography>{session.name}</Typography>    
                     <Typography>{session.name}</Typography>
                 </Box>
+                
+                <Box className={classes.sessionButtons}>
+                    <Button className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>
+                </Box>
+
                 <Box className={classes.sessionButtons}>
                     <Button className={classes.buttonSecondary} onClick={() => cancelSession()}>Cancel Session</Button>
                     
@@ -61,6 +77,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
 
             <Box className={classes.sessionActionsButtions}>
                 <Button className={classes.buttonPrimary} onClick={() => addAction()}>ADD SET</Button>
+                <Button className={classes.buttonPrimary} onClick={() => completeSession()}>COMPLETE SESSION</Button>
             </Box>
                 
         </Paper>
