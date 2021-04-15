@@ -52,7 +52,7 @@ function App() {
             <FeedPage dataUser={dataUser} />
           </Route>
           <Route path="/dash">
-            <DashPage dataUser={dataUser} />
+            <DashPage authUser={authUser} dataUser={dataUser} />
           </Route>
         </Switch>
       </UserContext.Provider>
