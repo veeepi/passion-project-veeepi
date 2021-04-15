@@ -114,7 +114,7 @@ const sessionActionStyles = makeStyles(() => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         // alignItems: 'center',
-        width: '10%',
+        width: '20%',
     },
     actionButtons: {
         display: 'flex',
@@ -134,7 +134,90 @@ const sessionActionStyles = makeStyles(() => ({
         fontSize: '10px',
         backgroundColor: holisticTheme.bgBtnSecondary,
     },
+    dataBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    dataButton: {
+        margin: 3,
+        padding: 3,
+    },
+    dataIcon: {
+        margin: 0,
+        padding: 0,
+    },
+    qty: {
+        // color: 'red',
+        // textAlign: 'center',
+        // fontSize: '40px',
+    }
+}));
+
+const newActionFormStyles = makeStyles(() => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: '2%',
+        padding: '2% 3% 4% 3%',
+        backgroundColor: holisticTheme.bgLighter,
+        borderRadius: '20px',
+    },
+    actionInfo: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    actionTitle: {
+        textAlign: 'center',
+    },
+    actionData: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+        width: '20%',
+    },
+    actionButtons: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        width: '18%',
+    },
+    buttonPrimary: {
+        justifySelf: 'flex-end',
+        marginTop: '10px',
+        borderRadius: '15px',
+        backgroundColor: holisticTheme.bgBtnPrimary,        
+    },
+    buttonSecondary: {
+        borderRadius: '15px',
+        fontSize: '10px',
+        backgroundColor: holisticTheme.bgBtnSecondary,
+    },
+    dataBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    dataButton: {
+        margin: 3,
+        padding: 3,
+    },
+    dataIcon: {
+        margin: 0,
+        padding: 0,
+    },
+    qty: {
+        // color: 'red',
+        // textAlign: 'center',
+        // fontSize: '40px',
+    }
 
 }));
 
-export { sessionListStyles, sessionDetailStyles, sessionActionStyles };
+export { sessionListStyles, sessionDetailStyles, sessionActionStyles, newActionFormStyles };

@@ -8,6 +8,7 @@ export const holisticTheme = {
     completed: '#679f57',
     cancelled: '#8f8669',
     // Container
+    bgLighter: '#d3ccdd',
     bgLight: '#c3bad1',
     bgContainer: '#A395B8',
     // Font

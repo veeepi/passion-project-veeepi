@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Box, Button, Card, CardContent, Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Action from '../components/atoms/Action';
+import NewActionForm from '../components/forms/NewActionForm';
 import { sessionDetailStyles } from '../styles/sessionStyles';
 import firebase from '../firebase/config';
 
@@ -9,6 +10,7 @@ import firebase from '../firebase/config';
 export default function SessionDetails({authUser, dataUser, session, exitSession, cancelSession}) {
     const classes = sessionDetailStyles();
 
+    // Initialize - GET Session Actions 
     const actionsRef = firebase.firestore().collection('actions')
     const [actions, setActions] = useState([])
     useEffect(() => {
@@ -28,6 +30,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             )
     }, [session])
 
+    // Session Functions 
     const [sessionInProgress, setSessionInProgress] = useState(session.status)
     const startSession = () => {
         setSessionInProgress(true)
@@ -39,11 +42,13 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
         console.log("startSession clicked")
     }
 
-    const addAction = () => {
-        console.log("addAction clicked")
+    // Action Functions
+    const [addingAction, setAddingAction] = useState(false)
+    const toggleAddAction = () => {
+        setAddingAction(!addingAction)
     }
 
-    console.log('SessionDetails, session: ', session)
+    console.log('SessionDetails, session: ', actions[actions.length-1])
     return (
         <Paper className={classes.sessionContainer}>
             {/* Session Info */}
@@ -75,8 +80,10 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             }
             </Box>
 
+            { addingAction && <NewActionForm action={actions[actions.length-1]} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
+
             <Box className={classes.sessionActionsButtions}>
-                <Button className={classes.buttonPrimary} onClick={() => addAction()}>ADD SET</Button>
+                <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
                 <Button className={classes.buttonPrimary} onClick={() => completeSession()}>COMPLETE SESSION</Button>
             </Box>
                 
