@@ -16,7 +16,7 @@ export default function SessionsPanel({authUser, dataUser}) {
     useEffect(() => {
         if(dataUser.sessions) {
             sessionsRef
-                .where("coach", "==", authUser.uid)
+                .where("coachId", "==", authUser.uid)
                 .onSnapshot(
                     querySnapshot => {
                         const userSessions = []
@@ -42,6 +42,9 @@ export default function SessionsPanel({authUser, dataUser}) {
         setCurrentSession({})
         setSessionPanelMode('list')
     }
+    const cancelSession = (session) => {
+        console.log("cancelSession clicked; to delete: ", session)
+    }
 
     console.log("SessionPanel sessions: ", sessions)
     return (
@@ -49,13 +52,13 @@ export default function SessionsPanel({authUser, dataUser}) {
             { sessionPanelMode === 'list' &&
             <Box>
                 { sessions?.map((session, index) => 
-                        <SessionListItem key={index} session={session} openSession={openSession}/>
+                        <SessionListItem key={index} session={session} openSession={openSession} cancelSession={cancelSession}/>
                     )}
             </Box>
             }
             { sessionPanelMode === 'detail' &&
             <Box>
-                <SessionDetails session={currentSession} exitSession={exitSession}/>
+                <SessionDetails session={currentSession} exitSession={exitSession} cancelSession={cancelSession}/>
             </Box>
             }
         </Box>

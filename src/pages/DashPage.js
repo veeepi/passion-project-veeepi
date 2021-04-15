@@ -12,7 +12,7 @@ import SessionsPanel from '../containers/SessionsPanel';
 import dashStyles from '../styles/dashStyles';
 import SessionsCreatePanel from '../containers/SessionCreatePanel';
 
-export default function DashPage({dataUser}) {
+export default function DashPage({authUser, dataUser}) {
     const classes = dashStyles();
 
     const [value, setValue] = React.useState(0);
@@ -54,7 +54,7 @@ export default function DashPage({dataUser}) {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <SessionsPanel dataUser={dataUser} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <SchedulePanel dataUser={dataUser} />

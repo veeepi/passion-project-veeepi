@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, CardContent, Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardActions, CardContent, Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import SessionActions from './SessionActions';
+import sessionStyles from '../styles/sessionStyles';
 
 
-export default function SessionListItem({session, openSession}) {
+export default function SessionListItem({session, openSession, cancelSession}) {
+    const classes = sessionStyles()
     const history = useHistory();
 
     const [clientParticipants, setClientParticipants] = useState([])
@@ -17,17 +19,30 @@ export default function SessionListItem({session, openSession}) {
 
     console.log("SessionListItem session: ", session)
     return (
-        <Card>
-            <CardContent>
-                <Typography>{session.name}</Typography>
-                <Typography>{session.notes}</Typography>
-
-                <Typography>{session.timestampEvent.seconds}</Typography>
+        <Card className={`${classes.listItem} ${session.status === 'completed' && classes.sessionCompleted} ${session.status === 'cancelled' && classes.sessionCancelled} : classes.listItem`}>
+            <CardContent className={classes.listItemInfo}>
+                <Box className={classes.listItemTitleInfo}>
+                    <Typography className={classes.name}>{session.name}</Typography>
+                    <Typography className={classes.dateTime}>{session.startDateTime.seconds}</Typography>
+                    </Box>
+                <Typography className={classes.notes}>{session.notes}</Typography>
 
             </CardContent>
-
-            <Button onClick={() => openSession(session)}>OPEN</Button>
-
+            <CardContent className={classes.listItemParticipants}>
+                <Box classname={classes.listItemParticipantsInfo}>
+                    <Typography className={classes.listItemLabel}>{'By coach: '}</Typography>
+                    <Typography className={classes.listItemCoachName}>{session.coachName}</Typography>
+                </Box>
+                <Box classname={classes.listItemParticipantsInfo}>
+                    <Typography className={classes.listItemLabel}>{'Participating: '}</Typography>
+                    <Typography className={classes.listItemClientCount}>{session.clientIds.length}</Typography>
+                </Box>
+            </CardContent>
+            <CardActions className={classes.listItemActions}>
+                <Typography className={classes.listItemClientCount}>{session.status}</Typography>
+                {session.status === 'upcoming' && <Button className={classes.buttonSecondary} onClick={() => cancelSession(session)}>Cancel Session</Button>}
+                <Button className={classes.buttonPrimary} onClick={() => openSession(session)}>OPEN Session</Button>
+            </CardActions>
         </Card>
     )
 }
