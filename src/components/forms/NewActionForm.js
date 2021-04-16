@@ -7,7 +7,7 @@ import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { newActionFormStyles } from '../../styles/sessionStyles';
 import firebase from '../../firebase/config';
 
-export default function NewActionForm({authUser, dataUser, action, toggleAddAction}) {
+export default function NewActionForm({authUser, dataUser, action, sessionId, toggleAddAction}) {
     const classes = newActionFormStyles();
 
     const [participantUserId, setParticipantUserId] = useState(action ? action.participantUserId : "")
@@ -38,7 +38,7 @@ export default function NewActionForm({authUser, dataUser, action, toggleAddActi
                 qty: qty,
                 qtyTarget: qtyTarget,
                 qtyType: qtyType,
-                sessionId: action.sessionId,
+                sessionId: sessionId,
                 stress: stress,
                 stressTarget: stressTarget,
                 stressType: stressType,

@@ -14,7 +14,7 @@ import Action from '../components/atoms/Action';
 import NewActionForm from '../components/forms/NewActionForm';
 import firebase from '../firebase/config';
 import { newSessionFormStyles } from '../styles/sessionStyles';
-import { ContactPhoneOutlined } from '@material-ui/icons';
+import { ContactPhoneOutlined, LocationOnOutlined } from '@material-ui/icons';
 
 export default function SessionsCreatePanel({authUser, dataUser}) {
     const classes = newSessionFormStyles();
@@ -30,7 +30,8 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
     const [startDateTime, setStartDateTime] = useState(now);
     const [duration, setDuration] = useState(0)
     const [location, setLocation] = useState("")
-    // const [sessions, setSessions] = useState([])
+    const [participant, setParticipant] = useState({})
+
 
     useEffect(() => {
         if(dataUser.sessions) {
@@ -64,13 +65,7 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
         }
     }, [userSearchValue])
     // ADD USER as Participant
-    const [participant, setParticipant] = useState({})
-    const addParticipant = (user) => {
-        setParticipant(user)
-    }
-    const removeParticipant = () => {
-        setParticipant({})
-    }
+    
     // BUILD ACTION; Push to Array
     const [actions, setActions] = useState([])
     const [addingAction, setAddingAction] = useState(false)
@@ -78,10 +73,54 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
         setAddingAction(!addingAction)
     }
     // SUBMIT + REDIRECT
+    const [newSessionId, setNewSessionId] = useState(dataUser.draftSessionId)
     const createSession = () => {
-        // sessionsRef
+        // data validation
+        sessionsRef
+            .add({
+                coachUserId: authUser.uid,
+                coachUsername: dataUser.username,
+                durationMinutes: duration,
+                lastOrderIndex: 100,
+                location: location,
+                name: name,
+                notes: notes,
+                participantUserId: participant.id,
+                participantUsername: participant.username,
+                startDateTime: startDateTime,
+                status: 'draft',
+                type: 'personal',
+            }).then(docRef => {
+                sessionsRef.doc(docRef.id).update({
+                    id: docRef.id,
+                })
+                usersRef.doc(authUser.uid).update({
+                    draftSessionId: docRef.id,
+                })
+                setNewSessionId(docRef.id)
+            })
     }
-    console.log("participant", participant)
+    const publishSession = () => {
+        // update Session status to 'upcoming'
+        sessionsRef.doc(newSessionId).update({
+            status: 'upcoming',
+        })
+        // update owner's draftSession to ""
+        usersRef.doc(authUser.uid).update({
+            draftSessionId: "",
+        })
+        // update participant's sessions
+        usersRef.doc(participant.id).update({
+            sessions: [...participant.sessions, newSessionId]
+        })
+    }
+
+    // useState(() => {
+    //     setUserSearchValue("")
+    // }, [participant])
+
+    console.log("newly created session: ", newSessionId)
+
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
@@ -118,7 +157,7 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
                 <TextField 
                     className={classes.searchField} 
                     id="searchField" 
-                    label='Search of a user. Start typing... ' 
+                    label='Search for a user. Start typing... ' 
                     value={userSearchValue} 
                     onChange={(e) => setUserSearchValue(e.target.value)} 
                 />
@@ -126,7 +165,7 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
                 { 
                     // userSearchValue.length > 0 && 
                     searchResultUsers.length > 0 
-                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} setParticipant={setParticipant}/>)
+                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} setParticipant={setParticipant} setUserSearchValue={setUserSearchValue}/>)
                     : <EmptyList message={'No search results.'}/>                     
                 }
             </Card>
@@ -142,12 +181,21 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
             }
             </Box>
 
-            { addingAction && <NewActionForm action={actions[actions.length-1]} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
+            { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={newSessionId} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
+            
+            {
+                !newSessionId
+                ?
+                <Box className={classes.sessionActionsButtions}>
+                    <Button className={classes.buttonPrimary} onClick={() => createSession()}>Create Draft Session</Button>
+                </Box>
+                : 
+                <Box className={classes.sessionActionsButtions}>
+                    <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
+                    <Button onClick={() => publishSession()}>Publish Session</Button>
+                </Box>
+            }
 
-            <Box className={classes.sessionActionsButtions}>
-                <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
-                <Button className={classes.buttonPrimary} onClick={() => createSession()}>COMPLETE SESSION</Button>
-            </Box>
         </Box>
     )
 }

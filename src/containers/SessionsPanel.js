@@ -16,7 +16,7 @@ export default function SessionsPanel({authUser, dataUser}) {
     useEffect(() => {
         if(dataUser.sessions) {
             sessionsRef
-                .where("coachId", "==", authUser.uid)
+                .where("coachUserId", "==", authUser.uid)
                 .onSnapshot(
                     querySnapshot => {
                         const userSessions = []

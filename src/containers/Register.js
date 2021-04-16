@@ -59,6 +59,7 @@ export default function Register() {
 				const uid = response.user.uid
                 console.log("uid:", uid)
 				const data = {
+                    id: uid,
                     userType: userType,
                     username: user.username,
                     email: user.email,
