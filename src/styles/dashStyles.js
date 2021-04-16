@@ -169,7 +169,7 @@ const dashStyles = makeStyles(() => ({
     infoSection: {
         width: '80%',
         margin: '5% auto',
-        padding: '5% 10%',
+        padding: '2% 2%',
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: holisticTheme.bgLight,
@@ -181,10 +181,15 @@ const dashStyles = makeStyles(() => ({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    title: {
+    infoTitle: {
+        fontSize: '12px',
         fontStyle: 'italic',
     },
+    infoLabel: {
+        fontSize: '12px',
+    },
     infoValue: {
+        fontSize: '12px',
         fontWeight: 'bold',
     }
 

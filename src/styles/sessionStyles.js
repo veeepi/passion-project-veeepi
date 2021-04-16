@@ -5,7 +5,7 @@ const sessionListStyles = makeStyles(() => ({
     // List Item Styling
     listItem: {
         padding: '1%',
-        margin: '0 5px',
+        margin: '5px 5px',
         borderRadius: '15px',
         backgroundColor: holisticTheme.bgLight,
         display: 'flex',

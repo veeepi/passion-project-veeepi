@@ -62,12 +62,12 @@ export default function ProfilePage() {
                 <Paper className={classes.infoSection}>
                     <Typography className={classes.infoTitle}>Public Info: </Typography>
                     <Box className={classes.infoBox}>
-                        <Typography>Username: </Typography>
-                        <Typography>{user.username}</Typography>
+                        <Typography className={classes.infoLabel}>Username: </Typography>
+                        <Typography className={classes.infoValue}>{user.username}</Typography>
                     </Box>
                     <Box className={classes.infoBox}>
-                        <Typography>Email: </Typography>
-                        <Typography>{user.email}</Typography>
+                        <Typography className={classes.infoLabel}>Email: </Typography>
+                        <Typography className={classes.infoValue}>{user.email}</Typography>
                     </Box>
                 </Paper>
                 {
