@@ -39,7 +39,6 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
         }
     }, [])
     // SEARCH Users; Push to Array
-    const [participatingUsers, setParticipatingUsers] = useState([])
     const [searchResultUsers, setSearchResultUsers] = useState([])
     const [userSearchValue, setUserSearchValue] = useState('')
     useEffect(() => {
@@ -64,6 +63,14 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
             setSearchResultUsers([])
         }
     }, [userSearchValue])
+    // ADD USER as Participant
+    const [participant, setParticipant] = useState({})
+    const addParticipant = (user) => {
+        setParticipant(user)
+    }
+    const removeParticipant = () => {
+        setParticipant({})
+    }
     // BUILD ACTION; Push to Array
     const [actions, setActions] = useState([])
     const [addingAction, setAddingAction] = useState(false)
@@ -72,9 +79,9 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
     }
     // SUBMIT + REDIRECT
     const createSession = () => {
-        
+        // sessionsRef
     }
-
+    console.log("participant", participant)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
@@ -103,8 +110,8 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
                 
                 {/* Participating Clients */}
                 { 
-                    participatingUsers.length > 0
-                    ? participatingUsers.map((user, index) => <UserParticipatingListItem key={index} user={user}/>)
+                    participant?.username
+                    ? <UserParticipatingListItem user={participant} setParticipant={setParticipant} />
                     : <EmptyList message={'No participants selected.'}/> 
                 }
                 {/* User SEARCH */}
@@ -119,7 +126,7 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
                 { 
                     // userSearchValue.length > 0 && 
                     searchResultUsers.length > 0 
-                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} />)
+                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} setParticipant={setParticipant}/>)
                     : <EmptyList message={'No search results.'}/>                     
                 }
             </Card>

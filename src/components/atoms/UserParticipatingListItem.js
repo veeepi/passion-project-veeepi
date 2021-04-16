@@ -3,7 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, FormControl, IconButton, I
 import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { userListStyles } from '../../styles/dashStyles';
 
-export default function UserParticipatingListItem({user}) {
+export default function UserParticipatingListItem({user, setParticipant}) {
     const classes = userListStyles();
     return (
         <Card className={classes.contaner}>
@@ -15,7 +15,7 @@ export default function UserParticipatingListItem({user}) {
                 </Box>
             </CardContent>
             <CardActions className={classes.actions}>
-                <IconButton className={classes.iconButton}><RemoveCircleTwoToneIcon /></IconButton>
+                <IconButton className={classes.iconButton} onClick={() => setParticipant()}><RemoveCircleTwoToneIcon /></IconButton>
             </CardActions>
         </Card>
     )
