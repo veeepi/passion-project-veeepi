@@ -28,17 +28,22 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const [name, setName] = useState("")
     const [notes, setNotes] = useState("")
     const [startDateTime, setStartDateTime] = useState(now);
+    const [startDateTimeEdited, setStartDateTimeEdited] = useState(false)
     const [duration, setDuration] = useState(0)
     const [location, setLocation] = useState("")
     const [participant, setParticipant] = useState({})
 
 
+    const [formDataValidationPassed, setFormDataValidationPassed] = useState(false)
     useEffect(() => {
-        if(dataUser.sessions) {
+        // dynamic data validation
+        if(name !== "" && participant.username ) {
             // sessionsRef.where("userId")
-
+            setFormDataValidationPassed(true)
+        } else {
+            setFormDataValidationPassed(false)
         }
-    }, [])
+    }, [name, participant]) // fields to validate
     // SEARCH Users; Push to Array
     const [searchResultUsers, setSearchResultUsers] = useState([])
     const [userSearchValue, setUserSearchValue] = useState('')
@@ -122,20 +127,25 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
 
     // console.log("newly created session: ", newSessionId)
 
+
+    console.log("formDataValidationPassed: ", formDataValidationPassed)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
                 {/* Session Info */}
-                <TextField className={classes.name} id="name" label="New Session Name: " value={name} onChange={(e) => setName(e.target.value)} />
+                <TextField className={classes.name} id="name" label="New Session Name: *" value={name} onChange={(e) => setName(e.target.value)} />
                 <Box className={classes.dateTime}>
                     {/* Date & Time */}
                     <TextField
                         id="datetime-local"
                         label="Start Date and Time"
                         type="datetime-local"
-                        value={startDateTime.toISOString().substr(0,16)}
+                        value={startDateTimeEdited ? startDateTime : startDateTime.toISOString().substr(0,16)}
                         // setStartDateTime
-                        onChange={(e) => setStartDateTime(e.target.value)}
+                        onChange={(e) => {
+                            setStartDateTimeEdited(true)
+                            setStartDateTime(e.target.value)
+                        }}
                         // defaultValue={nowToString}
                         className={classes.startDateTime}
                         InputLabelProps={{
@@ -158,7 +168,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 <TextField 
                     className={classes.searchField} 
                     id="searchField" 
-                    label='Search for a user. Start typing... ' 
+                    label='Search for a user. Start typing... *' 
                     value={userSearchValue} 
                     onChange={(e) => setUserSearchValue(e.target.value)} 
                 />
@@ -185,7 +195,9 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
             {/* { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={newSessionId} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />} */}
             
             <Box className={classes.sessionActionsButtions}>
+                    {!formDataValidationPassed && <Typography>Fields marked with * are required</Typography>}
                     <Button 
+                        disabled={!formDataValidationPassed}
                         className={classes.buttonPrimary} 
                         onClick={(e) => {
                             createSession(e)
