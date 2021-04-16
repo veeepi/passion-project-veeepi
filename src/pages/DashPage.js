@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import UserBanner from '../containers/UserBanner';
+import UserConnections from '../containers/UserConnections';
 import SchedulePanel from '../containers/SchedulePanel';
 import SessionsPanel from '../containers/SessionsPanel';
 import { dashStyles } from '../styles/dashStyles';
@@ -36,8 +37,10 @@ export default function DashPage({authUser, dataUser}) {
     console.log("DashPage, dataUser.userType: ", dataUser.userType)
     return (
         <div className={classes.container}>
-            <UserBanner dataUser={dataUser} />
-
+            <Paper classes={classes.header}>
+                <UserBanner dataUser={dataUser} />
+                <UserConnections dataUser={dataUser}/>
+            </Paper>
             <AppBar className={classes.dashAppBar} position="static">
                 <Tabs
                     className={classes.authTabs}
