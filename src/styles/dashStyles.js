@@ -165,6 +165,29 @@ const dashStyles = makeStyles(() => ({
 		backgroundColor: 'white',
 		borderRadius: 0.5,
 	},
+    // PROFILE ONLY
+    infoSection: {
+        width: '80%',
+        margin: '5% auto',
+        padding: '5% 10%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: holisticTheme.bgLight,
+        // alignItems: 'center',
+    },
+    infoBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontStyle: 'italic',
+    },
+    infoValue: {
+        fontWeight: 'bold',
+    }
+
 }));
 
 const userListStyles = makeStyles(() => ({
