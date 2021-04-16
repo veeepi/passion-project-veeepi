@@ -3,7 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, FormControl, IconButton, I
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import { userListStyles } from '../../styles/dashStyles';
 
-export default function UserSearchListItem({user, setParticipant}) {
+export default function UserSearchListItem({user, setParticipant, setUserSearchValue}) {
     const classes = userListStyles();
     return (
         <Card className={classes.contaner}>
@@ -15,7 +15,15 @@ export default function UserSearchListItem({user, setParticipant}) {
                 </Box>
             </CardContent>
             <CardActions className={classes.actions}>
-                <IconButton className={classes.iconButton} onClick={() => setParticipant(user)}><AddCircleTwoToneIcon /></IconButton>
+                <IconButton 
+                    className={classes.iconButton} 
+                    onClick={() => {
+                        setParticipant(user)
+                        setUserSearchValue("") 
+                    }}
+                >
+                    <AddCircleTwoToneIcon />
+                </IconButton>
             </CardActions>
         </Card>
     )
