@@ -91,6 +91,23 @@ const sessionDetailStyles = makeStyles(() => ({
     },
 }));
 
+const newSessionFormStyles = makeStyles(() => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    sessionDetails: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    dateTime: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+
+}))
+
 const sessionActionStyles = makeStyles(() => ({
     container: {
         display: 'flex',
@@ -220,4 +237,4 @@ const newActionFormStyles = makeStyles(() => ({
 
 }));
 
-export { sessionListStyles, sessionDetailStyles, sessionActionStyles, newActionFormStyles };
+export { sessionListStyles, sessionDetailStyles, newSessionFormStyles, sessionActionStyles, newActionFormStyles };

@@ -164,11 +164,14 @@ const userListStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        margin: 2,
+        backgroundColor: holisticTheme.bgLighter,
     },
     userData: {
+        padding: 5,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
     },
     fullName: {
         display: 'flex',
@@ -185,7 +188,10 @@ const userListStyles = makeStyles(() => ({
         fontStyle: 'italic',
     },
     actions: {
-
+        padding: 5,
+    },
+    iconButton: {
+        padding: 5,
     }
 
 }));

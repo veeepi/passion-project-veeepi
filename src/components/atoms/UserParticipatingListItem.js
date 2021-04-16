@@ -15,7 +15,7 @@ export default function UserParticipatingListItem({user}) {
                 </Box>
             </CardContent>
             <CardActions className={classes.actions}>
-                <IconButton className={classes.listItemButton}><RemoveCircleTwoToneIcon /></IconButton>
+                <IconButton className={classes.iconButton}><RemoveCircleTwoToneIcon /></IconButton>
             </CardActions>
         </Card>
     )

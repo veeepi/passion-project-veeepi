@@ -15,7 +15,7 @@ export default function UserSearchListItem({user}) {
                 </Box>
             </CardContent>
             <CardActions className={classes.actions}>
-                <IconButton className={classes.listItemButton}><AddCircleTwoToneIcon /></IconButton>
+                <IconButton className={classes.iconButton}><AddCircleTwoToneIcon /></IconButton>
             </CardActions>
         </Card>
     )
