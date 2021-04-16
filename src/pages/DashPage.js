@@ -60,16 +60,16 @@ export default function DashPage({authUser, dataUser}) {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'completed'} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'completed'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'draft'}/>
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'draft'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab}/>
+                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab} />
             </TabPanel>
 
             <Footer />

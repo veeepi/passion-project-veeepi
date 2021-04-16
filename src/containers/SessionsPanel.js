@@ -6,7 +6,7 @@ import EmptyList from '../components/atoms/EmptyList';
 import firebase from '../firebase/config';
 import {dashStyles} from '../styles/dashStyles';
 
-export default function SessionsPanel({authUser, dataUser, sessionStatus}) {
+export default function SessionsPanel({authUser, dataUser, sessionStatus, changeTab}) {
     const classes = dashStyles();
 
     const sessionsRef = firebase.firestore().collection('sessions');
@@ -22,6 +22,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus}) {
                         querySnapshot.forEach(doc => {
                             userSessions.push(doc.data())
                         })
+                        console.log("userSessions", userSessions)
                         setSessions(userSessions)
                     },
                     error => {
@@ -62,7 +63,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus}) {
             }
             { sessionPanelMode === 'detail' &&
             <Box>
-                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} cancelSession={cancelSession}/>
+                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} cancelSession={cancelSession} changeTab={changeTab}/>
             </Box>
             }
         </Box>
