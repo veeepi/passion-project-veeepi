@@ -1,10 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-// import  from '@material-ui/core/Paper';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import Typography from '@material-ui/core/Typography';
-// import Box from '@material-ui/core/Box';
+import { Box } from '@material-ui/core';
 import SessionListItem from './SessionListItem';
 import SessionDetails from './SessionDetails';
 import firebase from '../firebase/config';
@@ -31,7 +26,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus}) {
                     }
                 )
         }
-    }, [authUser])
+    }, [sessionsRef, authUser, dataUser.sessions, sessionStatus ])
 
     const [sessionPanelMode, setSessionPanelMode] = useState("list")
     const [currentSession, setCurrentSession] = useState({})

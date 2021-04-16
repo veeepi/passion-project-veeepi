@@ -1,15 +1,9 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { holisticTheme } from './colorThemes'; 
 
 const drawerWidth = 240;
 
 const navbarStyles = makeStyles((theme) => ({
-    root: {
-         
-    },
-    // menuButton: {
-    //     marginRight: theme.spacing(2),
-    // },
     title: {
         flexGrow: 1,
     },
@@ -19,12 +13,6 @@ const navbarStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // minWidth: 320,
-        // maxWidth: 450,
-        // width: '80%',
-		// margin: 'auto',
-		// borderRadius: '15px',
-        // paddingBottom: '100px',
     },
     appBarTitle: {
         fontSize: '38',
@@ -138,7 +126,6 @@ const navbarStyles = makeStyles((theme) => ({
         
     },
     errorIcon: {
-        // backgroundColor: 'red',
         fontSize: '20px',
         margin: '2px',
         color: holisticTheme.error,

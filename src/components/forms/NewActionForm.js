@@ -1,13 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { Box, Button, Card, FormControl, IconButton, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import React, {useState } from 'react';
+import { Box, Button, Card, IconButton, TextField, Typography } from '@material-ui/core';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { newActionFormStyles } from '../../styles/sessionStyles';
 import firebase from '../../firebase/config';
 
-export default function NewActionForm({authUser, dataUser, action, sessionId, toggleAddAction}) {
+export default function NewActionForm({ dataUser, action, sessionId, toggleAddAction}) {
     const classes = newActionFormStyles();
 
     const [participantUserId, setParticipantUserId] = useState(action ? action.participantUserId : "")
@@ -31,7 +29,7 @@ export default function NewActionForm({authUser, dataUser, action, sessionId, to
         actionsRef
             .add({
                 participantUserId: participantUserId,
-                coachUserId: authUser.uid,
+                coachUserId: dataUser.id,
                 name: name,
                 notes: notes,
                 orderIndex: orderIndex,

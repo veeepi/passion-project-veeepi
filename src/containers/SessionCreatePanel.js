@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, FormControl, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, TextField, Typography } from '@material-ui/core';
 import EmptyList from '../components/atoms/EmptyList';
 import UserSearchListItem from '../components/atoms/UserSearchListItem';
 import UserParticipatingListItem from '../components/atoms/UserParticipatingListItem';
@@ -12,7 +12,6 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
 
     const usersRef = firebase.firestore().collection('users');
     const sessionsRef = firebase.firestore().collection('sessions');
-    const actionsRef = firebase.firestore().collection('actions');
 
     const now = new Date();
     const [name, setName] = useState("")
@@ -39,7 +38,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     useEffect(() => {
         if (userSearchValue.length > 1) {
             usersRef
-                .where('connectionUserIds', 'array-contains-any', [authUser.uid])
+                .where('connectionUserIds', 'array-contains-any', [dataUser.id])
                 .onSnapshot(querySnapshot => {
                     const userResult = []
                     querySnapshot.forEach(doc => {
@@ -64,12 +63,6 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         setUserSearchValue("") 
     }
     
-    // BUILD ACTION; Push to Array
-    const [actions, setActions] = useState([])
-    const [addingAction, setAddingAction] = useState(false)
-    const toggleAddAction = () => {
-        setAddingAction(!addingAction)
-    }
     // SUBMIT + REDIRECT
     // const [newSessionId, setNewSessionId] = useState("")
     const createSession = (e) => {
@@ -100,7 +93,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         
     }
 
-    console.log("formDataValidationPassed: ", formDataValidationPassed)
+    console.log("searchResultUsers: ", searchResultUsers)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
@@ -129,6 +122,8 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 </Box>
                 {/* Location */}
                 <TextField className={classes.location} id="location" label="Location: " value={location} onChange={(e) => setLocation(e.target.value)} />
+
+                <TextField className={classes.name} id="notes" label="Notes: *" value={notes} onChange={(e) => setName(e.target.value)} />
                 
                 {/* Participating Clients */}
                 { 
@@ -146,26 +141,12 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 />
                 {/* Search Result - List clients */}
                 { 
-                    // userSearchValue.length > 0 && 
                     searchResultUsers.length > 0 
                     ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
                     : <EmptyList message={'No search results.'}/>                     
                 }
             </Card>
 
-            <Box className={classes.sessionActionList}>
-            {/* Session ActionList  */}
-            {
-                actions.length > 0
-                ? actions.map((action, index) => 
-                    <Action key={index} action={action} authUser={authUser} dataUser={dataUser} />
-                )
-                : <EmptyList message={'No actions added yet.'} />
-            }
-            </Box>
-
-            {/* { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={newSessionId} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />} */}
-            
             <Box className={classes.sessionActionsButtions}>
                     {!formDataValidationPassed && <Typography>Fields marked with * are required</Typography>}
                     <Button 
@@ -177,17 +158,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                         }}
                     >Create Draft Session</Button>
             </Box>
-            {/* {
-                !newSessionId
-                ?
-
-                : 
-                <Box className={classes.sessionActionsButtions}>
-                    <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
-                    <Button onClick={() => publishSession()}>Publish Session</Button>
-                </Box>
-            } */}
-
+           
         </Box>
     )
 }

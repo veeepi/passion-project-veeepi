@@ -1,21 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, CardActions, CardContent, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { Box, Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import { sessionListStyles } from '../styles/sessionStyles';
 
 
 export default function SessionListItem({session, openSession, cancelSession}) {
     const classes = sessionListStyles()
-    const history = useHistory();
-
-    const [clientParticipants, setClientParticipants] = useState([])
-    const [coachParticipants, setCoachParticipants] = useState([])
     
-    const toSession = () => {
-        // history.push(`/session/${}`)
-        console.log("toSession clicked")
-    }
-
     console.log("SessionListItem session: ", session)
     return (
         <Card className={`${classes.listItem} ${session.status === 'completed' && classes.sessionCompleted} ${session.status === 'cancelled' && classes.sessionCancelled} : classes.listItem`}>

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, CardContent, Paper, Tab, Tabs, Typography } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { Box, Button, Paper, Typography } from '@material-ui/core';
 import Action from '../components/atoms/Action';
 import NewActionForm from '../components/forms/NewActionForm';
 import { sessionDetailStyles } from '../styles/sessionStyles';
@@ -31,7 +30,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     console.log(error)
                 }
             )
-    }, [session])
+    }, [actionsRef, session])
 
     // Session Functions 
     const [sessionInProgress, setSessionInProgress] = useState(session.status)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -75,7 +75,6 @@ export default function Register() {
                     healthGoals: user.healthGoals,
                     healthIssues: user.healthIssues,
                     profilePictureUrl: '',
-                    profilePictureUrl: '',
                     sessions: [],
                     posts: [],
                     comments: [],
@@ -93,11 +92,6 @@ export default function Register() {
 			})
 			.catch((error) => setError(error.message))
     }
-    const handleRegisterCoach = (user) => {
-        // e.preventDefault();
-        console.log("Register clicked", user)
-    }
-
 
     return (
         <div>

@@ -1,13 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import { useParams, useHistory } from 'react-router-dom';
-import { Paper, Card, Typography, TextField, IconButton, Avatar, Box, CardMedia} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react'
+import { Card, Typography, IconButton, Avatar, Box } from '@material-ui/core'
 // import { getAuthor, getPostsByUser, saveUserBio } from '../../network';
 // import Post from '../../components/Post';
 import { PhotoCamera } from '@material-ui/icons'
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
 import { dashStyles } from '../styles/dashStyles';
 
 export default function UserBanner({ dataUser }) {

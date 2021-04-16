@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Box, Button, Card, FormControl, IconButton, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Box, Button, Card, IconButton, TextField, Typography } from '@material-ui/core';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { sessionActionStyles } from '../../styles/sessionStyles';
 import firebase from '../../firebase/config';
@@ -62,7 +60,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 saveAction()
             }, 4000); 
         }
-    }, [qty, stress])
+    }, [action.qty, action.stress, qty, stress, instance])
 
     // console.log("SessionAction, action: ", qty)
     return (

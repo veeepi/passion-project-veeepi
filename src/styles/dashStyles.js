@@ -7,6 +7,12 @@ const dashStyles = makeStyles(() => ({
     container: {
         width: '98%',
         margin: 'auto',
+        paddingTop: '60px',
+    },
+    header: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     userBanner: {
         display: 'flex',
@@ -71,19 +77,6 @@ const dashStyles = makeStyles(() => ({
     },
     headerItem: {
         fontSize: '14px',
-    },
-    homeHeaderTitle: {
-        // top: -25,
-        // left: 10,
-        // position: 'absolute',
-        // padding: '10%',
-        margin: 0,
-        textAlign: 'center',
-        marginLeft: '10%',
-        textAlign: 'left',
-        fontSize: '36px',
-        fontStyle: 'italic',
-        color: holisticTheme.textTitle,
     },
     homeHeaderLogo: {
         // backgroundColor: '#430089',
@@ -196,4 +189,24 @@ const userListStyles = makeStyles(() => ({
 
 }));
 
-export { dashStyles, userListStyles };
+const userConnectionsStyles = makeStyles(() => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    field: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    label: {
+
+    },
+    value: {
+
+    },
+    primaryButton: {
+
+    }
+}));
+
+export { dashStyles, userListStyles, userConnectionsStyles };

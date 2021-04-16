@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, CardContent, FormControl, Input, InputLabel, InputAdornment, Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Button, Card, FormControl, Input, InputLabel, InputAdornment, Typography } from '@material-ui/core';
 import { userConnectionsStyles} from '../styles/dashStyles';
 import UserSearchListItem from '../components/atoms/UserSearchListItem';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
@@ -26,7 +26,7 @@ export default function UserConnections({dataUser}) {
         } else {
             setSearchResultUsers([])
         }
-    }, [userSearchValue])
+    }, [usersRef, userSearchValue])
 
     const [searchingUser, setSearchingUser] = useState(false)
 
