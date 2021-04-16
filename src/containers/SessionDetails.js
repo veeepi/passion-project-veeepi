@@ -18,6 +18,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
     useEffect(() => {
         actionsRef
             .where("sessionId", "==", session.id)
+            .orderBy("orderIndex")
             .onSnapshot(
                 querySnapshot => {
                     const sessionActions = []
@@ -30,7 +31,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     console.log(error)
                 }
             )
-    }, [actionsRef, session])
+    }, [session])
 
     // Session Functions 
     const [sessionInProgress, setSessionInProgress] = useState(session.status)
@@ -100,7 +101,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             }
             </Box>
 
-            { addingAction && <NewActionForm action={actions[actions.length-1]} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
+            { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={session.id} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
 
             <Box className={classes.sessionActionsButtions}>
                 {   session.status &&

@@ -26,32 +26,33 @@ export default function NewActionForm({ dataUser, action, sessionId, toggleAddAc
     const sessionsRef = firebase.firestore().collection('sessions')
     const saveAction = (e) => {
         e?.preventDefault()
+        const data = {
+            participantUserId: participantUserId,
+            coachUserId: dataUser.id,
+            name: name,
+            notes: notes,
+            orderIndex: orderIndex,
+            qty: qty,
+            qtyTarget: qtyTarget,
+            qtyType: qtyType,
+            sessionId: sessionId,
+            stress: stress,
+            stressTarget: stressTarget,
+            stressType: stressType,
+            timestamp: Date.now()
+        }
+        console.log(data)
         actionsRef
-            .add({
-                participantUserId: participantUserId,
-                coachUserId: dataUser.id,
-                name: name,
-                notes: notes,
-                orderIndex: orderIndex,
-                qty: qty,
-                qtyTarget: qtyTarget,
-                qtyType: qtyType,
-                sessionId: sessionId,
-                stress: stress,
-                stressTarget: stressTarget,
-                stressType: stressType,
-                timestamp: Date.now()
-            }).then(docRef => {
+            .add(data).then(docRef => {
                 actionsRef.doc(docRef.id).update({
                     id: docRef.id,
                 })
-                sessionsRef.doc(action.sessionId).update({
+                sessionsRef.doc(sessionId).update({
                     lastOrderIndex: orderIndex,
                 })
                 toggleAddAction()
             })
     }
-
     return (
         <Card className={classes.container}>
             <Box className={classes.actionInfo}>
