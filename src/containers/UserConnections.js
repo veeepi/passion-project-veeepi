@@ -30,8 +30,14 @@ export default function UserConnections({dataUser}) {
 
     const [searchingUser, setSearchingUser] = useState(false)
 
-    const addConnection = () => {
-
+    const addConnection = (user) => {
+        usersRef
+            .doc(dataUser.id).update({
+                connectionUserIds: firebase.firestore.FieldValue.arrayUnion(user.id),
+            }).then(() => {
+                setSearchResultUsers([])
+                setSearchingUser(false)
+            }).catch((error) => console.log(error))
     }
 
     console.log("searchResultUsers", searchResultUsers)
@@ -67,7 +73,7 @@ export default function UserConnections({dataUser}) {
             {
                 searchingUser && 
                 searchResultUsers?.map((user, index) => 
-                    <UserSearchListItem user={user} addUser={addConnection} listToAppend={user.connectionUserIds}/>
+                    <UserSearchListItem user={user} addUser={addConnection} listToAppend={dataUser.connectionUserIds}/>
                 )
             }
             
