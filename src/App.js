@@ -51,7 +51,7 @@ function App() {
           <Route path="/feed">
             <FeedPage dataUser={dataUser} />
           </Route>
-          <Route path="/dash">
+          <Route path="/">
             <DashPage authUser={authUser} dataUser={dataUser} />
           </Route>
         </Switch>

@@ -123,7 +123,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 {/* Location */}
                 <TextField className={classes.location} id="location" label="Location: " value={location} onChange={(e) => setLocation(e.target.value)} />
 
-                <TextField className={classes.name} id="notes" label="Notes: *" value={notes} onChange={(e) => setName(e.target.value)} />
+                <TextField className={classes.name} id="notes" label="Notes: *" value={notes} onChange={(e) => setNotes(e.target.value)} />
                 
                 {/* Participating Clients */}
                 { 
