@@ -13,7 +13,8 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
     const [sessions, setSessions] = useState([])
     useEffect(() => {
         if(dataUser.sessions) {
-            sessionsRef
+            if (dataUser.userType === "coach") {
+                sessionsRef
                 .where("coachUserId", "==", dataUser.id)
                 .where("status", "==", sessionStatus)
                 .onSnapshot(
@@ -29,6 +30,25 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
                         console.log(error)
                     }
                 )
+            }
+            if (dataUser.userType === "client") {
+                sessionsRef
+                .where("participantUserId", "==", dataUser.id)
+                .where("status", "==", sessionStatus)
+                .onSnapshot(
+                    querySnapshot => {
+                        const userSessions = []
+                        querySnapshot.forEach(doc => {
+                            userSessions.push(doc.data())
+                        })
+                        console.log("userSessions", userSessions)
+                        setSessions(userSessions)
+                    },
+                    error => {
+                        console.log(error)
+                    }
+                )
+            }
         }
     }, [authUser, dataUser.sessions, sessionStatus ])
 
