@@ -1,20 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { Box, Button, Card, FormControl, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-// import  from '@material-ui/core/Paper';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import Typography from '@material-ui/core/Typography';
-// import Box from '@material-ui/core/Box';
 import EmptyList from '../components/atoms/EmptyList';
 import UserSearchListItem from '../components/atoms/UserSearchListItem';
 import UserParticipatingListItem from '../components/atoms/UserParticipatingListItem';
 import Action from '../components/atoms/Action';
-import NewActionForm from '../components/forms/NewActionForm';
 import firebase from '../firebase/config';
 import { newSessionFormStyles } from '../styles/sessionStyles';
-import { ContactPhoneOutlined, LocationOnOutlined } from '@material-ui/icons';
 
 export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const classes = newSessionFormStyles();
@@ -24,7 +15,6 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const actionsRef = firebase.firestore().collection('actions');
 
     const now = new Date();
-    // const nowToString = now.toISOString().substr(0,16); // 2017-05-24T10:30
     const [name, setName] = useState("")
     const [notes, setNotes] = useState("")
     const [startDateTime, setStartDateTime] = useState(now);
@@ -32,7 +22,6 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const [duration, setDuration] = useState(0)
     const [location, setLocation] = useState("")
     const [participant, setParticipant] = useState({})
-
 
     const [formDataValidationPassed, setFormDataValidationPassed] = useState(false)
     useEffect(() => {
@@ -70,6 +59,10 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         }
     }, [userSearchValue])
     // ADD USER as Participant
+    const addParticipant = (user) => {
+        setParticipant(user)
+        setUserSearchValue("") 
+    }
     
     // BUILD ACTION; Push to Array
     const [actions, setActions] = useState([])
@@ -106,27 +99,6 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         })
         
     }
-    // const publishSession = () => {
-    //     // update Session status to 'upcoming'
-    //     sessionsRef.doc(newSessionId).update({
-    //         status: 'upcoming',
-    //     })
-    //     // update owner's draftSession to ""
-    //     usersRef.doc(authUser.uid).update({
-    //         draftSessionId: "",
-    //     })
-    //     // update participant's sessions
-    //     usersRef.doc(participant.id).update({
-    //         sessions: [...participant.sessions, newSessionId]
-    //     })
-    // }
-
-    // useState(() => {
-    //     setUserSearchValue("")
-    // }, [participant])
-
-    // console.log("newly created session: ", newSessionId)
-
 
     console.log("formDataValidationPassed: ", formDataValidationPassed)
     return (
@@ -176,7 +148,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 { 
                     // userSearchValue.length > 0 && 
                     searchResultUsers.length > 0 
-                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} setParticipant={setParticipant} setUserSearchValue={setUserSearchValue}/>)
+                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
                     : <EmptyList message={'No search results.'}/>                     
                 }
             </Card>
