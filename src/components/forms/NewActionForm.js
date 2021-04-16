@@ -41,7 +41,7 @@ export default function NewActionForm({ dataUser, action, sessionId, toggleAddAc
             stressType: stressType,
             timestamp: Date.now()
         }
-        console.log(data)
+        console.log("data added:", data)
         actionsRef
             .add(data).then(docRef => {
                 actionsRef.doc(docRef.id).update({
@@ -80,7 +80,7 @@ export default function NewActionForm({ dataUser, action, sessionId, toggleAddAc
             <Box className={classes.actionButtons}>
                 {/* Coach Only */}
                 <Typography>{'New Set'}</Typography>
-                <TextField className={classes.orderIndex} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
+                <TextField className={classes.orderIndex} id="orderIndex" label="order index" value={orderIndex > 0 ? orderIndex : 0} onChange={(e) => setOrderIndex(parseInt(e.target.value))} />
                 <Button className={classes.buttonPrimary} onClick={(e) => saveAction(e)} >SAVE</Button>
             </Box>
         </Card>

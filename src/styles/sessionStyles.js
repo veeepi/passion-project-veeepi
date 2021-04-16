@@ -176,12 +176,19 @@ const sessionActionStyles = makeStyles(() => ({
     actionTitle: {
         textAlign: 'center',
     },
-    actionData: {
+    targetData: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         // alignItems: 'center',
         width: '20%',
+    },
+    actionData: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+        width: '30%',
     },
     actionButtons: {
         display: 'flex',

@@ -69,7 +69,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 <TextField className={classes.actionTitle} disabled={!actionEditMode} id="Name" label="name" value={name} onChange={(e) => setName(e.target.value)} />
                 <TextField className={classes.notes} disabled={!actionEditMode} id="notes" label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} multiline />
             </Box>
-            <Box className={classes.actionData}>
+            <Box className={classes.targetData}>
                 <Typography>{'target'}</Typography>
                 <TextField className={classes.qtyTarget} disabled={!actionEditMode} id="qtyTarget" label={action.qtyType} value={qtyTarget} onChange={(e) => setQtyTarget(e.target.value)} />
                 <TextField className={classes.stressTarget} disabled={!actionEditMode} id="stressTarget" label={action.stressType} value={stressTarget} onChange={(e) => setStressTarget(e.target.value)} />

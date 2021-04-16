@@ -6,7 +6,7 @@ import { sessionDetailStyles } from '../styles/sessionStyles';
 import firebase from '../firebase/config';
 
 
-export default function SessionDetails({authUser, dataUser, session, exitSession, cancelSession}) {
+export default function SessionDetails({authUser, dataUser, session, exitSession, cancelSession, changeTab}) {
     const classes = sessionDetailStyles();
 
     // Initialize - GET Session Actions 
@@ -14,6 +14,38 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
     const actionsRef = firebase.firestore().collection('actions')
     const sessionsRef = firebase.firestore().collection('sessions');
 
+    // Session Functions 
+    const [sessionInProgress, setSessionInProgress] = useState(session.status)
+    const startSession = () => {
+        setSessionInProgress(true)
+        // 
+        console.log("startSession clicked")
+    }
+    const publishSession = (e) => {
+        // update Session status to 'upcoming'
+        sessionsRef.doc(session.id).update({
+            status: 'upcoming',
+        })
+        // update owner's draftSession to ""
+        usersRef.doc(authUser.uid).update({
+            draftSessionId: "",
+        })
+        // update participant's sessions array
+        usersRef.doc(session.participantUserId).update({
+            sessions: firebase.firestore.FieldValue.arrayUnion(session.id),
+        }).then(() => changeTab(e, 0))
+    }
+    const completeSession = () => {
+        setSessionInProgress(false)
+        // UPDATE Firestore (status, data fields)
+        console.log("startSession clicked")
+    }
+
+    // Action Functions
+    const [addingAction, setAddingAction] = useState(false)
+    const toggleAddAction = () => {
+        setAddingAction(!addingAction)
+    }
     const [actions, setActions] = useState([])
     useEffect(() => {
         actionsRef
@@ -31,42 +63,10 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     console.log(error)
                 }
             )
-    }, [session])
+    }, [addingAction])
 
-    // Session Functions 
-    const [sessionInProgress, setSessionInProgress] = useState(session.status)
-    const startSession = () => {
-        setSessionInProgress(true)
-        // 
-        console.log("startSession clicked")
-    }
-    const publishSession = () => {
-        // update Session status to 'upcoming'
-        sessionsRef.doc(session.id).update({
-            status: 'upcoming',
-        })
-        // update owner's draftSession to ""
-        usersRef.doc(authUser.uid).update({
-            draftSessionId: "",
-        })
-        // update participant's sessions array
-        usersRef.doc(session.participantUserId).update({
-            sessions: firebase.firestore.FieldValue.arrayUnion(session.id),
-        })
-    }
-    const completeSession = () => {
-        setSessionInProgress(false)
-        // UPDATE Firestore (status, data fields)
-        console.log("startSession clicked")
-    }
-
-    // Action Functions
-    const [addingAction, setAddingAction] = useState(false)
-    const toggleAddAction = () => {
-        setAddingAction(!addingAction)
-    }
-
-    console.log('SessionDetails, session: ', actions[actions.length-1])
+    console.log("actions", actions)
+    // console.log('SessionDetails, session: ', actions[actions.length-1])
     return (
         <Paper className={classes.sessionContainer}>
             {/* Session Info */}
@@ -76,11 +76,10 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     <Typography>{'Coach: ' + session.coachUsername}</Typography>
                     <Typography>{'Participant: ' + session.participantUsername}</Typography> 
                     <Typography>{session.notes}</Typography>
-
                 </Box>
                 
                 <Box className={classes.sessionButtons}>
-                    <Button className={classes.buttonPrimary} onClick={() => publishSession()}>Publish Session</Button>
+                    {session.status === "draft" && <Button className={classes.buttonPrimary} onClick={(e) => publishSession(e)}>Publish Session</Button>}
                     <Button className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>
                 </Box>
 
