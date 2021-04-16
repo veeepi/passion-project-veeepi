@@ -10,13 +10,21 @@ import { newSessionFormStyles } from '../styles/sessionStyles';
 export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const classes = newSessionFormStyles();
 
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
     const usersRef = firebase.firestore().collection('users');
     const sessionsRef = firebase.firestore().collection('sessions');
 
     const now = new Date();
+    console.log(now.getMonth())
+    // const nowFormatted = `${monthNames[now.getMonth()]}-${now.getDate()}-${now.getFullYear()}T${now.getHours()}:${now.getMinutes()}`;  
+    const nowFormatted = `${now.getFullYear()}-${now.getMonth() > 10 ? (now.getMonth()+1) : '0' + (now.getMonth()+1) }-${now.getDate() > 9 ? now.getDate() : '0' + now.getDate()}T${now.getHours() > 9 ? now.getHours() : '0' + now.getHours()}:${now.getMinutes() > 9 ? now.getMinutes() : '0' + now.getMinutes()}`;  
+    console.log("nowFormatted: ", nowFormatted)
     const [name, setName] = useState("")
     const [notes, setNotes] = useState("")
-    const [startDateTime, setStartDateTime] = useState(now);
+    const [startDateTime, setStartDateTime] = useState(nowFormatted);
     const [startDateTimeEdited, setStartDateTimeEdited] = useState(false)
     const [duration, setDuration] = useState(0)
     const [location, setLocation] = useState("")
@@ -93,7 +101,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         
     }
 
-    // console.log("searchResultUsers: ", searchResultUsers)
+    console.log("startDateTime: ", startDateTime)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
@@ -106,11 +114,13 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                         id="datetime-local"
                         label="Start Date and Time"
                         type="datetime-local"
-                        value={startDateTimeEdited ? startDateTime : startDateTime.toISOString().substr(0,16)}
+                        value={startDateTime}
+                        // value={startDateTimeEdited ? startDateTime : startDateTime.toISOString().substr(0,16)}
                         // setStartDateTime
                         onChange={(e) => {
                             setStartDateTimeEdited(true)
                             setStartDateTime(e.target.value)
+                            console.log(e.target.value)
                         }}
                         // defaultValue={nowToString}
                         className={classes.startDateTime}
@@ -143,7 +153,7 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 />
                 {/* Search Result - List clients */}
                 { 
-                    userSearchValue.length > 2 && searchResultUsers.length > 0 
+                    searchResultUsers.length > 0 
                     ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
                     : <EmptyList message={'No search results.'}/>                     
                 }
