@@ -34,7 +34,13 @@ export default function UserConnections({dataUser}) {
         usersRef
             .doc(dataUser.id).update({
                 connectionUserIds: firebase.firestore.FieldValue.arrayUnion(user.id),
-            }).then(() => {
+            })
+            .then(() => {
+                usersRef.doc(user.id).update({
+                    connectionUserIds: firebase.firestore.FieldValue.arrayUnion(dataUser.id),
+                }).catch((error) => console.log(error))
+            })
+            .then(() => {
                 setSearchResultUsers([])
                 setSearchingUser(false)
             }).catch((error) => console.log(error))
