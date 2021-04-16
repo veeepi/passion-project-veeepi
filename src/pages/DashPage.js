@@ -51,7 +51,11 @@ export default function DashPage({authUser, dataUser}) {
                 >
                     <Tab className={classes.tab} label="Upcoming" />
                     <Tab className={classes.tab} label="Completed" />
-                    <Tab className={classes.tab} label="Drafts" />
+                    {
+                        dataUser?.userType === 'coach' &&
+                        <Tab className={classes.tab} label="Drafts" />
+                    }
+
                     {
                         dataUser?.userType === 'coach' &&
                         <Tab className={classes.tab} label="Create Session" />

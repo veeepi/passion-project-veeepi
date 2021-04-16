@@ -155,7 +155,6 @@ const newSessionFormStyles = makeStyles(() => ({
         borderRadius: '15px',
         backgroundColor: holisticTheme.bgBtnPrimary,        
     },
-
 }))
 
 const sessionActionStyles = makeStyles(() => ({

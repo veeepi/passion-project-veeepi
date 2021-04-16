@@ -35,8 +35,12 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             sessions: firebase.firestore.FieldValue.arrayUnion(session.id),
         }).then(() => changeTab(e, 0))
     }
-    const completeSession = () => {
+    const completeSession = (e) => {
         setSessionInProgress(false)
+        sessionsRef.doc(session.id).update({
+            status: 'completed',
+        })
+        changeTab(e, 1)
         // UPDATE Firestore (status, data fields)
         console.log("startSession clicked")
     }
@@ -80,7 +84,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                 
                 <Box className={classes.sessionButtons}>
                     {session.status === "draft" && <Button className={classes.buttonPrimary} onClick={(e) => publishSession(e)}>Publish Session</Button>}
-                    <Button className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>
+                    { dataUser.userType === "coach" && <Button className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>}
                 </Box>
 
                 <Box className={classes.sessionButtons}>
@@ -102,12 +106,16 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
 
             { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={session.id} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
 
-            <Box className={classes.sessionActionsButtions}>
+            {
+                dataUser.userType === "coach" &&
+                <Box className={classes.sessionActionsButtions}>
                 {   session.status &&
                     <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
                 }
-                <Button className={classes.buttonPrimary} onClick={() => completeSession()}>COMPLETE SESSION</Button>
+                <Button className={classes.buttonPrimary} onClick={(e) => completeSession(e)}>COMPLETE SESSION</Button>
             </Box>
+            }
+
                 
         </Paper>
     )

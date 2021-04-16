@@ -87,12 +87,16 @@ export default function SessionAction({action, authUser, dataUser}) {
                     <IconButton className={classes.dataButton} disabled={!actionEditMode} onClick={() => setStress(stress+1)}><AddCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
                 </Box>
             </Box>
-            <Box className={classes.actionButtons}>
-                {/* Coach Only */}
-                <Button className={classes.buttonSecondary} disabled={!ownerCoach} onClick={() => setActionEditMode(!actionEditMode)} >{actionEditMode ? 'done edit' : 'EDIT'}</Button>
-                <TextField className={classes.orderIndex} disabled={!actionEditMode} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
-                <Button className={classes.buttonPrimary} disabled={!ownerCoach} onClick={(e) => saveAction(e)} >DONE</Button>
-            </Box>
+            {
+                dataUser.userType === "coach" &&
+                <Box className={classes.actionButtons}>
+                    {/* Coach Only */}
+                    <Button className={classes.buttonSecondary} disabled={!ownerCoach} onClick={() => setActionEditMode(!actionEditMode)} >{actionEditMode ? 'done edit' : 'EDIT'}</Button>
+                    <TextField className={classes.orderIndex} disabled={!actionEditMode} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
+                    <Button className={classes.buttonPrimary} disabled={!ownerCoach} onClick={(e) => saveAction(e)} >DONE</Button>
+                </Box>
+            }
+
         </Card>
     )
 }
