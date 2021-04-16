@@ -9,7 +9,7 @@ import SessionListItem from './SessionListItem';
 import SessionDetails from './SessionDetails';
 import firebase from '../firebase/config';
 
-export default function SessionsPanel({authUser, dataUser}) {
+export default function SessionsPanel({authUser, dataUser, sessionStatus}) {
 
     const sessionsRef = firebase.firestore().collection('sessions');
     const [sessions, setSessions] = useState([])
@@ -17,6 +17,7 @@ export default function SessionsPanel({authUser, dataUser}) {
         if(dataUser.sessions) {
             sessionsRef
                 .where("coachUserId", "==", authUser.uid)
+                .where("status", "==", sessionStatus)
                 .onSnapshot(
                     querySnapshot => {
                         const userSessions = []

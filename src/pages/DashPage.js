@@ -15,17 +15,20 @@ import SessionsCreatePanel from '../containers/SessionCreatePanel';
 export default function DashPage({authUser, dataUser}) {
     const classes = dashStyles();
 
-    const [value, setValue] = React.useState(0);
-    const [selectedTabTitle, setSelectedTabTitle] = useState('Sessions');
-    const handleChange = (event, newValue) => {
+    const [value, setValue] = useState(0);
+    const [selectedTabTitle, setSelectedTabTitle] = useState('Upcoming');
+    const changeTab = (event, newValue) => {
         setValue(newValue);
         if (newValue === 0) { 
-            setSelectedTabTitle('Sessions')
+            setSelectedTabTitle('Upcoming')
         }
         if (newValue === 1) {
-            setSelectedTabTitle('Schedule')
+            setSelectedTabTitle('Completed')
         }
         if (newValue === 2) {
+            setSelectedTabTitle('Drafts')
+        }
+        if (newValue === 3) {
             setSelectedTabTitle('Create Session')
         }
     };
@@ -39,13 +42,14 @@ export default function DashPage({authUser, dataUser}) {
                 <Tabs
                     className={classes.authTabs}
                     value={value}
-                    onChange={handleChange}
+                    onChange={changeTab}
                     // indicatorColor="primary"
                     // textColor="primary"
                     centered
                 >
-                    <Tab label="Sessions" />
-                    <Tab label="Schedule" />
+                    <Tab label="Upcoming" />
+                    <Tab label="Completed" />
+                    <Tab label="Drafts" />
                     {
                         dataUser?.userType === 'coach' &&
                         <Tab label="Create Session" />
@@ -54,13 +58,16 @@ export default function DashPage({authUser, dataUser}) {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <SchedulePanel dataUser={dataUser} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'completed'} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'draft'}/>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab}/>
             </TabPanel>
         </div>
     )

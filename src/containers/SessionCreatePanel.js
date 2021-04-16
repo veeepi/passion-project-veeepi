@@ -16,7 +16,7 @@ import firebase from '../firebase/config';
 import { newSessionFormStyles } from '../styles/sessionStyles';
 import { ContactPhoneOutlined, LocationOnOutlined } from '@material-ui/icons';
 
-export default function SessionsCreatePanel({authUser, dataUser}) {
+export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
     const classes = newSessionFormStyles();
 
     const usersRef = firebase.firestore().collection('users');
@@ -73,8 +73,8 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
         setAddingAction(!addingAction)
     }
     // SUBMIT + REDIRECT
-    const [newSessionId, setNewSessionId] = useState(dataUser.draftSessionId)
-    const createSession = () => {
+    // const [newSessionId, setNewSessionId] = useState("")
+    const createSession = (e) => {
         // data validation
         sessionsRef
             .add({
@@ -95,31 +95,32 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
                     id: docRef.id,
                 })
                 usersRef.doc(authUser.uid).update({
-                    draftSessionId: docRef.id,
+                    sessions: firebase.firestore.FieldValue.arrayUnion(docRef.id),
                 })
-                setNewSessionId(docRef.id)
-            })
+                // setNewSessionId(docRef.id)
+        })
+        
     }
-    const publishSession = () => {
-        // update Session status to 'upcoming'
-        sessionsRef.doc(newSessionId).update({
-            status: 'upcoming',
-        })
-        // update owner's draftSession to ""
-        usersRef.doc(authUser.uid).update({
-            draftSessionId: "",
-        })
-        // update participant's sessions
-        usersRef.doc(participant.id).update({
-            sessions: [...participant.sessions, newSessionId]
-        })
-    }
+    // const publishSession = () => {
+    //     // update Session status to 'upcoming'
+    //     sessionsRef.doc(newSessionId).update({
+    //         status: 'upcoming',
+    //     })
+    //     // update owner's draftSession to ""
+    //     usersRef.doc(authUser.uid).update({
+    //         draftSessionId: "",
+    //     })
+    //     // update participant's sessions
+    //     usersRef.doc(participant.id).update({
+    //         sessions: [...participant.sessions, newSessionId]
+    //     })
+    // }
 
     // useState(() => {
     //     setUserSearchValue("")
     // }, [participant])
 
-    console.log("newly created session: ", newSessionId)
+    // console.log("newly created session: ", newSessionId)
 
     return (
         <Box className={classes.container}>
@@ -181,20 +182,27 @@ export default function SessionsCreatePanel({authUser, dataUser}) {
             }
             </Box>
 
-            { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={newSessionId} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />}
+            {/* { addingAction && <NewActionForm action={actions[actions.length-1]} sessionId={newSessionId} authUser={authUser} dataUser={dataUser} toggleAddAction={toggleAddAction} />} */}
             
-            {
+            <Box className={classes.sessionActionsButtions}>
+                    <Button 
+                        className={classes.buttonPrimary} 
+                        onClick={(e) => {
+                            createSession(e)
+                            changeTab(e, 2) // go to Drafts tab
+                        }}
+                    >Create Draft Session</Button>
+            </Box>
+            {/* {
                 !newSessionId
                 ?
-                <Box className={classes.sessionActionsButtions}>
-                    <Button className={classes.buttonPrimary} onClick={() => createSession()}>Create Draft Session</Button>
-                </Box>
+
                 : 
                 <Box className={classes.sessionActionsButtions}>
                     <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
                     <Button onClick={() => publishSession()}>Publish Session</Button>
                 </Box>
-            }
+            } */}
 
         </Box>
     )
