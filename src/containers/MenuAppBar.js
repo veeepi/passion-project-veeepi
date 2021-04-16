@@ -57,6 +57,10 @@ export default function MenuAppBar({dataUser}) {
     })
   }
 
+  const toUserProfile = (userId) => {
+    history.push(`/profile/${userId}`)
+  }
+
   return (
     <div>
       <CssBaseline />
@@ -78,7 +82,7 @@ export default function MenuAppBar({dataUser}) {
           </IconButton>
           {/* <Typography className={classes.appBarTitle}>Holistic</Typography> */}
           <Link className={classes.appBarNavLink} to="/feed">Feed</Link>
-          <Link className={classes.appBarNavLink} to="/dash">Dash</Link>
+          <Link className={classes.appBarNavLink} to="/">Dash</Link>
           {dataUser && (
             <div>
               <IconButton
@@ -139,8 +143,8 @@ export default function MenuAppBar({dataUser}) {
             userConnections?.map((user, index) => 
               <ListItem button key={index}>
                 <IconButton className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
-                <ListItemText className={classes.drawerListItemText} primary={user.username} />
-                <ListItemIcon className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></ListItemIcon>
+                <ListItem><ListItemText className={classes.drawerListItemText} primary={user.username} /></ListItem>
+                <IconButton onClick={() => toUserProfile(user.id)}className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></IconButton>
               </ListItem>
             )
           }
