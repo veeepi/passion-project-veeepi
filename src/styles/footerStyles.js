@@ -3,8 +3,16 @@ import { holisticTheme } from './colorThemes';
 
 const footerStyles = makeStyles(() => ({
     container: {
-        height: '25vh',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        paddingBottom: '25px',
+        height: '15vh',
         backgroundColor: holisticTheme.bgDark,
+    },
+    buttonIcons: {
+        color: holisticTheme.bgLight,
     }
 }));
 

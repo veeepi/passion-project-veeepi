@@ -10,11 +10,11 @@ export const holisticTheme = {
     // Container
     bgLighter: '#d3ccdd',
     bgLight: '#c3bad1',
-    bgContainer: '#A395B8',
+    bgContainer: '#A395B84D',
     // Font
     textTitle: '#AAB895',
     // Text Inputs
-    bgInput: '#C4C4C4',
+    bgInput: '#C4C4C440',
     textLabel: '#EFEFEF',
     textInput: '#000000',
     // Buttons - primary

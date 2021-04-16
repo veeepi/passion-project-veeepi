@@ -5,19 +5,27 @@ import logoImage from '../assets/images/logo_placeholder.jpg';
 
 const homeStyles = makeStyles(() => ({
     homePage: {
-        backgroundColor: holisticTheme.bgRoot,
+        // backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
         width: '100%',
+        background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa11A 100%)`,
+
+        // backgroundImage: `url(${bannerImage})`,
+        // backgroundPosition: 'center', 
+        // backgroundSize: 'cover', 
+        // backgroundRepeat: 'no-repeat',
+        // background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
     },
 	homeHeaderBackgroundImage: {
         backgroundImage: `url(${bannerImage})`,
         backgroundPosition: 'center', 
         backgroundSize: 'cover', 
         backgroundRepeat: 'no-repeat',
-        height: '40vh',
+        maxWidth: '100%',
+        // height: '40vh',
     },
     homeHeader: {
-        background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
+        // background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
         height: '100%',
         display: 'flex',
         flexDirection: 'row',
@@ -59,7 +67,6 @@ const homeStyles = makeStyles(() => ({
         width: '80%',
 		margin: 'auto',
 		borderRadius: '15px',
-        
     },
     authAppBar: {
         borderRadius: '15px 15px 0 0',

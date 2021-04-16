@@ -8,14 +8,12 @@ export default function AuthPage() {
     const classes = homeStyles();
     
     return (
-        <div className={classes.homePage}>
-            
-            <AuthHeader />
-
-            <Auth /> 
-
-            <Footer />
-
+        <div className={classes.homeHeaderBackgroundImage}>
+            <div className={classes.homePage}>
+                <AuthHeader />
+                <Auth /> 
+                <Footer />
+            </div>
         </div>
     )
 }
