@@ -10,18 +10,18 @@ import firebase from '../../firebase/config';
 export default function NewActionForm({authUser, dataUser, action, toggleAddAction}) {
     const classes = newActionFormStyles();
 
-    const [clientUserId, setClientUserId] = useState(action.clientUserId)
-    const [name, setName] = useState(action.name)
-    const [orderIndex, setOrderIndex] = useState(action.orderIndex + 100)
-    const [notes, setNotes] = useState(action.notes)
+    const [participantUserId, setParticipantUserId] = useState(action ? action.participantUserId : "")
+    const [name, setName] = useState(action ? action.name : "")
+    const [orderIndex, setOrderIndex] = useState(action ? action.orderIndex + 100 : 100)
+    const [notes, setNotes] = useState(action ? action.notes : "")
 
     const [qty, setQty] = useState(0)
-    const [qtyTarget, setQtyTarget] = useState(action.qtyTarget)
-    const [qtyType, setQtyType] = useState(action.qtyType)
+    const [qtyTarget, setQtyTarget] = useState(action ? action.qtyTarget : 0)
+    const [qtyType, setQtyType] = useState(action ? action.qtyType : "rep")
     
     const [stress, setStress] = useState(0)
-    const [stressTarget, setStressTarget] = useState(action.stressTarget)
-    const [stressType, setStressType] = useState(action.stressType)
+    const [stressTarget, setStressTarget] = useState(action ? action.stressTarget : 0)
+    const [stressType, setStressType] = useState(action ? action.stressType : "weight")
     
     // Save Action function
     const actionsRef = firebase.firestore().collection('actions')
@@ -30,7 +30,7 @@ export default function NewActionForm({authUser, dataUser, action, toggleAddActi
         e?.preventDefault()
         actionsRef
             .add({
-                clientUserId: clientUserId,
+                participantUserId: participantUserId,
                 coachUserId: authUser.uid,
                 name: name,
                 notes: notes,
@@ -62,19 +62,19 @@ export default function NewActionForm({authUser, dataUser, action, toggleAddActi
             </Box>
             <Box className={classes.actionData}>
                 <Typography>{'target'}</Typography>
-                <TextField className={classes.qtyTarget} id="qtyTarget" label={action.qtyType} value={qtyTarget} onChange={(e) => setQtyTarget(e.target.value)} />
-                <TextField className={classes.stressTarget} id="stressTarget" label={action.stressType} value={stressTarget} onChange={(e) => setStressTarget(e.target.value)} />
+                <TextField className={classes.qtyTarget} id="qtyTarget" label={qtyType} value={qtyTarget} onChange={(e) => setQtyTarget(e.target.value)} />
+                <TextField className={classes.stressTarget} id="stressTarget" label={stressType} value={stressTarget} onChange={(e) => setStressTarget(e.target.value)} />
             </Box>
             <Box className={classes.actionData}>
                 <Typography>{'actual'}</Typography>
                 <Box className={classes.dataBox}>
                     <IconButton className={classes.dataButton} onClick={() => {if (qty > 0) {setQty(qty-1)} }}><RemoveCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
-                    <TextField className={classes.qty} id="qty" label={action.qtyType} value={qty} onChange={(e) => setQty(e.target.value)} />
+                    <TextField className={classes.qty} id="qty" label={qtyType} value={qty} onChange={(e) => setQty(e.target.value)} />
                     <IconButton className={classes.dataButton} onClick={() => setQty(qty+1)}><AddCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>                
                 </Box>
                 <Box className={classes.dataBox}>
                     <IconButton className={classes.dataButton} onClick={() => {if (stress > 0) {setStress(stress-1)} }}><RemoveCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
-                    <TextField className={classes.stress} id="stress" label={action.stressType} value={stress} onChange={(e) => setStress(e.target.value)} />
+                    <TextField className={classes.stress} id="stress" label={stressType} value={stress} onChange={(e) => setStress(e.target.value)} />
                     <IconButton className={classes.dataButton} onClick={() => setStress(stress+1)}><AddCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
                 </Box>
             </Box>

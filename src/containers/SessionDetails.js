@@ -55,10 +55,8 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             <Box className={classes.sessionDetails}>
                 <Box className={classes.sessionInfo}>
                     <Typography>{session.name}</Typography>
-                    <Typography>{'Coach: ' + session.coachName}</Typography>    
-                    {
-                        session.clientNames.map((name, index) => <Typography key={index}>{name}</Typography>)
-                    }
+                    <Typography>{'Coach: ' + session.coachName}</Typography>
+                    <Typography>{'Participant: ' + session.participantUsername}</Typography> 
                     <Typography>{session.notes}</Typography>
 
                 </Box>

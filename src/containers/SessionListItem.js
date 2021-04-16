@@ -34,7 +34,7 @@ export default function SessionListItem({session, openSession, cancelSession}) {
                 </Box>
                 <Box className={classes.listItemParticipantsInfo}>
                     <Typography className={classes.listItemLabel}>{'Participating: '}</Typography>
-                    <Typography className={classes.listItemClientCount}>{session.clientIds.length}</Typography>
+                    <Typography className={classes.listItemClientCount}>{session.participantUsername}</Typography>
                 </Box>
             </CardContent>
             <CardActions className={classes.listItemButtons}>
