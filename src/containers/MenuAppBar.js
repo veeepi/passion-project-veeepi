@@ -3,16 +3,18 @@ import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 import { userSignOut } from '../firebase/services'; 
 import { useTheme } from '@material-ui/core/styles';
 import navbarStyles from '../styles/navbarStyles';
+import firebase from '../firebase/config';
 
 export default function MenuAppBar({dataUser}) {
   const classes = navbarStyles();
@@ -33,11 +35,26 @@ export default function MenuAppBar({dataUser}) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
+    // fetch connections
+    fetchUserConnections()
   };
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
 
+  const usersRef = firebase.firestore().collection('users');
+  const [userConnections, setUserConnections] = useState([])
+  const fetchUserConnections = () => {
+    usersRef
+      .where('connectionUserIds', 'array-contains-any', [dataUser.id])
+      .onSnapshot(querySnapshot => {
+        const userResult = []
+        querySnapshot.forEach(doc => { 
+          userResult.push(doc.data())
+        })
+        setUserConnections(userResult);
+    })
+  }
 
   return (
     <div>
@@ -70,7 +87,7 @@ export default function MenuAppBar({dataUser}) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <AccountCircleTwoToneIcon />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -115,7 +132,7 @@ export default function MenuAppBar({dataUser}) {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
@@ -124,13 +141,17 @@ export default function MenuAppBar({dataUser}) {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {
+            userConnections?.map((user, index) => 
+              <ListItem button key={index}>
+                <IconButton><HighlightOffTwoToneIcon /></IconButton>
+                <ListItemText primary={user.username} />
+                <ListItemIcon><AccountCircleTwoToneIcon /></ListItemIcon>
+              </ListItem>
+            )
+          }
         </List>
+        <Divider />
       </Drawer>
     </div>
   );
