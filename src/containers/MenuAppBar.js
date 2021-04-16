@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
+import AccountBoxTwoToneIcon from '@material-ui/icons/AccountBoxTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -110,6 +111,12 @@ export default function MenuAppBar({dataUser}) {
                 open={open}
                 onClose={handleClose}
               >
+                <MenuItem 
+                  className={classes.menuItem}
+                  onClick={() => toUserProfile(dataUser.id)}
+                >
+                  <AccountBoxTwoToneIcon />Profile
+                </MenuItem>
                 <MenuItem className={classes.menuItem}><SettingsIcon />Settings</MenuItem>
                 <MenuItem className={classes.menuItem} onClick={() => {
                   userSignOut()
