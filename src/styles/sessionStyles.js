@@ -4,7 +4,8 @@ import { holisticTheme } from './colorThemes';
 const sessionListStyles = makeStyles(() => ({
     // List Item Styling
     listItem: {
-        margin: '5px',
+        padding: '1%',
+        margin: '0 5px',
         borderRadius: '15px',
         backgroundColor: holisticTheme.bgLight,
         display: 'flex',
@@ -17,11 +18,11 @@ const sessionListStyles = makeStyles(() => ({
     sessionCancelled: {
         backgroundColor: holisticTheme.cancelled,
     },
-    listItemInfo: {
-        width: '40%',
-    },
-    listItemTitleInfo: {
-
+    listItemColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: '3%',
     },
     listItemButtons: {
         width: '25%',
@@ -32,13 +33,36 @@ const sessionListStyles = makeStyles(() => ({
     buttonPrimary: {
         justifySelf: 'flex-end',
         borderRadius: '15px',
-        backgroundColor: holisticTheme.bgBtnPrimary,        
+        backgroundColor: holisticTheme.bgBtnPrimary,
+        fontSize: '12px',
+        padding: '6% 2%',
+        margin: '2%',    
     },
     buttonSecondary: {
+        margin: '2%',
+        padding: '2%',
         borderRadius: '15px',
         fontSize: '10px',
         backgroundColor: holisticTheme.bgBtnSecondary,
     },
+    name: {
+        fontSize: '14px',
+        fontWeight: 'bold',
+    },
+    dateTime: {
+        fontSize: '12px',
+    },
+    location: {
+        fontSize: '12px',
+    },
+    listItemLabel: {
+        fontSize: '12px',
+        fontStyle: 'italic',
+    },
+    listItemValue: {
+        fontSize: '14px',
+        fontWeight: 'bold',
+    }
 }));
 
 const sessionDetailStyles = makeStyles(() => ({
@@ -95,15 +119,41 @@ const newSessionFormStyles = makeStyles(() => ({
     container: {
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: holisticTheme.bgLight,
+        paddingTop: '10px',
+        paddingBottom: '20px',
+
     },
     sessionDetails: {
+        margin: 'auto',
+        padding: '2%',
+        width: '95%',
         display: 'flex',
         flexDirection: 'column',
+        borderRadus: '15px',
+    },
+    label: {
+        fontStyle: 'italic',
+        paddingTop: '15px',
     },
     dateTime: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
+    },
+    sessionActionsButtions: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: '2%',
+        padding: '2% 3% 4% 3%',
+    },
+    buttonPrimary: {
+        justifySelf: 'center',
+        marginTop: '10px',
+        borderRadius: '15px',
+        backgroundColor: holisticTheme.bgBtnPrimary,        
     },
 
 }))

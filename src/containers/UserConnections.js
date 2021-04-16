@@ -26,7 +26,7 @@ export default function UserConnections({dataUser}) {
         } else {
             setSearchResultUsers([])
         }
-    }, [usersRef, userSearchValue])
+    }, [userSearchValue])
 
     const [searchingUser, setSearchingUser] = useState(false)
 
@@ -46,7 +46,7 @@ export default function UserConnections({dataUser}) {
             }).catch((error) => console.log(error))
     }
 
-    console.log("searchResultUsers", searchResultUsers)
+    // console.log("searchResultUsers", searchResultUsers)
     return (
         <Card className={classes.container}>
             <Box className={classes.field}>
@@ -84,7 +84,7 @@ export default function UserConnections({dataUser}) {
             }
             
             
-            <Button onClick={() => setSearchingUser(!searchingUser)}>{searchingUser ? "Cancel Search" : "Search for a user"}</Button>
+            <Button className={classes.buttonPrimary} onClick={() => setSearchingUser(!searchingUser)}>{searchingUser ? "Cancel Search" : "Search for a user"}</Button>
 
             
         </Card>

@@ -7,8 +7,8 @@ const footerStyles = makeStyles(() => ({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        paddingBottom: '25px',
-        height: '15vh',
+        paddingBottom: '60px',
+        height: '25vh',
         backgroundColor: holisticTheme.bgDark,
     },
     buttonIcons: {

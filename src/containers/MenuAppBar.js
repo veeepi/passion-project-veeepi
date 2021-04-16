@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, ListItemIcon, Menu, MenuItem, Toolbar } from '@material-ui/core';
+import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
@@ -89,6 +91,7 @@ export default function MenuAppBar({dataUser}) {
                 <AccountCircleTwoToneIcon />
               </IconButton>
               <Menu
+                className={classes.menu}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -103,12 +106,12 @@ export default function MenuAppBar({dataUser}) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem><Link className={classes.menuItem} to="/dash">To Dash</Link></MenuItem>
-                <MenuItem onClick={() => {
+                <MenuItem className={classes.menuItem}><SettingsIcon />Settings</MenuItem>
+                <MenuItem className={classes.menuItem} onClick={() => {
                   userSignOut()
                   history.push('/')
                 }}>
-                  SignOut
+                  <ExitToAppIcon />SignOut
                 </MenuItem>
               </Menu>
             </div>
@@ -125,27 +128,19 @@ export default function MenuAppBar({dataUser}) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton className={classes.drawerListItemText} onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
+          <Typography className={classes.drawerListItemTitle}>Connections: </Typography>
           {
             userConnections?.map((user, index) => 
               <ListItem button key={index}>
-                <IconButton><HighlightOffTwoToneIcon /></IconButton>
-                <ListItemText primary={user.username} />
-                <ListItemIcon><AccountCircleTwoToneIcon /></ListItemIcon>
+                <IconButton className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
+                <ListItemText className={classes.drawerListItemText} primary={user.username} />
+                <ListItemIcon className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></ListItemIcon>
               </ListItem>
             )
           }

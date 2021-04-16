@@ -32,6 +32,9 @@ const navbarStyles = makeStyles((theme) => ({
         paddingLeft: '10%',
         color: holisticTheme.textTitle,
     },
+    menu: {
+      color: holisticTheme.bgDrawer,
+    },
     menuItem: {
         textDecoration: 'none',
     },
@@ -159,15 +162,30 @@ const navbarStyles = makeStyles((theme) => ({
         flexShrink: 0,
       },
       drawerPaper: {
+        backgroundColor: holisticTheme.bgDrawer,
         width: drawerWidth,
       },
       drawerHeader: {
+        backgroundColor: holisticTheme.bgDark,
         display: 'flex',
         alignItems: 'center',
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+      },
+      drawerListItemTitle: {
+        marginLeft: '5%',
+        color: holisticTheme.textTitle,
+        fontStyle: 'italic',
+      },
+      drawerListItemText: {
+        fontSize: '42px',
+        color: holisticTheme.textTitle,
+      },
+      drawerRemoveButton: {
+        padding: '5px',
+        color: holisticTheme.bgBtnRemove,
       },
       content: {
         flexGrow: 1,

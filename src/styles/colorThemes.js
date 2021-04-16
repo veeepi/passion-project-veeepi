@@ -11,6 +11,8 @@ export const holisticTheme = {
     bgLighter: '#d3ccdd',
     bgLight: '#c3bad1',
     bgContainer: '#A395B84D',
+    bgDrawer: "#2d2639E6",
+    
     // Font
     textTitle: '#AAB895',
     // Text Inputs
@@ -23,6 +25,7 @@ export const holisticTheme = {
     // Buttons - secondary
     bgBtnSecondary: '#C8D1BB',
     textBtnSecondary: '#4E755C',
+    bgBtnRemove: '#c06136',
     // Error
     error: '#e71e0c',
 }

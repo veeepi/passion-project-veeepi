@@ -9,22 +9,20 @@ export default function SessionListItem({session, openSession, cancelSession}) {
     console.log("SessionListItem session: ", session)
     return (
         <Card className={`${classes.listItem} ${session.status === 'completed' && classes.sessionCompleted} ${session.status === 'cancelled' && classes.sessionCancelled} : classes.listItem`}>
-            <CardContent className={classes.listItemInfo}>
-                <Box className={classes.listItemTitleInfo}>
-                    <Typography className={classes.name}>{session.name}</Typography>
-                    <Typography className={classes.dateTime}>{session.startDateTime.seconds}</Typography>
-                    </Box>
+            <CardContent className={classes.listItemColumn}>
+                <Typography className={classes.name}>{session.name}</Typography>
+                <Typography className={classes.dateTime}>{session.startDateTime}</Typography>
+                <Typography className={classes.location}>{session.location}</Typography>
                 <Typography className={classes.notes}>{session.notes}</Typography>
-
             </CardContent>
-            <CardContent className={classes.listItemParticipants}>
+            <CardContent className={classes.listItemColumn}>
                 <Box className={classes.listItemParticipantsInfo}>
                     <Typography className={classes.listItemLabel}>{'By coach: '}</Typography>
-                    <Typography className={classes.listItemCoachName}>{session.coachName}</Typography>
+                    <Typography className={classes.listItemValue}>{session.coachUsername}</Typography>
                 </Box>
                 <Box className={classes.listItemParticipantsInfo}>
                     <Typography className={classes.listItemLabel}>{'Participating: '}</Typography>
-                    <Typography className={classes.listItemClientCount}>{session.participantUsername}</Typography>
+                    <Typography className={classes.listItemValue}>{session.participantUsername}</Typography>
                 </Box>
             </CardContent>
             <CardActions className={classes.listItemButtons}>

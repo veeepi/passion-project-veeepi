@@ -93,11 +93,12 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
         
     }
 
-    console.log("searchResultUsers: ", searchResultUsers)
+    // console.log("searchResultUsers: ", searchResultUsers)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
                 {/* Session Info */}
+                <Typography className={classes.label}>Session Details: </Typography>
                 <TextField className={classes.name} id="name" label="New Session Name: *" value={name} onChange={(e) => setName(e.target.value)} />
                 <Box className={classes.dateTime}>
                     {/* Date & Time */}
@@ -123,9 +124,10 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 {/* Location */}
                 <TextField className={classes.location} id="location" label="Location: " value={location} onChange={(e) => setLocation(e.target.value)} />
 
-                <TextField className={classes.name} id="notes" label="Notes: *" value={notes} onChange={(e) => setNotes(e.target.value)} />
+                <TextField className={classes.name} id="notes" label="Notes: " value={notes} onChange={(e) => setNotes(e.target.value)} />
                 
                 {/* Participating Clients */}
+                <Typography className={classes.label}>Participant: </Typography>
                 { 
                     participant?.username
                     ? <UserParticipatingListItem user={participant} setParticipant={setParticipant} />
@@ -135,19 +137,18 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 <TextField 
                     className={classes.searchField} 
                     id="searchField" 
-                    label='Search for a user. Start typing... *' 
+                    label='Search your connections. Start typing... *' 
                     value={userSearchValue} 
                     onChange={(e) => setUserSearchValue(e.target.value)} 
                 />
                 {/* Search Result - List clients */}
                 { 
-                    searchResultUsers.length > 0 
+                    userSearchValue.length > 2 && searchResultUsers.length > 0 
                     ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
                     : <EmptyList message={'No search results.'}/>                     
                 }
-            </Card>
 
-            <Box className={classes.sessionActionsButtions}>
+                <Box className={classes.sessionActionsButtions}>
                     {!formDataValidationPassed && <Typography>Fields marked with * are required</Typography>}
                     <Button 
                         disabled={!formDataValidationPassed}
@@ -157,8 +158,8 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                             changeTab(e, 2) // go to Drafts tab
                         }}
                     >Create Draft Session</Button>
-            </Box>
-           
+                </Box>
+            </Card>
         </Box>
     )
 }

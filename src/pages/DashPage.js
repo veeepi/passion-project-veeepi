@@ -7,8 +7,10 @@ import Tab from '@material-ui/core/Tab';
 import UserBanner from '../containers/UserBanner';
 import UserConnections from '../containers/UserConnections';
 import SessionsPanel from '../containers/SessionsPanel';
+import Footer from '../containers/Footer';
 import { dashStyles } from '../styles/dashStyles';
 import SessionsCreatePanel from '../containers/SessionCreatePanel';
+import { Box } from '@material-ui/core';
 
 export default function DashPage({authUser, dataUser}) {
     const classes = dashStyles();
@@ -31,13 +33,13 @@ export default function DashPage({authUser, dataUser}) {
         }
     };
 
-    console.log("DashPage, dataUser.userType: ", dataUser.userType)
+    // console.log("DashPage, dataUser.userType: ", dataUser.userType)
     return (
         <div className={classes.container}>
-            <Paper classes={classes.header}>
+            <Box classes={classes.header}>
                 <UserBanner dataUser={dataUser} />
                 <UserConnections dataUser={dataUser}/>
-            </Paper>
+            </Box>
             <AppBar className={classes.dashAppBar} position="static">
                 <Tabs
                     className={classes.authTabs}
@@ -47,12 +49,12 @@ export default function DashPage({authUser, dataUser}) {
                     // textColor="primary"
                     centered
                 >
-                    <Tab label="Upcoming" />
-                    <Tab label="Completed" />
-                    <Tab label="Drafts" />
+                    <Tab className={classes.tab} label="Upcoming" />
+                    <Tab className={classes.tab} label="Completed" />
+                    <Tab className={classes.tab} label="Drafts" />
                     {
                         dataUser?.userType === 'coach' &&
-                        <Tab label="Create Session" />
+                        <Tab className={classes.tab} label="Create Session" />
                     }
                 </Tabs>
             </AppBar>
@@ -69,6 +71,8 @@ export default function DashPage({authUser, dataUser}) {
             <TabPanel value={value} index={3}>
                 <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab}/>
             </TabPanel>
+
+            <Footer />
         </div>
     )
 }

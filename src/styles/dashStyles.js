@@ -5,22 +5,29 @@ import logoImage from '../assets/images/logo_placeholder.jpg';
 
 const dashStyles = makeStyles(() => ({
     container: {
-        width: '98%',
+        width: '100%',
         margin: 'auto',
         paddingTop: '60px',
+        backgroundColor: holisticTheme.bgDark,
     },
     header: {
+        backgroundColor: holisticTheme.bgContainer,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
+        
+    },
+    username: {
+        color: holisticTheme.textLabel,
+        textAlign: 'center',
+        fontSize: '18px',
+        fontWeight: 'bold',
     },
     userBanner: {
+        backgroundColor: holisticTheme.bgContainer,
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
-    },
-    userBannerImage: {
-        
+        alignItems: 'flex-end',
     },
     userAvatarBox: {
         position: 'relative',
@@ -28,6 +35,8 @@ const dashStyles = makeStyles(() => ({
     userAvatarImage: {
         width: '20vw',
         height: '20vw',
+        maxWidth: '150px',
+        maxHeight: '150px',
     },
     userAvatarUploadIcon: {
         margin: 0,
@@ -35,17 +44,20 @@ const dashStyles = makeStyles(() => ({
         bottom: 0,
         position: 'absolute',
     },
-
     dashTitle: {
         marginLeft: 50, fontSize: 30, color: '#fbfbd4'
     },
     dashAppBar: {
-        
+        marginTop: '20px',
         borderRadius: '15px 15px 0 0',
         backgroundColor: holisticTheme.bgContainer,
     },
-
-
+    sessionPanelContainer: {
+        backgroundColor: holisticTheme.bgContainer,
+        margin: '0 auto',
+        paddingTop: '10px',
+        paddingBottom: '250px',
+    },
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
@@ -100,10 +112,13 @@ const dashStyles = makeStyles(() => ({
 		borderRadius: '15px',
         
     },
-
+    tab: {
+        fontSize: '10px',
+        // backgroundColor: 'red',
+    },
     authTabs: {
-        // borderRadius: '15px 15px 0 0',
-        // backgroundColor: holisticTheme.bgContainer,
+        borderRadius: '25px 25px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
     },
     authForm: {
         borderRadius: '0 0 15px 15px',
@@ -185,6 +200,14 @@ const userListStyles = makeStyles(() => ({
     },
     iconButton: {
         padding: 5,
+    },
+    emptyList: {
+        margin: '2%',
+        padding: '10%',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    emptyListMessage: {
+        color: holisticTheme.textTitle,
     }
 
 }));
@@ -193,20 +216,29 @@ const userConnectionsStyles = makeStyles(() => ({
     container: {
         display: 'flex',
         flexDirection: 'column',
+        width: '80%',
+        margin: '2% auto',
+        padding: '2%',
+        borderRadius: '25px',
+        backgroundColor: holisticTheme.bgContainer,
     },
     field: {
         display: 'flex',
         flexDirection: 'row',
     },
     label: {
-
+        color: holisticTheme.textTitle,
     },
     value: {
-
+        marginLeft: '12px',
+        color: holisticTheme.textLabel,
     },
-    primaryButton: {
-
-    }
+    buttonPrimary: {
+        justifySelf: 'flex-end',
+        borderRadius: '15px',
+        opacity: 0.8,
+        backgroundColor: holisticTheme.bgBtnPrimary,     
+    },
 }));
 
 export { dashStyles, userListStyles, userConnectionsStyles };
