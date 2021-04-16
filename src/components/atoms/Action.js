@@ -60,7 +60,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 saveAction()
             }, 4000); 
         }
-    }, [action.qty, action.stress, qty, stress, instance])
+    }, [action.qty, action.stress, qty, stress])
 
     // console.log("SessionAction, action: ", qty)
     return (

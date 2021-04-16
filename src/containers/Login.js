@@ -25,7 +25,7 @@ export default function Login() {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             setError('');
-            history.push("/dash")
+            // history.push("/dash")
         })
         .catch((error) => setError(error.message))
     }
