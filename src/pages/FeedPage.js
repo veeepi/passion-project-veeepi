@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FeedPage() {
+export default function FeedPage({dataUser}) {
     return (
         <div>
             FEED

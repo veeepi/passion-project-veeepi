@@ -3,7 +3,43 @@ import { holisticTheme } from './colorThemes';
 import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
 import logoImage from '../assets/images/logo_placeholder.jpg';
 
-const homeStyles = makeStyles(() => ({
+const dashStyles = makeStyles(() => ({
+    container: {
+        width: '98%',
+        margin: 'auto',
+    },
+    userBanner: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    userBannerImage: {
+        
+    },
+    userAvatarBox: {
+        position: 'relative',
+    },
+    userAvatarImage: {
+        width: '20vw',
+        height: '20vw',
+    },
+    userAvatarUploadIcon: {
+        margin: 0,
+        padding: 0,
+        bottom: 0,
+        position: 'absolute',
+    },
+
+    dashTitle: {
+        marginLeft: 50, fontSize: 30, color: '#fbfbd4'
+    },
+    dashAppBar: {
+        
+        borderRadius: '15px 15px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+
+
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
@@ -71,10 +107,7 @@ const homeStyles = makeStyles(() => ({
 		borderRadius: '15px',
         
     },
-    authAppBar: {
-        borderRadius: '15px 15px 0 0',
-        backgroundColor: holisticTheme.bgContainer,
-    },
+
     authTabs: {
         // borderRadius: '15px 15px 0 0',
         // backgroundColor: holisticTheme.bgContainer,
@@ -126,4 +159,41 @@ const homeStyles = makeStyles(() => ({
 	},
 }));
 
-export default homeStyles;
+const userListStyles = makeStyles(() => ({
+    contaner: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 2,
+        backgroundColor: holisticTheme.bgLighter,
+    },
+    userData: {
+        padding: 5,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    fullName: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    username: {
+        fontWeight: 'bold',
+    },
+    firstName: {
+        fontStyle: 'italic',
+    },
+    lastName: {
+        fontStyle: 'italic',
+    },
+    actions: {
+        padding: 5,
+    },
+    iconButton: {
+        padding: 5,
+    }
+
+}));
+
+export { dashStyles, userListStyles };

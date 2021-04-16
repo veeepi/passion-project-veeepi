@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { holisticTheme } from './colorThemes'; 
-import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
-import logoImage from '../assets/images/logo_placeholder.jpg';
 
-const homeStyles = makeStyles(() => ({
+const scheduleStyles = makeStyles(() => ({
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
@@ -126,4 +124,4 @@ const homeStyles = makeStyles(() => ({
 	},
 }));
 
-export default homeStyles;
+export default scheduleStyles;

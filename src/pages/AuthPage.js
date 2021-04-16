@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeHeader from '../containers/HomeHeader';
+import AuthHeader from '../containers/AuthHeader';
 import Auth from '../containers/Auth';
 import Footer from '../containers/Footer';
 import homeStyles from '../styles/homeStyles';
@@ -10,7 +10,7 @@ export default function AuthPage() {
     return (
         <div className={classes.homePage}>
             
-            <HomeHeader />
+            <AuthHeader />
 
             <Auth /> 
 
