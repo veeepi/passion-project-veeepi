@@ -13,43 +13,22 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
     const [sessions, setSessions] = useState([])
     useEffect(() => {
         if(dataUser.sessions) {
-            // if (dataUser.userType === "coach") {
-                const userSessions = []
-                sessionsRef
-                .where("coachUserId", "==", dataUser.id)
-                .where("status", "==", sessionStatus)
-                .onSnapshot(
-                    querySnapshot => {
-                        // const userSessions = []
-                        querySnapshot.forEach(doc => {
-                            userSessions.push(doc.data())
-                        })
-                        // console.log("userSessions", userSessions)
-                        // setSessions(userSessions)
-                    },
-                    error => {
-                        console.log(error)
-                    }
-                )
-            // }
-            // if (dataUser.userType === "client") {
-                sessionsRef
-                .where("participantUserId", "==", dataUser.id)
-                .where("status", "==", sessionStatus)
-                .onSnapshot(
-                    querySnapshot => {
-                        const userSessions = []
-                        querySnapshot.forEach(doc => {
-                            userSessions.push(doc.data())
-                        })
-                        // console.log("userSessions", userSessions)
-                    },
-                    error => {
-                        console.log(error)
-                    }
-                )
-                setSessions(userSessions)
-            // }
+            sessionsRef
+            .where("participantUserId", "array-contains-any", [dataUser.id])
+            .where("status", "==", sessionStatus)
+            .onSnapshot(
+                querySnapshot => {
+                    const userSessions = []
+                    querySnapshot.forEach(doc => {
+                        userSessions.push(doc.data())
+                    })
+                    setSessions(userSessions)
+                    console.log("userSessions", userSessions)
+                },
+                error => {
+                    console.log(error)
+                }
+            )
         }
     }, [authUser, dataUser.sessions, sessionStatus ])
 
@@ -73,8 +52,6 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
             { sessionPanelMode === 'list' &&
             <Box className={classes.sessionPanelContainer}>
                 
-
-
                 {   sessions.length > 0
                     ? 
                     sessions.map((session, index) => 

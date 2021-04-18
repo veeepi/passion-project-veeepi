@@ -31,7 +31,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             draftSessionId: "",
         })
         // update participant's sessions array
-        usersRef.doc(session.participantUserId).update({
+        usersRef.doc(session.participantUserId[1]).update({
             sessions: firebase.firestore.FieldValue.arrayUnion(session.id),
         }).then(() => changeTab(e, 0))
     }
@@ -78,7 +78,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                 <Box className={classes.sessionInfo}>
                     <Typography>{session.name}</Typography>
                     <Typography>{'Coach: ' + session.coachUsername}</Typography>
-                    <Typography>{'Participant: ' + session.participantUsername}</Typography> 
+                    <Typography>{'Participant: ' + session.participantUsername[1]}</Typography> 
                     <Typography>{session.notes}</Typography>
                 </Box>
                 
