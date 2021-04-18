@@ -16,6 +16,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
             sessionsRef
             .where("participantUserId", "array-contains-any", [dataUser.id])
             .where("status", "==", sessionStatus)
+            .orderBy("startDateTime", "desc")
             .onSnapshot(
                 querySnapshot => {
                     const userSessions = []
