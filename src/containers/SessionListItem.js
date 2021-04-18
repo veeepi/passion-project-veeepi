@@ -3,7 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, Typography } from '@materi
 import { sessionListStyles } from '../styles/sessionStyles';
 
 
-export default function SessionListItem({session, openSession, cancelSession}) {
+export default function SessionListItem({session, openSession }) {
     const classes = sessionListStyles()
     
     console.log("SessionListItem session: ", session)
@@ -27,7 +27,6 @@ export default function SessionListItem({session, openSession, cancelSession}) {
             </CardContent>
             <CardActions className={classes.listItemButtons}>
                 <Typography className={classes.listItemClientCount}>{session.status}</Typography>
-                {session.status === 'upcoming' && <Button className={classes.buttonSecondary} onClick={() => cancelSession(session)}>Cancel Session</Button>}
                 <Button className={classes.buttonPrimary} onClick={() => openSession(session)}>OPEN Session</Button>
             </CardActions>
         </Card>

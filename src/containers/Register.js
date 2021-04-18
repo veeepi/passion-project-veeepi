@@ -75,6 +75,7 @@ export default function Register() {
                     healthGoals: user.healthGoals,
                     healthIssues: user.healthIssues,
                     profilePictureUrl: '',
+                    sessionInProgress: '',
                     sessions: [],
                     posts: [],
                     comments: [],

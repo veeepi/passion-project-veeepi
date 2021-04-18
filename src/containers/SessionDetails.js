@@ -15,12 +15,21 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
     const sessionsRef = firebase.firestore().collection('sessions');
 
     // Session Functions 
-    const [sessionInProgress, setSessionInProgress] = useState(session.status)
+    const [sessionInProgress, setSessionInProgress] = useState(dataUser.sessionInProgress)
     const startSession = () => {
-        setSessionInProgress(true)
-        // 
-        console.log("startSession clicked")
+        if (!dataUser.sessionInProgress) {
+            sessionsRef.doc(session.id).update({
+                status: 'in progress',
+            }).then(() => {
+                usersRef.doc(dataUser.id).update({
+                    sessionInProgress: session.id,
+                }).then(() => {
+                    setSessionInProgress(true)
+                }).catch((error) => console.log(error))
+            }).catch((error) => console.log(error))
+        } 
     }
+
     const publishSession = (e) => {
         // update Session status to 'upcoming'
         sessionsRef.doc(session.id).update({
@@ -36,13 +45,16 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
         }).then(() => changeTab(e, 0))
     }
     const completeSession = (e) => {
-        setSessionInProgress(false)
         sessionsRef.doc(session.id).update({
             status: 'completed',
+        }).then(() => {
+            usersRef.doc(dataUser.id).update({
+                sessionInProgress: '',
+            }).then(() => {
+                setSessionInProgress(false)
+                changeTab(e, 1)    
+            })
         })
-        changeTab(e, 1)
-        // UPDATE Firestore (status, data fields)
-        console.log("startSession clicked")
     }
 
     // Action Functions
@@ -93,12 +105,14 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                 
                 <Box className={classes.sessionButtons}>
                     {session.status === "draft" && <Button className={classes.buttonPrimary} onClick={(e) => publishSession(e)}>Publish Session</Button>}
-                    { dataUser.userType === "coach" && <Button className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>}
+                    { session.status === "upcoming" && dataUser.userType === "coach" && <Button disabled={sessionInProgress} className={classes.buttonPrimary} onClick={() => startSession()}>Start Session</Button>}
                 </Box>
 
                 <Box className={classes.sessionButtons}>
-                    <Button className={classes.buttonSecondary} onClick={(e) => cancelSession(e, session.id)}>Cancel Session</Button>
-                    
+                    {
+                        session.status === 'upcoming' &&
+                        <Button className={classes.buttonSecondary} onClick={(e) => cancelSession(e, session.id)}>Cancel Session</Button>
+                    }
                     <Button className={classes.buttonPrimary} onClick={() => exitSession()}>Exit Session</Button>
                 </Box>
             </Box>
@@ -121,8 +135,11 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                 {   session.status &&
                     <Button className={classes.buttonPrimary} onClick={() => toggleAddAction()}>{addingAction ? 'Cancel Add Set' : 'Add Set'}</Button>
                 }
-                <Button className={classes.buttonPrimary} onClick={(e) => completeSession(e)}>COMPLETE SESSION</Button>
-            </Box>
+                {
+                    sessionInProgress &&
+                    <Button className={classes.buttonPrimary} onClick={(e) => completeSession(e)}>COMPLETE SESSION</Button>
+                }
+                </Box>
             }
 
                 
