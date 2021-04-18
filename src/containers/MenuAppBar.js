@@ -58,6 +58,27 @@ export default function MenuAppBar({dataUser}) {
     })
   }
 
+  const removeUser = (targetUserId, targetUserConnectionIds) => {    
+    // check that userIds exist in both users
+    const indexCurrentUser = dataUser.connectionUserIds.indexOf(targetUserId);
+    const indexTargetUser = targetUserConnectionIds.indexOf(dataUser.id);
+    if (indexCurrentUser > -1 && indexTargetUser > -1) {
+      usersRef.doc(targetUserId)
+        .update({
+          // first, update Target User's Connections
+          connectionUserIds: firebase.firestore.FieldValue.arrayRemove(dataUser.id),
+        })
+        .then(() => {
+          usersRef.doc(dataUser.id).update({
+          // if successful, update Current User's Connections
+            connectionUserIds: firebase.firestore.FieldValue.arrayRemove(targetUserId),
+        })
+        .catch((error) => console.log(error))
+      })
+      .catch((error) => console.log(error))
+    }
+  }
+
   const toUserProfile = (userId) => {
     history.push(`/profile/${userId}`)
   }
@@ -149,8 +170,8 @@ export default function MenuAppBar({dataUser}) {
           {
             userConnections?.map((user, index) => 
               <ListItem button key={index}>
-                <IconButton className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
-                <ListItem><ListItemText className={classes.drawerListItemText} primary={user.username} /></ListItem>
+                <IconButton onClick={() => removeUser(user.id, user.connectionUserIds)} className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
+                <ListItemText className={classes.drawerListItemText} primary={user.username} />
                 <IconButton onClick={() => toUserProfile(user.id)}className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></IconButton>
               </ListItem>
             )
