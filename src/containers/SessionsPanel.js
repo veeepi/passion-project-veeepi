@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Switch, Typography } from '@material-ui/core';
 import SessionListItem from './SessionListItem';
 import SessionDetails from './SessionDetails';
 import EmptyList from '../components/atoms/EmptyList';
+import SearchBox from '../components/atoms/SearchBox';
 import firebase from '../firebase/config';
 import {dashStyles} from '../styles/dashStyles';
 
@@ -10,6 +11,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
     const classes = dashStyles();
 
     const sessionsRef = firebase.firestore().collection('sessions');
+
     const [sessions, setSessions] = useState([])
     useEffect(() => {
         if(dataUser.sessions) {
@@ -21,6 +23,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
                 querySnapshot => {
                     const userSessions = []
                     querySnapshot.forEach(doc => {
+                        console.log("doc.data()", doc.data())
                         userSessions.push(doc.data())
                     })
                     setSessions(userSessions)
@@ -43,20 +46,35 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
         setCurrentSession({})
         setSessionPanelMode('list')
     }
-    const cancelSession = (session) => {
-        console.log("cancelSession clicked; to delete: ", session)
-    }
 
-    console.log("SessionPanel sessions: ", sessions)
+    const [searchSessionsText, setSearchSessionsText] = useState("")
+    useState(() => {
+        const resultArray = [] 
+        sessions.filter((session) => {
+        if (
+            session.name.includes(searchSessionsText) || 
+            session.coachUsername.includes(searchSessionsText) ||
+            session.participantUsername.includes(searchSessionsText) 
+            ) {
+            resultArray.push(session)
+        }
+        }) 
+        setSearchSessionsText(resultArray)
+    }, [searchSessionsText])
+
+    console.log("sessions", sessions)
+    // console.log("selectedSessionStatus ", selectedSessionStatus, sessionStatus)
     return (
         <Box className={classes.container}>
             { sessionPanelMode === 'list' &&
             <Box className={classes.sessionPanelContainer}>
-                
+
+                {sessions.length > 0 && <SearchBox label={'Search Sessions: '} placeholder={"name of session, coach or participant"} onChange={setSearchSessionsText}/>}
+                    
                 {   sessions.length > 0
-                    ? 
+                    ?     
                     sessions.map((session, index) => 
-                        <SessionListItem key={index} session={session} openSession={openSession} cancelSession={cancelSession}/>
+                        <SessionListItem key={index} session={session} openSession={openSession} />
                     )
                     :
                     <EmptyList message={`No ${sessionStatus} sessions.`} />
@@ -65,7 +83,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
             }
             { sessionPanelMode === 'detail' &&
             <Box>
-                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} cancelSession={cancelSession} changeTab={changeTab}/>
+                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} changeTab={changeTab}/>
             </Box>
             }
         </Box>
