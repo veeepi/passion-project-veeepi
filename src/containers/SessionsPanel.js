@@ -83,7 +83,7 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
             }
             { sessionPanelMode === 'detail' &&
             <Box>
-                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} changeTab={changeTab}/>
+                <SessionDetails authUser={authUser} dataUser={dataUser} session={currentSession} exitSession={exitSession} changeTab={changeTab} setSessionPanelMode={setSessionPanelMode}/>
             </Box>
             }
         </Box>

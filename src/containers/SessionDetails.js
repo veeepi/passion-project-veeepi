@@ -6,7 +6,7 @@ import { sessionDetailStyles } from '../styles/sessionStyles';
 import firebase from '../firebase/config';
 
 
-export default function SessionDetails({authUser, dataUser, session, exitSession, changeTab}) {
+export default function SessionDetails({authUser, dataUser, session, exitSession, changeTab, setSessionPanelMode}) {
     const classes = sessionDetailStyles();
 
     // Initialize - GET Session Actions 
@@ -20,6 +20,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
         if (!dataUser.sessionInProgress) {
             sessionsRef.doc(session.id).update({
                 status: 'in progress',
+                startedDateTime: Date.now(),
             }).then(() => {
                 usersRef.doc(dataUser.id).update({
                     sessionInProgress: session.id,
@@ -47,6 +48,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
     const completeSession = (e) => {
         sessionsRef.doc(session.id).update({
             status: 'completed',
+            endedDateTime: Date.now(),
         }).then(() => {
             usersRef.doc(dataUser.id).update({
                 sessionInProgress: '',
@@ -90,6 +92,12 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
         console.log("cancelSession clicked; to delete: ", session)
     }
 
+    const deleteDraftSession = (e, sessionId) => {
+        sessionsRef.doc(sessionId).delete()
+        .then(()=> { setSessionPanelMode('list') })
+        .catch((error) => console.log(error))
+    }
+
     console.log("actions", actions)
     // console.log('SessionDetails, session: ', actions[actions.length-1])
     return (
@@ -112,6 +120,10 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                     {
                         session.status === 'upcoming' &&
                         <Button className={classes.buttonSecondary} onClick={(e) => cancelSession(e, session.id)}>Cancel Session</Button>
+                    }
+                    {
+                        session.status === 'draft' &&
+                        <Button className={classes.buttonSecondary} onClick={(e) => deleteDraftSession(e, session.id)}>Delete Draft</Button>
                     }
                     <Button className={classes.buttonPrimary} onClick={() => exitSession()}>Exit Session</Button>
                 </Box>
