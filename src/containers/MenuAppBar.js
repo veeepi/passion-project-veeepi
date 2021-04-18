@@ -82,10 +82,15 @@ export default function MenuAppBar({dataUser}) {
   useEffect(() => {
     const resultArray = [] 
     userConnections.filter((connection) => {
-      console.log("connection", connection.username, searchConnectionsText)
-        if (connection.username.includes(searchConnectionsText)) {
-          resultArray.push(connection)
-        }
+    console.log("connection", connection.username, searchConnectionsText)
+      if (
+        connection.username.includes(searchConnectionsText) || 
+        connection.email.includes(searchConnectionsText) || 
+        connection.firstName.includes(searchConnectionsText) ||
+        connection.lastName.includes(searchConnectionsText) 
+        ) {
+        resultArray.push(connection)
+      }
     }) 
     setSearchResultUsers(resultArray)
   }, [searchConnectionsText])
