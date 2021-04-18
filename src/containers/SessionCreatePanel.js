@@ -96,18 +96,15 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                 usersRef.doc(authUser.uid).update({
                     sessions: firebase.firestore.FieldValue.arrayUnion(docRef.id),
                 })
-                // setNewSessionId(docRef.id)
         })
-        
     }
-
-    console.log("startDateTime: ", startDateTime)
+    // console.log("userSearchValue", userSearchValue)
     return (
         <Box className={classes.container}>
             <Card className={classes.sessionDetails}>
                 {/* Session Info */}
-                <Typography className={classes.label}>Session Details: </Typography>
-                <TextField className={classes.name} id="name" label="New Session Name: *" value={name} onChange={(e) => setName(e.target.value)} />
+                <Typography className={classes.label}>Create a session with a client: </Typography>
+                <TextField className={classes.field} id="name" label="New Session Name: *" value={name} onChange={(e) => setName(e.target.value)} />
                 <Box className={classes.dateTime}>
                     {/* Date & Time */}
                     <TextField
@@ -132,17 +129,18 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                     <TextField className={classes.duration} id="duration" label="Duration: " value={duration} onChange={(e) => setDuration(e.target.value)} />
                 </Box>
                 {/* Location */}
-                <TextField className={classes.location} id="location" label="Location: " value={location} onChange={(e) => setLocation(e.target.value)} />
+                <TextField className={classes.field} id="location" label="Location: " value={location} onChange={(e) => setLocation(e.target.value)} />
 
-                <TextField className={classes.name} id="notes" label="Notes: " value={notes} onChange={(e) => setNotes(e.target.value)} />
+                <TextField className={classes.field} id="notes" label="Notes: " value={notes} onChange={(e) => setNotes(e.target.value)} />
                 
                 {/* Participating Clients */}
                 <Typography className={classes.label}>Participant: </Typography>
-                { 
+                {
                     participant?.username
                     ? <UserParticipatingListItem user={participant} setParticipant={setParticipant} />
                     : <EmptyList message={'No participants selected.'}/> 
                 }
+                  
                 {/* User SEARCH */}
                 <TextField 
                     className={classes.searchField} 
@@ -152,10 +150,15 @@ export default function SessionsCreatePanel({authUser, dataUser, changeTab}) {
                     onChange={(e) => setUserSearchValue(e.target.value)} 
                 />
                 {/* Search Result - List clients */}
-                { 
-                    searchResultUsers.length > 0 
-                    ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
-                    : <EmptyList message={'No search results.'}/>                     
+                {   
+                    userSearchValue &&
+                    <Box>
+                    { 
+                        searchResultUsers.length > 0 
+                        ? searchResultUsers.map((user, index) => <UserSearchListItem key={index} user={user} addUser={addParticipant} listToAppend={[participant]} />)
+                        : <EmptyList message={'No search results.'}/>                     
+                    }
+                    </Box>
                 }
 
                 <Box className={classes.sessionActionsButtions}>

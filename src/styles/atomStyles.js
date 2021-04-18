@@ -12,8 +12,8 @@ export const searchBoxStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '2% auto',
-        padding: '4%',
+        margin: '4px 5%',
+        padding: '10px',
     },
     label: {
         color: holisticTheme.textLabel,

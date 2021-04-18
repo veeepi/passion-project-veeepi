@@ -76,7 +76,7 @@ export const navbarStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
       },
       drawerListItemTitle: {
         marginLeft: '5%',
@@ -106,5 +106,8 @@ export const navbarStyles = makeStyles((theme) => ({
           duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
+      },
+      themeIcon: {
+        color: holisticTheme.textTitle,
       },
 }));

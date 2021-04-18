@@ -38,7 +38,6 @@ const dashStyles = makeStyles(() => ({
         // paddingTop: '60px',
         backgroundColor: holisticTheme.bgDark,
     },
-
     username: {
         color: holisticTheme.textLabel,
         textAlign: 'center',
@@ -76,6 +75,9 @@ const dashStyles = makeStyles(() => ({
     },
     sessionPanelContainer: {
         backgroundColor: holisticTheme.bgContainer,
+        display: 'flex',
+        flexDirection: 'column',
+        // alignItems: 'center',
         margin: '0 auto',
         paddingTop: '10px',
         paddingBottom: '250px',
@@ -213,8 +215,17 @@ const dashStyles = makeStyles(() => ({
     infoValue: {
         fontSize: '12px',
         fontWeight: 'bold',
+    },
+    typeSwitchBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    typeSwitchOption: {
+        color: holisticTheme.textTitle,
+        padding: '0 15px'
     }
-
 }));
 
 const userListStyles = makeStyles(() => ({
@@ -264,8 +275,8 @@ const userListStyles = makeStyles(() => ({
         padding: 5,
     },
     emptyList: {
-        margin: '2%',
-        padding: '10%',
+        margin: '2% 4%',
+        padding: '5%',
         backgroundColor: holisticTheme.bgContainer,
     },
     emptyListMessage: {

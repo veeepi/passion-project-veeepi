@@ -122,15 +122,17 @@ const newSessionFormStyles = makeStyles(() => ({
         backgroundColor: holisticTheme.bgLight,
         paddingTop: '10px',
         paddingBottom: '20px',
-
     },
     sessionDetails: {
-        margin: 'auto',
-        padding: '2%',
-        width: '95%',
+        borderRadius: '15px',
         display: 'flex',
         flexDirection: 'column',
-        borderRadus: '15px',
+        padding: '4%',
+        margin: '1% 4%',
+    },
+    field: {
+        margin: '2% 4%',
+        textAlign: 'center',
     },
     label: {
         fontStyle: 'italic',
@@ -139,7 +141,14 @@ const newSessionFormStyles = makeStyles(() => ({
     dateTime: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
+        margin: '2% 4%'
+    },
+    startDateTime: {
+        width: '65%'
+    },
+    duration: {
+        width: '15%'
     },
     sessionActionsButtions: {
         display: 'flex',
