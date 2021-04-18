@@ -3,18 +3,52 @@ import { holisticTheme } from './colorThemes';
 import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
 import logoImage from '../assets/images/logo_placeholder.jpg';
 
-const dashStyles = makeStyles(() => ({
+const pageStyles = makeStyles(() => ({
     container: {
-        width: '98%',
+        width: '100%',
         margin: 'auto',
+        paddingTop: '60px',
+        backgroundColor: holisticTheme.bgDark,
     },
-    userBanner: {
+    header: {
+        backgroundColor: holisticTheme.bgContainer,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
     },
-    userBannerImage: {
-        
+    appBar: {
+        marginTop: '20px',
+        borderRadius: '15px 15px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    tabs: {
+        borderRadius: '25px 25px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    tab: {
+        fontSize: '10px',
+        // backgroundColor: 'red',
+    },
+}));
+
+const dashStyles = makeStyles(() => ({
+    container: {
+        width: '100%',
+        margin: 'auto',
+        // paddingTop: '60px',
+        backgroundColor: holisticTheme.bgDark,
+    },
+    username: {
+        color: holisticTheme.textLabel,
+        textAlign: 'center',
+        fontSize: '18px',
+        fontWeight: 'bold',
+    },
+    userBanner: {
+        backgroundColor: holisticTheme.bgContainer,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     userAvatarBox: {
         position: 'relative',
@@ -22,6 +56,8 @@ const dashStyles = makeStyles(() => ({
     userAvatarImage: {
         width: '20vw',
         height: '20vw',
+        maxWidth: '150px',
+        maxHeight: '150px',
     },
     userAvatarUploadIcon: {
         margin: 0,
@@ -29,17 +65,23 @@ const dashStyles = makeStyles(() => ({
         bottom: 0,
         position: 'absolute',
     },
-
     dashTitle: {
         marginLeft: 50, fontSize: 30, color: '#fbfbd4'
     },
     dashAppBar: {
-        
+        marginTop: '20px',
         borderRadius: '15px 15px 0 0',
         backgroundColor: holisticTheme.bgContainer,
     },
-
-
+    sessionPanelContainer: {
+        backgroundColor: holisticTheme.bgContainer,
+        display: 'flex',
+        flexDirection: 'column',
+        // alignItems: 'center',
+        margin: '0 auto',
+        paddingTop: '10px',
+        paddingBottom: '250px',
+    },
     homePage: {
         backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
@@ -72,19 +114,6 @@ const dashStyles = makeStyles(() => ({
     headerItem: {
         fontSize: '14px',
     },
-    homeHeaderTitle: {
-        // top: -25,
-        // left: 10,
-        // position: 'absolute',
-        // padding: '10%',
-        margin: 0,
-        textAlign: 'center',
-        marginLeft: '10%',
-        textAlign: 'left',
-        fontSize: '36px',
-        fontStyle: 'italic',
-        color: holisticTheme.textTitle,
-    },
     homeHeaderLogo: {
         // backgroundColor: '#430089',
         backgroundImage: `url(${logoImage})`,
@@ -107,10 +136,13 @@ const dashStyles = makeStyles(() => ({
 		borderRadius: '15px',
         
     },
-
+    tab: {
+        fontSize: '10px',
+        // backgroundColor: 'red',
+    },
     authTabs: {
-        // borderRadius: '15px 15px 0 0',
-        // backgroundColor: holisticTheme.bgContainer,
+        borderRadius: '25px 25px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
     },
     authForm: {
         borderRadius: '0 0 15px 15px',
@@ -157,6 +189,43 @@ const dashStyles = makeStyles(() => ({
 		backgroundColor: 'white',
 		borderRadius: 0.5,
 	},
+    // PROFILE ONLY
+    infoSection: {
+        width: '80%',
+        margin: '5% auto',
+        padding: '2% 2%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: holisticTheme.bgLight,
+        // alignItems: 'center',
+    },
+    infoBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    infoTitle: {
+        fontSize: '12px',
+        fontStyle: 'italic',
+    },
+    infoLabel: {
+        fontSize: '12px',
+    },
+    infoValue: {
+        fontSize: '12px',
+        fontWeight: 'bold',
+    },
+    typeSwitchBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    typeSwitchOption: {
+        color: holisticTheme.textTitle,
+        padding: '0 15px'
+    }
 }));
 
 const userListStyles = makeStyles(() => ({
@@ -164,8 +233,18 @@ const userListStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: 2,
-        backgroundColor: holisticTheme.bgLighter,
+        padding: '0 4%',
+        margin: '2%',
+        backgroundColor: holisticTheme.bgLight,
+    },
+    contanerDone: {
+        border: `5px solid ${holisticTheme.done}`,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: '0 4%',
+        margin: '2%',
+        backgroundColor: holisticTheme.bgLight,
     },
     userData: {
         padding: 5,
@@ -174,11 +253,13 @@ const userListStyles = makeStyles(() => ({
         justifyContent: 'center',
     },
     fullName: {
+        color: holisticTheme.textTitle,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
     username: {
+        color: holisticTheme.textLabel,
         fontWeight: 'bold',
     },
     firstName: {
@@ -192,8 +273,45 @@ const userListStyles = makeStyles(() => ({
     },
     iconButton: {
         padding: 5,
+    },
+    emptyList: {
+        margin: '2% 4%',
+        padding: '5%',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    emptyListMessage: {
+        color: holisticTheme.textTitle,
     }
 
 }));
 
-export { dashStyles, userListStyles };
+const userConnectionsStyles = makeStyles(() => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '80%',
+        margin: '2% auto',
+        padding: '2%',
+        borderRadius: '25px',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    field: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    label: {
+        color: holisticTheme.textTitle,
+    },
+    value: {
+        marginLeft: '12px',
+        color: holisticTheme.textLabel,
+    },
+    buttonPrimary: {
+        justifySelf: 'flex-end',
+        borderRadius: '15px',
+        opacity: 0.8,
+        backgroundColor: holisticTheme.bgBtnPrimary,     
+    },
+}));
+
+export { dashStyles, userListStyles, userConnectionsStyles, pageStyles };

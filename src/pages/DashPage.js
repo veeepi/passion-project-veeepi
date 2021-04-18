@@ -1,20 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import TabPanel from '../containers/TabPanel';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import UserBanner from '../containers/UserBanner';
 import UserConnections from '../containers/UserConnections';
-import SchedulePanel from '../containers/SchedulePanel';
 import SessionsPanel from '../containers/SessionsPanel';
-import { dashStyles } from '../styles/dashStyles';
+import Footer from '../containers/Footer';
 import SessionsCreatePanel from '../containers/SessionCreatePanel';
+import { Box } from '@material-ui/core';
+import { pageStyles } from '../styles/dashStyles';
 
 export default function DashPage({authUser, dataUser}) {
-    const classes = dashStyles();
+    const classes = pageStyles();
 
     const [value, setValue] = useState(0);
     const [selectedTabTitle, setSelectedTabTitle] = useState('Upcoming');
@@ -34,44 +32,45 @@ export default function DashPage({authUser, dataUser}) {
         }
     };
 
-    console.log("DashPage, dataUser.userType: ", dataUser.userType)
     return (
-        <div className={classes.container}>
-            <Paper classes={classes.header}>
+        <Box className={classes.container}>
+            <Box classes={classes.header}>
                 <UserBanner dataUser={dataUser} />
                 <UserConnections dataUser={dataUser}/>
-            </Paper>
-            <AppBar className={classes.dashAppBar} position="static">
+            </Box>
+            <AppBar className={classes.appBar} position="static">
                 <Tabs
-                    className={classes.authTabs}
+                    className={classes.tabs}
                     value={value}
                     onChange={changeTab}
-                    // indicatorColor="primary"
-                    // textColor="primary"
                     centered
                 >
-                    <Tab label="Upcoming" />
-                    <Tab label="Completed" />
-                    <Tab label="Drafts" />
+                    <Tab className={classes.tab} label="Upcoming" />
+                    <Tab className={classes.tab} label="Completed" />
                     {
                         dataUser?.userType === 'coach' &&
-                        <Tab label="Create Session" />
+                        <Tab className={classes.tab} label="Drafts" />
+                    }
+
+                    {
+                        dataUser?.userType === 'coach' &&
+                        <Tab className={classes.tab} label="Create Session" />
                     }
                 </Tabs>
             </AppBar>
-
             <TabPanel value={value} index={0}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'completed'} />
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'completed'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'draft'}/>
+                <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'draft'} changeTab={changeTab} />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab}/>
+                <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab} />
             </TabPanel>
-        </div>
+            <Footer />
+        </Box>
     )
 }

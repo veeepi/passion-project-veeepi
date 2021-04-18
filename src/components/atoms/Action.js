@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Box, Button, Card, FormControl, IconButton, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Box, Button, Card, IconButton, TextField, Typography } from '@material-ui/core';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { sessionActionStyles } from '../../styles/sessionStyles';
 import firebase from '../../firebase/config';
@@ -62,7 +60,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 saveAction()
             }, 4000); 
         }
-    }, [qty, stress])
+    }, [action.qty, action.stress, qty, stress])
 
     // console.log("SessionAction, action: ", qty)
     return (
@@ -71,7 +69,7 @@ export default function SessionAction({action, authUser, dataUser}) {
                 <TextField className={classes.actionTitle} disabled={!actionEditMode} id="Name" label="name" value={name} onChange={(e) => setName(e.target.value)} />
                 <TextField className={classes.notes} disabled={!actionEditMode} id="notes" label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} multiline />
             </Box>
-            <Box className={classes.actionData}>
+            <Box className={classes.targetData}>
                 <Typography>{'target'}</Typography>
                 <TextField className={classes.qtyTarget} disabled={!actionEditMode} id="qtyTarget" label={action.qtyType} value={qtyTarget} onChange={(e) => setQtyTarget(e.target.value)} />
                 <TextField className={classes.stressTarget} disabled={!actionEditMode} id="stressTarget" label={action.stressType} value={stressTarget} onChange={(e) => setStressTarget(e.target.value)} />
@@ -89,12 +87,16 @@ export default function SessionAction({action, authUser, dataUser}) {
                     <IconButton className={classes.dataButton} disabled={!actionEditMode} onClick={() => setStress(stress+1)}><AddCircleTwoToneIcon fontSize="small" className={classes.dataIcon} /></IconButton>
                 </Box>
             </Box>
-            <Box className={classes.actionButtons}>
-                {/* Coach Only */}
-                <Button className={classes.buttonSecondary} disabled={!ownerCoach} onClick={() => setActionEditMode(!actionEditMode)} >{actionEditMode ? 'done edit' : 'EDIT'}</Button>
-                <TextField className={classes.orderIndex} disabled={!actionEditMode} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
-                <Button className={classes.buttonPrimary} disabled={!ownerCoach} onClick={(e) => saveAction(e)} >DONE</Button>
-            </Box>
+            {
+                dataUser.userType === "coach" &&
+                <Box className={classes.actionButtons}>
+                    {/* Coach Only */}
+                    <Button className={classes.buttonSecondary} disabled={!ownerCoach} onClick={() => setActionEditMode(!actionEditMode)} >{actionEditMode ? 'done edit' : 'EDIT'}</Button>
+                    <TextField className={classes.orderIndex} disabled={!actionEditMode} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
+                    <Button className={classes.buttonPrimary} disabled={!ownerCoach} onClick={(e) => saveAction(e)} >DONE</Button>
+                </Box>
+            }
+
         </Card>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState  } from 'react';
 import Input from '@material-ui/core/Input';
 import { Box, Typography, FormHelperText } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,8 +15,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import ErrorIcon from '@material-ui/icons/Error';
-import authStyles from '../../styles/authStyles';
+import { authStyles } from '../../styles/authStyles';
 
 export default function RegisterCoachForm({ onSubmit, user, setUser }) {
     const classes = authStyles();

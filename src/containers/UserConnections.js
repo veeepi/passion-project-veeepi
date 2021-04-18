@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Box, Button, Card, CardContent, FormControl, Input, InputLabel, InputAdornment, Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Button, Card, FormControl, Input, InputLabel, InputAdornment, Typography } from '@material-ui/core';
 import { userConnectionsStyles} from '../styles/dashStyles';
+import SearchBox from '../components/atoms/SearchBox';
 import UserSearchListItem from '../components/atoms/UserSearchListItem';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import firebase from '../firebase/config';
@@ -30,11 +31,23 @@ export default function UserConnections({dataUser}) {
 
     const [searchingUser, setSearchingUser] = useState(false)
 
-    const addConnection = () => {
-
+    const addConnection = (user) => {
+        usersRef
+            .doc(dataUser.id).update({
+                connectionUserIds: firebase.firestore.FieldValue.arrayUnion(user.id),
+            })
+            .then(() => {
+                usersRef.doc(user.id).update({
+                    connectionUserIds: firebase.firestore.FieldValue.arrayUnion(dataUser.id),
+                }).catch((error) => console.log(error))
+            })
+            .then(() => {
+                setSearchResultUsers([])
+                setSearchingUser(false)
+            }).catch((error) => console.log(error))
     }
 
-    console.log("searchResultUsers", searchResultUsers)
+    // console.log("searchResultUsers", searchResultUsers)
     return (
         <Card className={classes.container}>
             <Box className={classes.field}>
@@ -44,35 +57,21 @@ export default function UserConnections({dataUser}) {
 
             {
                 searchingUser &&
-                <FormControl className={classes.authField}>
-                    <InputLabel className={classes.authFormLabel}>Email Address:</InputLabel>
-                    <Input
-                        className={classes.authFormInput}
-                        onChange={(e) => setUserSearchValue(e.target.value)}
-                        id="email"
-                        // type="email"
-                        label="Search for User by Email"
-                        placeholder="email@example.com"
-                        disableUnderline={true}
-                        required 
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <SearchTwoToneIcon className={classes.authAdornmentIcon} />
-                            </InputAdornment>
-                        }
-                    />
-                    
-                </FormControl>
+                <SearchBox 
+                    label={'Enter an email address: '}
+                    onChange={setUserSearchValue}
+                    placeholder={"email@example.com"}
+                />
             }
             {
                 searchingUser && 
                 searchResultUsers?.map((user, index) => 
-                    <UserSearchListItem user={user} addUser={addConnection} listToAppend={user.connectionUserIds}/>
+                    <UserSearchListItem user={user} addUser={addConnection} listToAppend={dataUser.connectionUserIds}/>
                 )
             }
             
             
-            <Button onClick={() => setSearchingUser(!searchingUser)}>{searchingUser ? "Cancel Search" : "Search for a user"}</Button>
+            <Button className={classes.buttonPrimary} onClick={() => setSearchingUser(!searchingUser)}>{searchingUser ? "Cancel Search" : "Search for a user"}</Button>
 
             
         </Card>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState  } from 'react';
 import { useHistory } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import authStyles from '../styles/authStyles';
+import { authStyles } from '../styles/authStyles';
 import firebase from '../firebase/config';
 
 export default function Login() {
@@ -25,7 +25,7 @@ export default function Login() {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             setError('');
-            history.push("/dash")
+            // history.push("/dash")
         })
         .catch((error) => setError(error.message))
     }

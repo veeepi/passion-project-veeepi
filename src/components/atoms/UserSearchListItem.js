@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Box, Card, CardActions, CardContent, IconButton, Typography } from '@material-ui/core';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import { userListStyles } from '../../styles/dashStyles';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 
 export default function UserSearchListItem({user, addUser, listToAppend}) {
     const classes = userListStyles();
 
+    const [alreadyOnList, setAlreadyOnList] = useState(false)
+    useEffect(() => {
+        if(listToAppend.includes(user.id)) {
+            setAlreadyOnList(true)
+        }
+    }, [])
+
     return (
-        <Card className={classes.contaner}>
+        <Card className={alreadyOnList ? classes.contanerDone : classes.contaner}>
             <CardContent className={classes.userData}>
                 <Typography className={classes.username}>{user.username}</Typography>
                 <Box className={classes.fullName}>
@@ -17,7 +25,7 @@ export default function UserSearchListItem({user, addUser, listToAppend}) {
             </CardContent>
             <CardActions className={classes.actions}>
                 {
-                    !listToAppend.includes(user.id) // Check if list contains userId
+                    !alreadyOnList // Check if list contains userId
                     ? 
                     <IconButton 
                         className={classes.iconButton} 
@@ -25,10 +33,10 @@ export default function UserSearchListItem({user, addUser, listToAppend}) {
                             addUser(user)
                         }}
                     >
-                        <AddCircleTwoToneIcon />
+                        <AddCircleTwoToneIcon className={classes.icon}/>
                     </IconButton>
                     :
-                    <Typography>Already added.</Typography>
+                    <Typography><CheckCircleTwoToneIcon className={classes.iconComplete}/></Typography>
                 }
 
             </CardActions>

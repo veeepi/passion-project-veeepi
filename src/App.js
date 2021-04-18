@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage';
 import FeedPage from './pages/FeedPage';
 import DashPage from './pages/DashPage';
 import firebase from './firebase/config';
+import ProfilePage from './pages/ProfilePage';
 
 const UserContext = createContext();
 
@@ -48,10 +49,13 @@ function App() {
       <UserContext.Provider value={dataUser}>
         <MenuAppBar dataUser={dataUser}/>
         <Switch>
+          <Route path="/profile/:userId">
+            <ProfilePage authUser={authUser} dataUser={dataUser} />
+          </Route>
           <Route path="/feed">
             <FeedPage dataUser={dataUser} />
           </Route>
-          <Route path="/dash">
+          <Route path="/">
             <DashPage authUser={authUser} dataUser={dataUser} />
           </Route>
         </Switch>

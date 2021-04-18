@@ -1,7 +1,70 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { holisticTheme } from './colorThemes'; 
+import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
+import logoImage from '../assets/images/logo_placeholder.jpg';
+
+const headerStyles = makeStyles(() => ({
+    container: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',  
+    },
+    sectionLeft: {
+        width: '60%',
+    },
+    sectionRight: {
+        padding: '60px 20px 0 0',
+        color: holisticTheme.textTitle,
+    },
+    textItem: {
+        fontSize: '14px',
+    },
+    title: {
+        margin: 0,
+        marginLeft: '10%',
+        textAlign: 'left',
+        fontSize: '36px',
+        fontStyle: 'italic',
+        color: holisticTheme.textTitle,
+    },
+    logo: {
+        backgroundImage: `url(${logoImage})`,
+        backgroundPosition: 'center', 
+        backgroundSize: 'cover', 
+        backgroundRepeat: 'no-repeat',
+        margin: '5%',
+        width: '40vw',
+        height: '40vw',
+        maxWidth: '220px',
+        maxHeight: '220px',
+        borderRadius: '50%',
+    },
+}))
+
 
 const authStyles = makeStyles(() => ({
+	authBackgroundImage: {
+        backgroundImage: `url(${bannerImage})`,
+        backgroundPosition: 'center', 
+        backgroundSize: 'cover', 
+        backgroundRepeat: 'no-repeat',
+        maxWidth: '100%',
+        // height: '40vh',
+    },
+    authBackgroundOverlay: {
+        // backgroundColor: holisticTheme.bgRoot,
+        minHeight: '667px',
+        width: '100%',
+        background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa11A 100%)`,
+
+        // backgroundImage: `url(${bannerImage})`,
+        // backgroundPosition: 'center', 
+        // backgroundSize: 'cover', 
+        // backgroundRepeat: 'no-repeat',
+        // background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
+    },
+   
 	authContainer: {
         minWidth: 320,
         maxWidth: 450,
@@ -115,4 +178,4 @@ const authStyles = makeStyles(() => ({
     },
 }));
 
-export default authStyles;
+export { authStyles, headerStyles } ;

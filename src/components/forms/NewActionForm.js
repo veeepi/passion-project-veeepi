@@ -1,13 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { Box, Button, Card, FormControl, IconButton, Input, InputLabel, Paper, Tab, Tabs, TextField, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import React, {useState } from 'react';
+import { Box, Button, Card, IconButton, TextField, Typography } from '@material-ui/core';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveCircleTwoToneIcon from '@material-ui/icons/RemoveCircleTwoTone';
 import { newActionFormStyles } from '../../styles/sessionStyles';
 import firebase from '../../firebase/config';
 
-export default function NewActionForm({authUser, dataUser, action, sessionId, toggleAddAction}) {
+export default function NewActionForm({ dataUser, action, sessionId, toggleAddAction}) {
     const classes = newActionFormStyles();
 
     const [participantUserId, setParticipantUserId] = useState(action ? action.participantUserId : "")
@@ -28,32 +26,33 @@ export default function NewActionForm({authUser, dataUser, action, sessionId, to
     const sessionsRef = firebase.firestore().collection('sessions')
     const saveAction = (e) => {
         e?.preventDefault()
+        const data = {
+            participantUserId: participantUserId,
+            coachUserId: dataUser.id,
+            name: name,
+            notes: notes,
+            orderIndex: orderIndex,
+            qty: qty,
+            qtyTarget: qtyTarget,
+            qtyType: qtyType,
+            sessionId: sessionId,
+            stress: stress,
+            stressTarget: stressTarget,
+            stressType: stressType,
+            timestamp: Date.now()
+        }
+        console.log("data added:", data)
         actionsRef
-            .add({
-                participantUserId: participantUserId,
-                coachUserId: authUser.uid,
-                name: name,
-                notes: notes,
-                orderIndex: orderIndex,
-                qty: qty,
-                qtyTarget: qtyTarget,
-                qtyType: qtyType,
-                sessionId: sessionId,
-                stress: stress,
-                stressTarget: stressTarget,
-                stressType: stressType,
-                timestamp: Date.now()
-            }).then(docRef => {
+            .add(data).then(docRef => {
                 actionsRef.doc(docRef.id).update({
                     id: docRef.id,
                 })
-                sessionsRef.doc(action.sessionId).update({
+                sessionsRef.doc(sessionId).update({
                     lastOrderIndex: orderIndex,
                 })
                 toggleAddAction()
             })
     }
-
     return (
         <Card className={classes.container}>
             <Box className={classes.actionInfo}>
@@ -81,7 +80,7 @@ export default function NewActionForm({authUser, dataUser, action, sessionId, to
             <Box className={classes.actionButtons}>
                 {/* Coach Only */}
                 <Typography>{'New Set'}</Typography>
-                <TextField className={classes.orderIndex} id="orderIndex" label="order index" value={orderIndex} onChange={(e) => setOrderIndex(e.target.value)} />
+                <TextField className={classes.orderIndex} id="orderIndex" label="order index" value={orderIndex > 0 ? orderIndex : 0} onChange={(e) => setOrderIndex(parseInt(e.target.value))} />
                 <Button className={classes.buttonPrimary} onClick={(e) => saveAction(e)} >SAVE</Button>
             </Box>
         </Card>
