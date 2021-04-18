@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
+import SearchBox from '../components/atoms/SearchBox';
 import { userSignOut } from '../firebase/services'; 
 import { useTheme } from '@material-ui/core/styles';
 import { navbarStyles } from '../styles/navbarStyles';
@@ -76,6 +77,19 @@ export default function MenuAppBar({dataUser}) {
       .catch((error) => console.log(error))
     }
   }
+  const [searchConnectionsText, setSearchConnectionsText] = useState('')
+  const [searchResultUsers, setSearchResultUsers] = useState([])
+  useEffect(() => {
+    const resultArray = [] 
+    userConnections.filter((connection) => {
+      console.log("connection", connection.username, searchConnectionsText)
+        if (connection.username.includes(searchConnectionsText)) {
+          resultArray.push(connection)
+        }
+    }) 
+    setSearchResultUsers(resultArray)
+  }, [searchConnectionsText])
+  console.log("searchResultUsers", searchResultUsers)
 
   const toUserProfile = (userId) => {
     history.push(`/profile/${userId}`)
@@ -164,11 +178,23 @@ export default function MenuAppBar({dataUser}) {
           </IconButton>
         </div>
         <Divider />
+          <SearchBox label={"Search Connections: "} onChange={setSearchConnectionsText}/>
+        <Divider />
         <List>
           <Typography className={classes.drawerListItemTitle}>Connections: </Typography>
           {
+            searchConnectionsText 
+            ? 
+            searchResultUsers?.map((user, index) => 
+              <ListItem key={index}>
+                <IconButton onClick={() => removeUser(user.id, user.connectionUserIds)} className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
+                <ListItemText className={classes.drawerListItemText} primary={user.username} />
+                <IconButton onClick={() => toUserProfile(user.id)}className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></IconButton>
+              </ListItem>
+            )
+            :
             userConnections?.map((user, index) => 
-              <ListItem button key={index}>
+              <ListItem key={index}>
                 <IconButton onClick={() => removeUser(user.id, user.connectionUserIds)} className={classes.drawerRemoveButton} ><HighlightOffTwoToneIcon /></IconButton>
                 <ListItemText className={classes.drawerListItemText} primary={user.username} />
                 <IconButton onClick={() => toUserProfile(user.id)}className={classes.drawerListItemText} ><AccountCircleTwoToneIcon /></IconButton>
