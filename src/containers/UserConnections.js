@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Box, Button, Card, FormControl, Input, InputLabel, InputAdornment, Typography } from '@material-ui/core';
 import { userConnectionsStyles} from '../styles/dashStyles';
+import SearchBox from '../components/atoms/SearchBox';
 import UserSearchListItem from '../components/atoms/UserSearchListItem';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import firebase from '../firebase/config';
@@ -56,25 +57,11 @@ export default function UserConnections({dataUser}) {
 
             {
                 searchingUser &&
-                <FormControl className={classes.authField}>
-                    <InputLabel className={classes.authFormLabel}>Email Address:</InputLabel>
-                    <Input
-                        className={classes.authFormInput}
-                        onChange={(e) => setUserSearchValue(e.target.value)}
-                        id="email"
-                        // type="email"
-                        label="Search for User by Email"
-                        placeholder="email@example.com"
-                        disableUnderline={true}
-                        required 
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <SearchTwoToneIcon className={classes.authAdornmentIcon} />
-                            </InputAdornment>
-                        }
-                    />
-                    
-                </FormControl>
+                <SearchBox 
+                    label={'Enter an email address: '}
+                    onChange={setUserSearchValue}
+                    placeholder={"email@example.com"}
+                />
             }
             {
                 searchingUser && 
