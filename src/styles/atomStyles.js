@@ -3,7 +3,9 @@ import { holisticTheme } from './colorThemes';
 import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
 import logoImage from '../assets/images/logo_placeholder.jpg';
 
+// Stylesheet exclusively used for ATOM Styling (src/components/atoms)
 export const searchBoxStyles = makeStyles(() => ({
+    // 
     container: {
         backgroundColor: holisticTheme.bgContainer,
         borderRadius: '22px',

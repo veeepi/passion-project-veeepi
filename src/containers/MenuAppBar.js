@@ -13,7 +13,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 import { userSignOut } from '../firebase/services'; 
 import { useTheme } from '@material-ui/core/styles';
-import navbarStyles from '../styles/navbarStyles';
+import { navbarStyles } from '../styles/navbarStyles';
 import firebase from '../firebase/config';
 
 export default function MenuAppBar({dataUser}) {
@@ -84,11 +84,7 @@ export default function MenuAppBar({dataUser}) {
   return (
     <div>
       <CssBaseline />
-      <AppBar 
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: drawerOpen,
-        })}>
+      <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: drawerOpen,})}>
         <Toolbar className={classes.appBarContainer}>
           {/* DRAWER */}
           <IconButton
@@ -100,7 +96,6 @@ export default function MenuAppBar({dataUser}) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography className={classes.appBarTitle}>Holistic</Typography> */}
           <Link className={classes.appBarNavLink} to="/feed">Feed</Link>
           <Link className={classes.appBarNavLink} to="/">Dash</Link>
           {dataUser && (
@@ -115,6 +110,12 @@ export default function MenuAppBar({dataUser}) {
                 <AccountCircleTwoToneIcon />
               </IconButton>
               <Menu
+              PaperProps={{
+                style: {
+                  backgroundColor: '#2d2639E6',
+                  marginTop: "40px"
+                }
+               }}
                 className={classes.menu}
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -134,14 +135,14 @@ export default function MenuAppBar({dataUser}) {
                   className={classes.menuItem}
                   onClick={() => toUserProfile(dataUser.id)}
                 >
-                  <AccountBoxTwoToneIcon />Profile
+                  <AccountBoxTwoToneIcon className={classes.menuItemIcon}/>Profile
                 </MenuItem>
-                <MenuItem className={classes.menuItem}><SettingsIcon />Settings</MenuItem>
+                <MenuItem className={classes.menuItem}><SettingsIcon className={classes.menuItemIcon}/>Settings</MenuItem>
                 <MenuItem className={classes.menuItem} onClick={() => {
                   userSignOut()
                   history.push('/')
                 }}>
-                  <ExitToAppIcon />SignOut
+                  <ExitToAppIcon className={classes.menuItemIcon}/>SignOut
                 </MenuItem>
               </Menu>
             </div>
