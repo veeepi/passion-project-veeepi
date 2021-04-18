@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import TabPanel from '../containers/TabPanel';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import UserBanner from '../containers/UserBanner';
 import UserConnections from '../containers/UserConnections';
 import SessionsPanel from '../containers/SessionsPanel';
 import Footer from '../containers/Footer';
-import { dashStyles } from '../styles/dashStyles';
 import SessionsCreatePanel from '../containers/SessionCreatePanel';
 import { Box } from '@material-ui/core';
+import { pageStyles } from '../styles/dashStyles';
 
 export default function DashPage({authUser, dataUser}) {
-    const classes = dashStyles();
+    const classes = pageStyles();
 
     const [value, setValue] = useState(0);
     const [selectedTabTitle, setSelectedTabTitle] = useState('Upcoming');
@@ -33,20 +32,17 @@ export default function DashPage({authUser, dataUser}) {
         }
     };
 
-    // console.log("DashPage, dataUser.userType: ", dataUser.userType)
     return (
-        <div className={classes.container}>
+        <Box className={classes.container}>
             <Box classes={classes.header}>
                 <UserBanner dataUser={dataUser} />
                 <UserConnections dataUser={dataUser}/>
             </Box>
-            <AppBar className={classes.dashAppBar} position="static">
+            <AppBar className={classes.appBar} position="static">
                 <Tabs
-                    className={classes.authTabs}
+                    className={classes.tabs}
                     value={value}
                     onChange={changeTab}
-                    // indicatorColor="primary"
-                    // textColor="primary"
                     centered
                 >
                     <Tab className={classes.tab} label="Upcoming" />
@@ -62,7 +58,6 @@ export default function DashPage({authUser, dataUser}) {
                     }
                 </Tabs>
             </AppBar>
-
             <TabPanel value={value} index={0}>
                 <SessionsPanel authUser={authUser} dataUser={dataUser} sessionStatus={'upcoming'} changeTab={changeTab} />
             </TabPanel>
@@ -75,8 +70,7 @@ export default function DashPage({authUser, dataUser}) {
             <TabPanel value={value} index={3}>
                 <SessionsCreatePanel authUser={authUser} dataUser={dataUser} changeTab={changeTab} />
             </TabPanel>
-
             <Footer />
-        </div>
+        </Box>
     )
 }

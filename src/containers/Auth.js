@@ -2,7 +2,7 @@ import React, {useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Login from './Login';
 import Register from './Register';
-import authStyles from '../styles/authStyles';
+import { authStyles } from '../styles/authStyles';
 import TabPanel from './TabPanel';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';

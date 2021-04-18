@@ -1,23 +1,22 @@
 
 export const holisticTheme = {
-    // Root
+    // Background
     bgRoot: "#5C4E75",
     textRoot: '#EFEFEF',
     bgDark: "#2d2639",
     // Status
     completed: '#679f57',
     cancelled: '#8f8669',
-    // Container
+    // Containers
     bgLighter: '#d3ccdd',
-    bgLight: '#c3bad1',
+    bgLight: '#c3bad140',
     bgContainer: '#A395B84D',
     bgDrawer: "#2d2639E6",
-    
     // Font
     textTitle: '#AAB895',
     // Text Inputs
     bgInput: '#C4C4C440',
-    textLabel: '#EFEFEF',
+    textLabel: '#c1b8d0',
     textInput: '#000000',
     // Buttons - primary
     bgBtnPrimary: '#AAB895',

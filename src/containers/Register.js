@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '../containers/TabPanel';
-import authStyles from '../styles/authStyles';
+import { authStyles } from '../styles/authStyles';
 import RegisterClientForm from '../components/forms/RegisterClientForm';
 import RegisterCoachForm from '../components/forms/RegisterCoachForm';
 import firebase from '../firebase/config';

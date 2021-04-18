@@ -3,7 +3,7 @@ import { holisticTheme } from './colorThemes';
 import bannerImage from '../assets/images/homeBanner_placeholder.jpg';
 import logoImage from '../assets/images/logo_placeholder.jpg';
 
-const dashStyles = makeStyles(() => ({
+const pageStyles = makeStyles(() => ({
     container: {
         width: '100%',
         margin: 'auto',
@@ -15,8 +15,30 @@ const dashStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        
     },
+    appBar: {
+        marginTop: '20px',
+        borderRadius: '15px 15px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    tabs: {
+        borderRadius: '25px 25px 0 0',
+        backgroundColor: holisticTheme.bgContainer,
+    },
+    tab: {
+        fontSize: '10px',
+        // backgroundColor: 'red',
+    },
+}));
+
+const dashStyles = makeStyles(() => ({
+    container: {
+        width: '100%',
+        margin: 'auto',
+        // paddingTop: '60px',
+        backgroundColor: holisticTheme.bgDark,
+    },
+
     username: {
         color: holisticTheme.textLabel,
         textAlign: 'center',
@@ -200,8 +222,18 @@ const userListStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: 2,
-        backgroundColor: holisticTheme.bgLighter,
+        padding: '0 4%',
+        margin: '2%',
+        backgroundColor: holisticTheme.bgLight,
+    },
+    contanerDone: {
+        border: `5px solid ${holisticTheme.done}`,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: '0 4%',
+        margin: '2%',
+        backgroundColor: holisticTheme.bgLight,
     },
     userData: {
         padding: 5,
@@ -210,11 +242,13 @@ const userListStyles = makeStyles(() => ({
         justifyContent: 'center',
     },
     fullName: {
+        color: holisticTheme.textTitle,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
     username: {
+        color: holisticTheme.textLabel,
         fontWeight: 'bold',
     },
     firstName: {
@@ -269,4 +303,4 @@ const userConnectionsStyles = makeStyles(() => ({
     },
 }));
 
-export { dashStyles, userListStyles, userConnectionsStyles };
+export { dashStyles, userListStyles, userConnectionsStyles, pageStyles };

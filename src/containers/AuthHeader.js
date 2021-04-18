@@ -1,23 +1,21 @@
 import React from 'react';
-import homeStyles from '../styles/homeStyles';
+import {headerStyles} from '../styles/authStyles';
 
 export default function AuthHeader() {
-    const classes = homeStyles()
+    const classes = headerStyles()
 
     return (
-        // <div className={classes.homeHeaderBackgroundImage}>
-            <div className={classes.homeHeader}>
-                <div className={classes.homeHeaderLeft}>
-                    <h1 className={classes.homeHeaderTitle}>Holistic</h1>
-                    <div className={classes.homeHeaderLogo}></div>
-                </div>
-                <div className={classes.homeHeaderRight}>
-                    <h3 className={classes.headerItem}>Coach-Client CRM</h3>
-                    <h3 className={classes.headerItem}>Schedule sessions</h3>
-                    <h3 className={classes.headerItem}>Track progress and feedback</h3>
-                    <h3 className={classes.headerItem}>Connect with the community</h3>
-                </div>
+        <div className={classes.container}>
+            <div className={classes.sectionLeft}>
+                <h1 className={classes.title}>Holistic</h1>
+                <div className={classes.logo}></div>
             </div>
-        // </div>
+            <div className={classes.sectionRight}>
+                <h3 className={classes.textItem}>Coach-Client CRM</h3>
+                <h3 className={classes.textItem}>Schedule sessions</h3>
+                <h3 className={classes.textItem}>Track progress and feedback</h3>
+                <h3 className={classes.textItem}>Connect with the community</h3>
+            </div>
+        </div>
     )
 }

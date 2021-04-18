@@ -15,7 +15,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import authStyles from '../../styles/authStyles';
+import { authStyles } from '../../styles/authStyles';
 
 export default function RegisterClientForm({ onSubmit, user, setUser }) {
     const classes = authStyles();

@@ -5,16 +5,9 @@ import logoImage from '../assets/images/logo_placeholder.jpg';
 
 const homeStyles = makeStyles(() => ({
     homePage: {
-        // backgroundColor: holisticTheme.bgRoot,
         minHeight: '667px',
         width: '100%',
         background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa11A 100%)`,
-
-        // backgroundImage: `url(${bannerImage})`,
-        // backgroundPosition: 'center', 
-        // backgroundSize: 'cover', 
-        // backgroundRepeat: 'no-repeat',
-        // background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
     },
 	homeHeaderBackgroundImage: {
         backgroundImage: `url(${bannerImage})`,
@@ -22,10 +15,8 @@ const homeStyles = makeStyles(() => ({
         backgroundSize: 'cover', 
         backgroundRepeat: 'no-repeat',
         maxWidth: '100%',
-        // height: '40vh',
     },
     homeHeader: {
-        // background: `linear-gradient(35deg, ${holisticTheme.bgRoot} 20%, #82ffa140 100%)`,
         height: '100%',
         display: 'flex',
         flexDirection: 'row',

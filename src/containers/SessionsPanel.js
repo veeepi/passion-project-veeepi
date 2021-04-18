@@ -13,25 +13,26 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
     const [sessions, setSessions] = useState([])
     useEffect(() => {
         if(dataUser.sessions) {
-            if (dataUser.userType === "coach") {
+            // if (dataUser.userType === "coach") {
+                const userSessions = []
                 sessionsRef
                 .where("coachUserId", "==", dataUser.id)
                 .where("status", "==", sessionStatus)
                 .onSnapshot(
                     querySnapshot => {
-                        const userSessions = []
+                        // const userSessions = []
                         querySnapshot.forEach(doc => {
                             userSessions.push(doc.data())
                         })
-                        console.log("userSessions", userSessions)
-                        setSessions(userSessions)
+                        // console.log("userSessions", userSessions)
+                        // setSessions(userSessions)
                     },
                     error => {
                         console.log(error)
                     }
                 )
-            }
-            if (dataUser.userType === "client") {
+            // }
+            // if (dataUser.userType === "client") {
                 sessionsRef
                 .where("participantUserId", "==", dataUser.id)
                 .where("status", "==", sessionStatus)
@@ -41,14 +42,14 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
                         querySnapshot.forEach(doc => {
                             userSessions.push(doc.data())
                         })
-                        console.log("userSessions", userSessions)
-                        setSessions(userSessions)
+                        // console.log("userSessions", userSessions)
                     },
                     error => {
                         console.log(error)
                     }
                 )
-            }
+                setSessions(userSessions)
+            // }
         }
     }, [authUser, dataUser.sessions, sessionStatus ])
 
@@ -66,11 +67,14 @@ export default function SessionsPanel({authUser, dataUser, sessionStatus, change
         console.log("cancelSession clicked; to delete: ", session)
     }
 
-    // console.log("SessionPanel sessions: ", sessions)
+    console.log("SessionPanel sessions: ", sessions)
     return (
-        <Box>
+        <Box className={classes.container}>
             { sessionPanelMode === 'list' &&
             <Box className={classes.sessionPanelContainer}>
+                
+
+
                 {   sessions.length > 0
                     ? 
                     sessions.map((session, index) => 

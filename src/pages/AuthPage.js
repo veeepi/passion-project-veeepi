@@ -2,14 +2,14 @@ import React from 'react'
 import AuthHeader from '../containers/AuthHeader';
 import Auth from '../containers/Auth';
 import Footer from '../containers/Footer';
-import homeStyles from '../styles/homeStyles';
+import { authStyles } from '../styles/authStyles';
 
 export default function AuthPage() {
-    const classes = homeStyles();
+    const classes = authStyles();
     
     return (
-        <div className={classes.homeHeaderBackgroundImage}>
-            <div className={classes.homePage}>
+        <div className={classes.authBackgroundImage}>
+            <div className={classes.authBackgroundOverlay}>
                 <AuthHeader />
                 <Auth /> 
                 <Footer />

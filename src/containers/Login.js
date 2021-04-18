@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import authStyles from '../styles/authStyles';
+import { authStyles } from '../styles/authStyles';
 import firebase from '../firebase/config';
 
 export default function Login() {

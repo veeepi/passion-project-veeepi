@@ -10,8 +10,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 import { userSignOut } from '../firebase/services'; 
 import { useTheme } from '@material-ui/core/styles';
