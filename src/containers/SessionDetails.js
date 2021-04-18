@@ -6,7 +6,7 @@ import { sessionDetailStyles } from '../styles/sessionStyles';
 import firebase from '../firebase/config';
 
 
-export default function SessionDetails({authUser, dataUser, session, exitSession, cancelSession, changeTab}) {
+export default function SessionDetails({authUser, dataUser, session, exitSession, changeTab}) {
     const classes = sessionDetailStyles();
 
     // Initialize - GET Session Actions 
@@ -69,6 +69,15 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
             )
     }, [addingAction])
 
+    const cancelSession = (e, sessionId) => {
+        sessionsRef.doc(sessionId).update({
+            status: 'cancelled'  
+        }).then(() => {
+            changeTab(e, 2)
+        })
+        console.log("cancelSession clicked; to delete: ", session)
+    }
+
     console.log("actions", actions)
     // console.log('SessionDetails, session: ', actions[actions.length-1])
     return (
@@ -88,7 +97,7 @@ export default function SessionDetails({authUser, dataUser, session, exitSession
                 </Box>
 
                 <Box className={classes.sessionButtons}>
-                    <Button className={classes.buttonSecondary} onClick={() => cancelSession()}>Cancel Session</Button>
+                    <Button className={classes.buttonSecondary} onClick={(e) => cancelSession(e, session.id)}>Cancel Session</Button>
                     
                     <Button className={classes.buttonPrimary} onClick={() => exitSession()}>Exit Session</Button>
                 </Box>
