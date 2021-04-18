@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, CssBaseline, Drawer, Divider, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Switch, Toolbar, Typography } from '@material-ui/core';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import AccountBoxTwoToneIcon from '@material-ui/icons/AccountBoxTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -11,6 +11,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
+import WbSunnyTwoToneIcon from '@material-ui/icons/WbSunnyTwoTone';
+import NightsStayTwoToneIcon from '@material-ui/icons/NightsStayTwoTone';
 import SearchBox from '../components/atoms/SearchBox';
 import { userSignOut } from '../firebase/services'; 
 import { useTheme } from '@material-ui/core/styles';
@@ -82,7 +84,6 @@ export default function MenuAppBar({dataUser}) {
   useEffect(() => {
     const resultArray = [] 
     userConnections.filter((connection) => {
-    console.log("connection", connection.username, searchConnectionsText)
       if (
         connection.username.includes(searchConnectionsText) || 
         connection.email.includes(searchConnectionsText) || 
@@ -94,10 +95,17 @@ export default function MenuAppBar({dataUser}) {
     }) 
     setSearchResultUsers(resultArray)
   }, [searchConnectionsText])
-  console.log("searchResultUsers", searchResultUsers)
 
   const toUserProfile = (userId) => {
     history.push(`/profile/${userId}`)
+  }
+
+  const [switchState, setSwitchState] = useState({
+    switchCheckedA: true,
+    switchCheckedB: true,
+  })
+  const switchChange = (e) => {
+    setSwitchState({...switchState, [e.target.name]: e.target.checked })
   }
 
   return (
@@ -178,6 +186,20 @@ export default function MenuAppBar({dataUser}) {
         }}
       >
         <div className={classes.drawerHeader}>
+          <Switch
+            checked={switchState.switchCheckedA}
+            onChange={switchChange}
+            name="switchCheckedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          {
+            switchState.switchCheckedA 
+            ?
+            <WbSunnyTwoToneIcon className={classes.themeIcon} />
+            :
+            <NightsStayTwoToneIcon className={classes.themeIcon}/>
+          }
+
           <IconButton className={classes.drawerListItemText} onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
