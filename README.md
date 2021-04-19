@@ -37,6 +37,19 @@ $ touch config.json
 5. Find the firebaseConfig data from Firebase Project Settings
 
 6. Copy the firebaseConfig data into 'config.json' 
+```
+{
+    "firebaseConfig" : {
+        "apiKey": "xxxxxx",
+        "authDomain": "xxxxxx.firebaseapp.com",
+        "projectId": "xxxxxx",
+        "storageBucket": "xxxxxx.appspot.com",
+        "messagingSenderId": "xxxxxx",
+        "appId": "xxxxxx:web:xxxxxx",
+        "measurementId": "xxxxxx"    
+    }
+}
+```
 
 ### Functional requirements:
 - manage connections with other users (add/remove connections )
