@@ -1,15 +1,16 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import config from '../config.json';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBAacPgw59NU6BGYKM6X_iM51ZRTAndTug",
-    authDomain: "holistic-a123b.firebaseapp.com",
-    projectId: "holistic-a123b",
-    storageBucket: "holistic-a123b.appspot.com",
-    messagingSenderId: "351740432138",
-    appId: "1:351740432138:web:2d278efd62c88b1ddb74f3",
-    measurementId: "G-D0XSKRCFV8"
+    apiKey: config.firebaseConfig.apiKey,
+    authDomain: config.firebaseConfig.authDomain,
+    projectId: config.firebaseConfig.projectId,
+    storageBucket: config.firebaseConfig.storageBucket,
+    messagingSenderId: config.firebaseConfig.messagingSenderId,
+    appId: config.firebaseConfig.appId,
+    measurementId: config.firebaseConfig.measurementId
   };
 
 if (!firebase.apps.length) {
