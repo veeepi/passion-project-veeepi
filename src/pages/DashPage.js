@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TiUserAdd } from "react-icons/ti";
+import { IoIosAddCircle } from "react-icons/io";
 import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "../containers/TabPanel";
 import Tabs from "@material-ui/core/Tabs";
@@ -15,10 +15,8 @@ import { pageStyles } from "../styles/dashStyles";
 export default function DashPage({ authUser, dataUser }) {
   const classes = pageStyles();
 
-  const [value, setValue] = useState(0);
-
   const [open, setOpen] = useState(false); // Popup button, to open modal (SessionsCreatePanel)
-
+  const [value, setValue] = useState(0);
   const [selectedTabTitle, setSelectedTabTitle] = useState("Upcoming");
   const changeTab = (event, newValue) => {
     setValue(newValue);
@@ -38,9 +36,11 @@ export default function DashPage({ authUser, dataUser }) {
 
   return (
     <Box className={classes.container}>
+      {/* Top section */}
       <Box className={classes.header}>
         <UserBanner dataUser={dataUser} />
       </Box>
+      {/* Menu section (renders Main section) */}
       <AppBar className={classes.appBar} position="static">
         <Tabs
           className={classes.tabs}
@@ -51,16 +51,9 @@ export default function DashPage({ authUser, dataUser }) {
           <Tab className={classes.tab} label="Upcoming" />
           <Tab className={classes.tab} label="Completed" />
           <Tab className={classes.tab} label="Drafts" />
-          <Tab className={classes.tab} label="Create Session" />
-          {/* {dataUser?.userType === "coach" && (
-            <Tab className={classes.tab} label="Drafts" />
-          )}
-
-          {dataUser?.userType === "coach" && (
-            <Tab className={classes.tab} label="Create Session" />
-          )} */}
         </Tabs>
       </AppBar>
+      {/* Main section */}
       <TabPanel className={classes.contentSection} value={value} index={0}>
         <SessionsPanel
           authUser={authUser}
@@ -85,13 +78,6 @@ export default function DashPage({ authUser, dataUser }) {
           changeTab={changeTab}
         />
       </TabPanel>
-      <TabPanel value={value} index={3}>
-        <SessionsCreatePanel
-          authUser={authUser}
-          dataUser={dataUser}
-          changeTab={changeTab}
-        />
-      </TabPanel>
 
       {/* Bottom section */}
       <Box className={classes.actionsContainer}>
@@ -99,7 +85,7 @@ export default function DashPage({ authUser, dataUser }) {
           open={open}
           setOpen={setOpen}
           user={dataUser}
-          icon={<TiUserAdd className={classes.icon} size={48} />}
+          icon={<IoIosAddCircle className={classes.icon} size={48} />}
           content={<SessionsCreatePanel dataUser={dataUser} />}
         />
       </Box>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Card, TextField, Typography } from "@material-ui/core";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { Scrollbars } from "react-custom-scrollbars";
 import EmptyList from "../components/atoms/EmptyList";
 import UserSearchListItem from "../components/atoms/UserSearchListItem";
 import UserParticipatingListItem from "../components/atoms/UserParticipatingListItem";
@@ -18,18 +19,13 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
   const sessionsRef = firebase.firestore().collection("sessions");
 
   // Date Picker
-  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
-  console.log("selectedStartDate: ", selectedStartDate);
 
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
-  const [startDateTime, setStartDateTime] = useState(nowFormatted);
-  const [startDateTimeEdited, setStartDateTimeEdited] = useState(false);
-  const [duration, setDuration] = useState(0);
+  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
+  const [duration, setDuration] = useState(60);
   const [location, setLocation] = useState("");
   const [participant, setParticipant] = useState({});
-
-  console.log("startDateTime: ", startDateTime);
 
   const [formDataValidationPassed, setFormDataValidationPassed] =
     useState(false);
@@ -101,9 +97,10 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
         });
       });
   };
-  // console.log("userSearchValue", userSearchValue)
+
   return (
-    <Box className={classes.container}>
+    <Scrollbars style={{ height: "79vh" }} className={classes.container}>
+      {/* <Box className={classes.container}> */}
       <Card className={classes.sessionDetails}>
         {/* Session Info */}
         <Typography className={classes.label}>Create a session </Typography>
@@ -122,22 +119,6 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
               onChange={(e) => setSelectedStartDate(e)}
             />
           </MuiPickersUtilsProvider>
-          {/* <TextField
-            id="datetime-local"
-            label="Start Date and Time"
-            type="datetime-local"
-            value={startDateTime}
-            onChange={(e) => {
-              setStartDateTimeEdited(true);
-              setStartDateTime(e.target.value);
-              console.log(e.target.value);
-            }}
-            // defaultValue={nowToString}
-            className={classes.startDateTime}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          /> */}
           {/* Duration */}
           <TextField
             className={classes.duration}
@@ -217,6 +198,6 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
           </Button>
         </Box>
       </Card>
-    </Box>
+    </Scrollbars>
   );
 }
