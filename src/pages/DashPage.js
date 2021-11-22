@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { TiUserAdd } from "react-icons/ti";
 import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "../containers/TabPanel";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import UserBanner from "../containers/UserBanner";
 import SessionsPanel from "../containers/SessionsPanel";
+import Popup from "../components/atoms/Popup";
 import Footer from "../containers/Footer";
 import SessionsCreatePanel from "../containers/SessionCreatePanel";
 import { Box } from "@material-ui/core";
@@ -14,6 +16,9 @@ export default function DashPage({ authUser, dataUser }) {
   const classes = pageStyles();
 
   const [value, setValue] = useState(0);
+
+  const [open, setOpen] = useState(false); // Popup button, to open modal (SessionsCreatePanel)
+
   const [selectedTabTitle, setSelectedTabTitle] = useState("Upcoming");
   const changeTab = (event, newValue) => {
     setValue(newValue);
@@ -45,16 +50,18 @@ export default function DashPage({ authUser, dataUser }) {
         >
           <Tab className={classes.tab} label="Upcoming" />
           <Tab className={classes.tab} label="Completed" />
-          {dataUser?.userType === "coach" && (
+          <Tab className={classes.tab} label="Drafts" />
+          <Tab className={classes.tab} label="Create Session" />
+          {/* {dataUser?.userType === "coach" && (
             <Tab className={classes.tab} label="Drafts" />
           )}
 
           {dataUser?.userType === "coach" && (
             <Tab className={classes.tab} label="Create Session" />
-          )}
+          )} */}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel className={classes.contentSection} value={value} index={0}>
         <SessionsPanel
           authUser={authUser}
           dataUser={dataUser}
@@ -85,7 +92,17 @@ export default function DashPage({ authUser, dataUser }) {
           changeTab={changeTab}
         />
       </TabPanel>
-      <Footer />
+
+      {/* Bottom section */}
+      <Box className={classes.actionsContainer}>
+        <Popup
+          open={open}
+          setOpen={setOpen}
+          user={dataUser}
+          icon={<TiUserAdd className={classes.icon} size={48} />}
+          content={<SessionsCreatePanel dataUser={dataUser} />}
+        />
+      </Box>
     </Box>
   );
 }
