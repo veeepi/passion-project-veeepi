@@ -66,13 +66,6 @@ export default function UserConnections({ dataUser }) {
   // console.log("searchResultUsers", searchResultUsers)
   return (
     <Card className={classes.container}>
-      <Button
-        className={classes.buttonPrimary}
-        onClick={() => setSearchingUser(!searchingUser)}
-      >
-        {searchingUser ? "Cancel Search" : "Search for a user"}
-      </Button>
-
       <Box className={classes.field}>
         <Typography className={classes.label}>Connections: </Typography>
         <Typography className={classes.value}>
@@ -88,6 +81,14 @@ export default function UserConnections({ dataUser }) {
         placeholder={"email@example.com"}
       />
       {/* } */}
+
+      <Button
+        className={classes.buttonPrimary}
+        onClick={() => setSearchingUser(!searchingUser)}
+      >
+        {searchingUser ? "Cancel Search" : "Search for a user"}
+      </Button>
+
       {searchingUser &&
         searchResultUsers?.map((user, index) => (
           <UserSearchListItem
