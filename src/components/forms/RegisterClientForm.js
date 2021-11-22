@@ -1,153 +1,163 @@
-import React, { useState } from 'react';
-import Input from '@material-ui/core/Input';
-import { Box, Typography, FormHelperText } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import LockIcon from '@material-ui/icons/Lock';
-import HomeIcon from '@material-ui/icons/Home';
-import PhoneIcon from '@material-ui/icons/Phone';
-import ContactsIcon from '@material-ui/icons/Contacts';
-import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
-import AccessibilityIcon from '@material-ui/icons/Accessibility';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import { authStyles } from '../../styles/authStyles';
+import React, { useState } from "react";
+import Input from "@material-ui/core/Input";
+import { Typography, FormHelperText } from "@material-ui/core";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import LockIcon from "@material-ui/icons/Lock";
+// import HomeIcon from "@material-ui/icons/Home";
+// import PhoneIcon from "@material-ui/icons/Phone";
+// import ContactsIcon from "@material-ui/icons/Contacts";
+// import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+// import AccessibilityIcon from "@material-ui/icons/Accessibility";
+// import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
+import { authStyles } from "../../styles/authStyles";
 
 export default function RegisterClientForm({ onSubmit, user, setUser }) {
-    const classes = authStyles();
-    const [usernameError, setUsernameError] = useState("")
-    const [emailError, setEmailError] = useState("")
-    const [passwordError, setPasswordError] = useState("")
-    const [confirmPasswordError, setConfirmPasswordError] = useState("")
+  const classes = authStyles();
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-    const registerSubmit = (e) => {
-        e.preventDefault()
-        // form validation (basic)
-        if (!user.username) {
-            setUsernameError("Please enter a username.")
-        } else if (!user.email) {
-            setUsernameError("")
-            setEmailError("Please enter an email.")
-        } else if (!user.password) {
-            setEmailError("")
-            setPasswordError("Please enter a password.")
-        } else if (user.password !== user.confirmPassword) {
-            setPasswordError("")
-            setConfirmPasswordError("Passwords do not match.")
-        } else {
-            // if validated, reset and submit
-            setUsernameError("")
-            setEmailError("")
-            setPasswordError("")
-            setConfirmPasswordError("")
-            onSubmit(user, 'client') // 'coach' is the userType for Coach
-        }
+  const registerSubmit = (e) => {
+    e.preventDefault();
+    // form validation (basic)
+    if (!user.username) {
+      setUsernameError("Please enter a username.");
+    } else if (!user.email) {
+      setUsernameError("");
+      setEmailError("Please enter an email.");
+    } else if (!user.password) {
+      setEmailError("");
+      setPasswordError("Please enter a password.");
+    } else if (user.password !== user.confirmPassword) {
+      setPasswordError("");
+      setConfirmPasswordError("Passwords do not match.");
+    } else {
+      // if validated, reset and submit
+      setUsernameError("");
+      setEmailError("");
+      setPasswordError("");
+      setConfirmPasswordError("");
+      onSubmit(user, "client"); // 'coach' is the userType for Coach
     }
+  };
 
-    return (
-        <form className={classes.authForm} onSubmit={(e) => registerSubmit(e)} noValidate autoComplete="off">
-            
-            <FormControl className={classes.authField}>
-               <InputLabel className={classes.authFormLabel}>Username: </InputLabel>
-                <Input
-                    className={classes.authFormInput}
-                    value={user.username}
-                    onChange={(e) => setUser({...user, username: e.target.value})}
-                    id="email"
-                    // type="email"
-                    label="Email"
-                    placeholder="fitnessLover99"
-                    disableUnderline={true}
-                    required 
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <AccountCircle className={classes.authAdornmentIcon} />
-                        </InputAdornment>
-                }
-                />
-                <FormHelperText className={classes.errorBox}>
-                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
-                    {usernameError && usernameError}
-                </FormHelperText>
-            </FormControl>
+  return (
+    <form
+      className={classes.authForm}
+      onSubmit={(e) => registerSubmit(e)}
+      noValidate
+      autoComplete="off"
+    >
+      <FormControl className={classes.authField}>
+        <InputLabel className={classes.authFormLabel}>Username: </InputLabel>
+        <Input
+          className={classes.authFormInput}
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          id="email"
+          // type="email"
+          label="Email"
+          placeholder="fitnessLover99"
+          disableUnderline={true}
+          required
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountCircle className={classes.authAdornmentIcon} />
+            </InputAdornment>
+          }
+        />
+        <FormHelperText className={classes.errorBox}>
+          {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+          {usernameError && usernameError}
+        </FormHelperText>
+      </FormControl>
 
-            <FormControl className={classes.authField}>
-                <InputLabel className={classes.authFormLabel}>Email Address:</InputLabel>
-                <Input
-                    className={classes.authFormInput}
-                    value={user.email}
-                    onChange={(e) => setUser({...user, email: e.target.value})}
-                    id="email"
-                    type="email"
-                    label="Email"
-                    placeholder="email@example.com"
-                    disableUnderline={true}
-                    required 
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <AlternateEmailIcon className={classes.authAdornmentIcon} />
-                        </InputAdornment>
-                }
-                />
-                <FormHelperText className={classes.errorBox}>
-                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
-                    {emailError && emailError}
-                </FormHelperText>
-            </FormControl>
+      <FormControl className={classes.authField}>
+        <InputLabel className={classes.authFormLabel}>
+          Email Address:
+        </InputLabel>
+        <Input
+          className={classes.authFormInput}
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          id="email"
+          type="email"
+          label="Email"
+          placeholder="email@example.com"
+          disableUnderline={true}
+          required
+          startAdornment={
+            <InputAdornment position="start">
+              <AlternateEmailIcon className={classes.authAdornmentIcon} />
+            </InputAdornment>
+          }
+        />
+        <FormHelperText className={classes.errorBox}>
+          {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+          {emailError && emailError}
+        </FormHelperText>
+      </FormControl>
 
-            <FormControl className={classes.authField}>
-                <InputLabel className={classes.authFormLabel}>Password:</InputLabel>
-                <Input
-                    className={classes.authFormInput}
-                    value={user.password}
-                    onChange={(e) => setUser({...user, password: e.target.value})}
-                    id="password"
-                    type="password"
-                    label="Password"
-                    placeholder="h3alth15w3alth"
-                    disableUnderline={true}
-                    required 
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <VpnKeyIcon className={classes.authAdornmentIcon} />
-                        </InputAdornment>
-                    }
-                />
-                <FormHelperText className={classes.errorBox}>
-                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
-                    {passwordError && passwordError}
-                </FormHelperText>
-            </FormControl>
+      <FormControl className={classes.authField}>
+        <InputLabel className={classes.authFormLabel}>Password:</InputLabel>
+        <Input
+          className={classes.authFormInput}
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="h3alth15w3alth"
+          disableUnderline={true}
+          required
+          startAdornment={
+            <InputAdornment position="start">
+              <VpnKeyIcon className={classes.authAdornmentIcon} />
+            </InputAdornment>
+          }
+        />
+        <FormHelperText className={classes.errorBox}>
+          {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+          {passwordError && passwordError}
+        </FormHelperText>
+      </FormControl>
 
-            <FormControl className={classes.authField}>
-                <InputLabel className={classes.authFormLabel}>Confirm Password:</InputLabel>
-                <Input
-                    className={classes.authFormInput}
-                    value={user.confirmPassword}
-                    onChange={(e) => setUser({...user, confirmPassword: e.target.value})}
-                    id="confirmPassword"
-                    type="password"
-                    label="Confirm Password"
-                    placeholder="h3alth15w3alth"
-                    disableUnderline={true}
-                    required 
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <LockIcon className={classes.authAdornmentIcon} />
-                        </InputAdornment>
-                    }
-                />
-                <FormHelperText className={classes.errorBox}>
-                {/* && <ErrorIcon className={classes.errorIcon}/>  */}
-                    {confirmPasswordError && confirmPasswordError}
-                </FormHelperText>
-            </FormControl>
+      <FormControl className={classes.authField}>
+        <InputLabel className={classes.authFormLabel}>
+          Confirm Password:
+        </InputLabel>
+        <Input
+          className={classes.authFormInput}
+          value={user.confirmPassword}
+          onChange={(e) =>
+            setUser({ ...user, confirmPassword: e.target.value })
+          }
+          id="confirmPassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="h3alth15w3alth"
+          disableUnderline={true}
+          required
+          startAdornment={
+            <InputAdornment position="start">
+              <LockIcon className={classes.authAdornmentIcon} />
+            </InputAdornment>
+          }
+        />
+        <FormHelperText className={classes.errorBox}>
+          {/* && <ErrorIcon className={classes.errorIcon}/>  */}
+          {confirmPasswordError && confirmPasswordError}
+        </FormHelperText>
+      </FormControl>
 
-            <Typography className={classes.authSectionSeparator}>Below personal information is only available to your coaches </Typography>
+      {/* <Typography className={classes.authSectionSeparator}>Below personal information is only available to your coaches </Typography>
 
             <Box className={classes.authFieldUserFirstLastName}>
                 
@@ -358,15 +368,11 @@ export default function RegisterClientForm({ onSubmit, user, setUser }) {
                             </InputAdornment>
                     }
                 />
-            </FormControl>
+            </FormControl> */}
 
-
-            <Button
-                className={classes.authFormSubmit}
-                type="submit"
-            >
-                <Typography>REGISTER</Typography>
-            </Button>
-        </form>
-    )
+      <Button className={classes.authFormSubmit} type="submit">
+        <Typography>REGISTER</Typography>
+      </Button>
+    </form>
+  );
 }
