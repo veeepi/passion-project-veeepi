@@ -6,19 +6,14 @@ import { Scrollbars } from "react-custom-scrollbars";
 import EmptyList from "../components/atoms/EmptyList";
 import UserSearchListItem from "../components/atoms/UserSearchListItem";
 import UserParticipatingListItem from "../components/atoms/UserParticipatingListItem";
-import Action from "../components/atoms/Action";
 import firebase from "../firebase/config";
 import { newSessionFormStyles } from "../styles/sessionStyles";
-import { nowFormatted } from "../utils/utils";
-import { format } from "date-fns";
+import { createSession } from "../firebase/services";
 
 export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
   const classes = newSessionFormStyles();
 
   const usersRef = firebase.firestore().collection("users");
-  const sessionsRef = firebase.firestore().collection("sessions");
-
-  // Date Picker
 
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
@@ -32,7 +27,6 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
   useEffect(() => {
     // dynamic data validation
     if (name !== "" && participant.username) {
-      // sessionsRef.where("userId")
       setFormDataValidationPassed(true);
     } else {
       setFormDataValidationPassed(false);
@@ -67,35 +61,6 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
   const addParticipant = (user) => {
     setParticipant(user);
     setUserSearchValue("");
-  };
-
-  // SUBMIT + REDIRECT
-  // const [newSessionId, setNewSessionId] = useState("")
-  const createSession = (e) => {
-    // data validation
-    sessionsRef
-      .add({
-        coachUserId: authUser.uid,
-        coachUsername: dataUser.username,
-        durationMinutes: duration,
-        lastOrderIndex: 100,
-        location: location,
-        name: name,
-        notes: notes,
-        participantUserId: [dataUser.id, participant.id],
-        participantUsername: [dataUser.username, participant.username],
-        startDateTime: selectedStartDate,
-        status: "draft",
-        type: "personal",
-      })
-      .then((docRef) => {
-        sessionsRef.doc(docRef.id).update({
-          id: docRef.id,
-        });
-        usersRef.doc(authUser.uid).update({
-          sessions: firebase.firestore.FieldValue.arrayUnion(docRef.id),
-        });
-      });
   };
 
   return (
@@ -190,7 +155,16 @@ export default function SessionsCreatePanel({ authUser, dataUser, changeTab }) {
             disabled={!formDataValidationPassed}
             className={classes.buttonPrimary}
             onClick={(e) => {
-              createSession(e);
+              createSession(
+                authUser,
+                dataUser,
+                name,
+                duration,
+                location,
+                selectedStartDate,
+                participant,
+                notes
+              );
               changeTab(e, 2); // go to Drafts tab
             }}
           >
