@@ -13,7 +13,7 @@ export const holisticTheme = {
   bgDrawer: "#2d2639E6",
   bgDark: "#371b33",
   // Font
-  textTitle: "#AAB895",
+  textTitle: "#f1f0f3", // "#AAB895",
   // Text Inputs
   bgInput: "#C4C4C440",
   textLabel: "#c1b8d0",

@@ -22,10 +22,16 @@ const pageStyles = makeStyles(() => ({
     backgroundColor: holisticTheme.bgDark,
     display: "flex",
     flexDirection: "column",
-    height: window.innerHeight,
+    height: "100vh",
+    // height: window.innerHeight,
     margin: "auto",
     paddingTop: "60px",
     width: "100%",
+  },
+  actionsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   header: {
     backgroundColor: holisticTheme.bgContainer,
@@ -170,6 +176,9 @@ const dashStyles = makeStyles(() => ({
   authTabs: {
     borderRadius: "25px 25px 0 0",
     backgroundColor: holisticTheme.bgContainer,
+  },
+  icon: {
+    color: holisticTheme.textTitle,
   },
   authForm: {
     borderRadius: "0 0 15px 15px",
